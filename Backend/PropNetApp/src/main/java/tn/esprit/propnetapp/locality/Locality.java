@@ -26,8 +26,11 @@ public class Locality implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idLocality;
+    private Long idLocality;
     private String name;
+    private String postalCode;
+    private Float latitude;
+    private Float longitude;
     @ManyToOne
     private Region region;
     @OneToOne(mappedBy = "locality")

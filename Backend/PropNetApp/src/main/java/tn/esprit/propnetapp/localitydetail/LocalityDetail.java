@@ -9,6 +9,7 @@ import tn.esprit.propnetapp.locality.Locality;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -26,8 +27,12 @@ public class LocalityDetail implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idLocalityDetail;
+    private Long idLocalityDetail;
     private Integer population;
+    private Date updateDate;
+    private Float marketPriceSquareMeter;
+    private Float sitePriceSquareMeter;
+    private Integer averageReview;
     @OneToOne
     private Locality locality;
 

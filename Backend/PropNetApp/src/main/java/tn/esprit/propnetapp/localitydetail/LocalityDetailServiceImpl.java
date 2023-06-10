@@ -6,6 +6,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 @Aspect
@@ -18,5 +20,25 @@ public class LocalityDetailServiceImpl implements ILocalityDetailService {
     @Override
     public LocalityDetail addLocalityDetail(LocalityDetail localityDetail) {
         return localityDetailRepository.save(localityDetail);
+    }
+
+    @Override
+    public List<LocalityDetail> retrieveAllLocalityDetails() {
+        return localityDetailRepository.findAll();
+    }
+
+    @Override
+    public LocalityDetail updateLocalityDetail(LocalityDetail localityDetail) {
+        return localityDetailRepository.save(localityDetail);
+    }
+
+    @Override
+    public LocalityDetail retrieveLocalityDetail(Long idLocalityDetail) {
+        return localityDetailRepository.findById(idLocalityDetail).get();
+    }
+
+    @Override
+    public void deleteLocalityDetail(Long idLocalityDetail) {
+        localityDetailRepository.deleteById(idLocalityDetail);
     }
 }

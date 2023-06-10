@@ -27,8 +27,11 @@ public class Region implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idRegion;
-    private String Name;
+    private Long idRegion;
+    private String name;
+    private Float area;
+    private Float latitude;
+    private Float longitude;
     @ManyToOne
     private Governorate governorate;
     @OneToMany(mappedBy = "region")

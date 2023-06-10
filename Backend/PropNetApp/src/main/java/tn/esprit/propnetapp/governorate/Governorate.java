@@ -31,9 +31,15 @@ public class Governorate implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idGovernorate;
+    private Long idGovernorate;
     private String name;
-    private Float Area;
+    private String country;
+    private Integer population;
+    private Float area;
+    private String timeZone;
+    private String mayor;
+    private Float latitude;
+    private Float longitude;
     @OneToMany(mappedBy = "governorate")
     private Collection<Address> addresses;
     @OneToMany(mappedBy = "governorate")

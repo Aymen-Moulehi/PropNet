@@ -6,6 +6,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 @Aspect
@@ -18,5 +20,25 @@ public class GovernorateServiceImpl implements IGovernorateService {
     @Override
     public Governorate addGovernorate(Governorate governorate) {
         return governorateRepository.save(governorate);
+    }
+
+    @Override
+    public List<Governorate> retrieveAllGovernorates() {
+        return governorateRepository.findAll();
+    }
+
+    @Override
+    public Governorate updateGovernorate(Governorate governorate) {
+        return governorateRepository.save(governorate);
+    }
+
+    @Override
+    public Governorate retrieveGovernorate(Long idGovernorate) {
+        return governorateRepository.findById(idGovernorate).get();
+    }
+
+    @Override
+    public void deleteGovernorate(Long idGovernorate) {
+        governorateRepository.deleteById(idGovernorate);
     }
 }

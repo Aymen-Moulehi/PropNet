@@ -24,7 +24,7 @@ public class Address implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idAddress;
+    private Long idAddress;
     private String description;
     @OneToOne(mappedBy = "address")
     private RealEstateListing realEstateListing;
