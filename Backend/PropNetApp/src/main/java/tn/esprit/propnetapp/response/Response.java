@@ -17,15 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Response implements Serializable {
-
-    /**
-     * ID: Long
-     * Content: String
-     * Author: String
-     * Date: Date
-     * Likes: Integer
-     * Tags: Array or List of Strings
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idResponse;
