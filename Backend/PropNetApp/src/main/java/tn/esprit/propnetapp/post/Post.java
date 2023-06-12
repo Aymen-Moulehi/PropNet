@@ -29,7 +29,7 @@ public class Post implements Serializable {
     private Byte[] image;
     private Integer likes = 0;
     @OneToMany(mappedBy = "post")
-    private Collection<Response> responses = new ArrayList<Response>();
+    private Collection<Response> responses = new ArrayList<>();
     @ManyToOne
     private AppUser appUser;
 }
