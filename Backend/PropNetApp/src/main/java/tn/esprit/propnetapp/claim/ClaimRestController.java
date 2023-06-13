@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/claim")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ClaimRestController {
     IClaimService claimService;
 
@@ -28,6 +29,7 @@ public class ClaimRestController {
     }
     @DeleteMapping("/delete-claim/{claim-id}")
     public void deleteCllaim(@PathVariable("claim-id") Integer idClaim) {
+
         claimService.deleteClaim(idClaim);
     }
     @PutMapping("/update-claim")

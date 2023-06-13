@@ -28,7 +28,10 @@ public class Feedback implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idFeedback;
-    private String title;
+    private String name;
+    private String email;
+    // private Date phone;
+    private String description;
     @ManyToOne
     private AppUser appUser;
 }
