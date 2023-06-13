@@ -12,6 +12,8 @@ import { SingupComponent } from './singup/singup.component';
 import { AddAnnonceComponent } from './add-annonce/add-annonce.component';
 import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,10 @@ import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.componen
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
