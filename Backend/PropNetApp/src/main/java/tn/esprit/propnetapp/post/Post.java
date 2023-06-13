@@ -26,7 +26,7 @@ public class Post implements Serializable {
     private String title;
     private String Content;
     private Date postDate;
-    private Byte[] image;
+    private String imageUrl;
     private Integer likes = 0;
     @OneToMany(mappedBy = "post")
     private Collection<Response> responses = new ArrayList<>();

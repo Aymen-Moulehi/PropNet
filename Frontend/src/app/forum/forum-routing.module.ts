@@ -7,9 +7,7 @@ import { ListPostComponent } from './list-post/list-post.component';
 const routes: Routes = [
   {path:'list', component: ListPostComponent}, 
   {path:'detail', component: DetailPostComponent}, 
-  {path:'add', component: AddPostComponent}, 
-
-
+  {path:'add', component: AddPostComponent},
 
 ];
 
