@@ -2,9 +2,10 @@ package tn.esprit.propnetapp.claim;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.propnetapp.locality.Locality;
-
+import  java.text.SimpleDateFormat;
 import java.util.List;
+import java.text.ParseException;
+
 
 @RestController
 @AllArgsConstructor
@@ -12,7 +13,21 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ClaimRestController {
     IClaimService claimService;
+    ClaimRepository claimRepository;
 
+
+   /* @PostMapping("/claims")
+    public Claim addClaim(@RequestBody Claim claim) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        String formattedDate = dateFormat.format(claim.getDateCreated());
+
+
+            claim.setDateCreated(dateFormat.parse(formattedDate));
+            return claimRepository.save(claim);
+
+
+
+    }*/
     @PostMapping("/add-claim")
     public Claim addClaimS(@RequestBody Claim claim) {
         return claimService.addClaim(claim);

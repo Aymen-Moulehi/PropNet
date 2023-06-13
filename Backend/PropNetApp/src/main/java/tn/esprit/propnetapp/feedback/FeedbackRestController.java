@@ -2,6 +2,9 @@ package tn.esprit.propnetapp.feedback;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.propnetapp.claim.Claim;
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -10,6 +13,15 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class FeedbackRestController {
     IFeedbackService feedbackService;
+    FeedbackRepository feedbackRepository;
+
+
+
+    @PostMapping("/feedbacks")
+    public Feedback addFeedback(@RequestBody Feedback feedback) {
+        feedback.setDateCreated(new Date()); // Définit la date de création automatique
+        return feedbackRepository.save(feedback);
+    }
 
     @PostMapping("/add-feedback")
     public Feedback addFeedbackS(@RequestBody Feedback feedback) {

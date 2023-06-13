@@ -9,6 +9,7 @@ import tn.esprit.propnetapp.appuser.AppUser;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -32,6 +33,8 @@ public class Feedback implements Serializable {
     private String email;
     // private Date phone;
     private String description;
+    @Temporal(TemporalType.DATE)
+    private Date DateCreated ;
     @ManyToOne
     private AppUser appUser;
 }
