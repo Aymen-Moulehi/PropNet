@@ -1,0 +1,141 @@
+<div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+            <div class="p-3 bg-white rounded border d-flex align-items-center justify-content-between">
+                <div class="plc-vert-1 font--bold">
+                    <span class="small">102 Agents Found</span>
+                </div>
+                <div class="plc-vert-2">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" name="viewpart" id="gridview">
+                        <label class="btn btn-outline-primary btn-sm font--medium" for="gridview"><i class="fa-solid fa-border-none me-1"></i>Grid</label>
+
+                        <input type="radio" class="btn-check" name="viewpart" id="listview" checked="">
+                        <label class="btn btn-outline-primary btn-sm font--medium" for="listview"><i class="fa-solid fa-bars me-1"></i>List</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row gx-3 gy-4">
+        <div class="col-lg-12">
+            <div class="agent-list-block border" *ngFor="let claim of claimList">
+                <div class="agent-list-fliop">
+                    <div class="agent-list-thumb">
+                        <a href="agent-detail.html"><img src="assets/img/team-1.jpg" class="img-fluid rounded" alt=""></a>
+                        <span class="verify-icon"><i class="fa-solid fa-check"></i></span>
+                    </div>
+                </div>
+                <div class="agent-list-caption">
+                    <div class="agent-eliops mb-2"><span class="label py-2 font--medium label-light-success me-2">32 Properties</span></div>
+                    <div class="agent-title-uio mb-2">
+                        <h5 class="mb-0"><a href="agent-detail.html">Mr. {{claim.name}}</a></h5>
+                        <span class="font--medium small"><i class="fa-solid fa-location-dot me-2"></i>Liverpool, USA</span>
+                    </div>
+                    <div class="agent-yytr small font--medium mb-3"><p>{{claim.description}}.</p></div>
+                    <div class="single-button">
+                        <button type="button" class="btn btn-md font--bold btn-light-warning me-2"><i class="fa-solid fa-phone me-2"></i>856 742 672</button>
+                        <button type="button" class="btn btn-md font--bold btn-light-success" data-bs-toggle="modal" data-bs-target="#message"><i class="fa-solid fa-paper-plane me-2">{{claim.email}}</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Single Property End -->
+        
+       
+       
+      
+    </div>
+    
+</div>
+
+
+
+<div class="col-xl-8 col-lg-12 col-md-12">
+    <div class="card">
+       
+
+        <div class="all-comments" >
+            <h3 class="comments-title">0{{totalalArticle()}} Claims</h3>
+            <div class="comment-list " *ngFor="let claim of claimList">
+                <ul>
+                    <li class="single-comment">
+                        <article>
+                            <div class="comment-author">
+                                {{claim.idClaim}}  </div>
+                            <div class="comment-details">
+                                <div class="comment-meta">
+                                    <div class="comment-left-meta">
+                                        <h4 class="author-name">{{claim.name}}<span class="selected"><i class="fas fa-bookmark"></i></span></h4>
+                                        <div class="comment-date">{{claim.email}}<span class="selected"></span></div>
+
+                                        <div class="comment-date">{{claim.date}}</div>
+                                    </div>
+                                    <div class="comment-reply">
+                                        <a (click)="deleteClaim(claim.idClaim)" class="reply"><span class="icona"><i class="ti-back-left"></i></span> Delete</a>
+                                    </div>
+                                   
+                                </div>
+                                <div class="comment-text">
+                                    <p>{{claim.description}}.</p>
+                                </div>
+                                <button (click)="deleteClaim(claim.idClaim)"
+                                class="btn btn-sm bg-danger-light">
+                                <i class="fas fa-trash"></i> </button>
+                            </div>
+                        </article>
+                      
+                    </li>
+                   
+                </ul>
+            </div>
+            
+        </div>
+        <br>
+       <!-- <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-lg">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Name</th>
+                            <th>Sujet</th>
+                            <th>Date Created</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr  *ngFor="let claim of claimList">
+                            <td><div class="d-inline-flex label text-success bg-light-success">{{claim.idClaim}}</div></td>                
+                            <td><div class="d-inline-flex label text-success bg-light-success">{{claim.name}}</div></td>                
+                            <td class="prt-fgi">{{claim.sujet}}</td>
+                            <td>{{claim.DateCreated}}</td>  
+                            <td class="text-end">
+                                <di <button [routerLink]="['consulte', cont.idRec]"
+                                        class="btn btn-sm bg-info-light">
+                                        <i class="fas fa-eye"></i></button>
+                                    <button (click)="deleteClaim(claim.idClaim)"
+                                        class="btn btn-sm bg-danger-light">
+                                        <i class="fas fa-trash"></i> </button>
+                                </div>
+                               
+                            </td>
+                            <td class="action">
+                                <button (click)="deleteClaim(claim.idClaim)" class="delete"><i class="fa-solid fa-xmark me-1"></i>Delete</button>
+                            </td>
+                        </tr>
+                       
+                        
+                       
+                   
+                        
+                       
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>-->
+    </div>
+</div>

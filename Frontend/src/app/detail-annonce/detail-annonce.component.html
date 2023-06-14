@@ -1,0 +1,831 @@
+
+
+
+<!-- ============================ Hero Banner  Start================================== -->
+<div class="featured_slick_gallery gray">
+    <div class="featured_slick_gallery-slide">
+        <div class="featured_slick_padd"><a href="assets/img/gallery-1.jpg" class="mfp-gallery"><img src="assets/img/gallery-1.jpg" class="img-fluid mx-auto" alt=""></a></div>
+        <div class="featured_slick_padd"><a href="assets/img/gallery-2.jpg" class="mfp-gallery"><img src="assets/img/gallery-2.jpg" class="img-fluid mx-auto" alt=""></a></div>
+        <div class="featured_slick_padd"><a href="assets/img/gallery-3.jpg" class="mfp-gallery"><img src="assets/img/gallery-3.jpg" class="img-fluid mx-auto" alt=""></a></div>
+        <div class="featured_slick_padd"><a href="assets/img/gallery-4.jpg" class="mfp-gallery"><img src="assets/img/gallery-4.jpg" class="img-fluid mx-auto" alt=""></a></div>
+        <div class="featured_slick_padd"><a href="assets/img/gallery-5.jpg" class="mfp-gallery"><img src="assets/img/gallery-5.jpg" class="img-fluid mx-auto" alt=""></a></div>
+        <div class="featured_slick_padd"><a href="assets/img/gallery-6.jpg" class="mfp-gallery"><img src="assets/img/gallery-6.jpg" class="img-fluid mx-auto" alt=""></a></div>
+    </div>
+</div>
+<!-- ============================ Hero Banner End ================================== -->
+
+<!-- ============================ Property Detail Start ================================== -->
+<section class="gray-simple">
+    <div class="container">
+        <div class="row">
+            
+            <!-- property main detail -->
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                
+               
+                
+                <!-- All over Review -->
+                <div class="veshm-fl-rate-box">
+                    <div class="fl-rate-box-head theme-bg">
+                        <div class="flt-yuo10">
+                            <h4>5.0</h4>
+                            <p>Excellent</p>
+                        </div>
+                        <div class="flt-yuo12">
+                            <span>Out of 5</span>
+                        </div>
+                    </div>
+                    <div class="fl-rate-box-caption">
+                        <div class="fls-by1">
+                            <div class="fls-by2">
+                                <div class="fls-bystar">
+                                    <span class="fas fa-star fill"></span>
+                                    <span class="fas fa-star fill"></span>
+                                    <span class="fas fa-star fill"></span>
+                                    <span class="fas fa-star fill"></span>
+                                    <span class="fas fa-star fill"></span>
+                                </div>
+                                <div class="fls-byheadline">
+                                    <h5>Wonderful Score</h5>
+                                </div>
+                                <div class="fls-bycaps">
+                                    <p>112 Total Reviews</p>
+                                </div>
+                            </div>
+                            <div class="fls-by3">
+                                <button type="button" class="btn btn-success font--medium">Submit Review</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- All over Review -->
+                
+                <!-- Property Reviews Detail -->
+                <div class="vesh-detail-bloc">
+                    <div class="vesh-detail-bloc_header">
+                        <h4 class="property_block_title no-arrow">Property Reviews</h4>
+                    </div>
+                    <div class="panels" *ngFor="let feedback of feedbackList">
+                        <div class="vesh-detail-bloc-body">
+                            <div class="prt-reviews-groups">
+                            
+                                <div class="prt-reviews-single">
+                                    <div class="prt-reviews-single-thumb">
+                                        <div class="prt-rvs-head">
+                                            <div class="prt-rvs-head-img">
+                                                <img src="assets/img/team-1.jpg" class="img-fluid circle" alt="">
+                                            </div>
+                                            <div class="prt-rvs-head-caption">
+                                                <div class="prt-ves-ratting">
+                                                    <span class="fa-solid fa-star"></span>
+                                                    <span class="fa-solid fa-star"></span>
+                                                    <span class="fa-solid fa-star"></span>
+                                                    <span class="fa-solid fa-star"></span>
+                                                    <span class="fa-regular fa-star"></span>
+                                                </div>
+                                                <div class="prt-ves-reviewer"><h4>By: {{feedback.name}}</h4></div>
+                                                <div class="prt-ves-ratting-title"><h5 class="text-success">{{feedback.email}}</h5></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="prt-reviews-single-content">
+                                        <div class="prt-ves-paragraph"><p>{{feedback.description}}.</p>
+                                        </div>
+                                        <div class="prt-post-date"><span>Posted on 10 Jan 2023</span></div>
+                                    </div>
+                                    <div class="comment-reply">
+                                        <a (click)="deleteFeedback(feedback.idFeedback)" class="reply"><span class="icona"><i class="ti-back-left"></i></span> Delete</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="alert alert-info mt-3" role="alert">
+                                <span class="font--medium small">You need to login in order to post a review</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+              
+               
+                
+                
+                <!-- Nearby Other Places -->
+                <div class="vesh-detail-bloc">
+                    <div class="vesh-detail-bloc_header">
+                        <a data-bs-toggle="collapse" data-parent="#otherplaces" data-bs-target="#otherplaces" aria-controls="otherplaces" href="javascript:void(0);" aria-expanded="false" class="clps"><h4 class="property_block_title">Nearby Others Places</h4></a>
+                    </div>
+                    <div id="otherplaces" class="panel-collapse collapse" aria-labelledby="otherplaces">
+                        <div class="vesh-detail-bloc-body">
+                        
+                            <ul class="nav nav-pills mb-3 small spacing lights" id="pills-list" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-highlights-tab" data-bs-toggle="pill" data-bs-target="#pills-highlights" type="button" role="tab" aria-controls="pills-highlights" aria-selected="true">Highlights</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-grocery-tab" data-bs-toggle="pill" data-bs-target="#pills-grocery" type="button" role="tab" aria-controls="pills-grocery" aria-selected="false">Grocery</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-food-tab" data-bs-toggle="pill" data-bs-target="#pills-food" type="button" role="tab" aria-controls="pills-food" aria-selected="false">Food & drink</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-park-tab" data-bs-toggle="pill" data-bs-target="#pills-park" type="button" role="tab" aria-controls="pills-park" aria-selected="false">Parks</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-fuel-tab" data-bs-toggle="pill" data-bs-target="#pills-fuel" type="button" role="tab" aria-controls="pills-fuel" aria-selected="false">Fuel Pump</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-hospital-tab" data-bs-toggle="pill" data-bs-target="#pills-hospital" type="button" role="tab" aria-controls="pills-hospital" aria-selected="false">Hospitals</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-services-tab" data-bs-toggle="pill" data-bs-target="#pills-services" type="button" role="tab" aria-controls="pills-services" aria-selected="false">Services</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-shopping-tab" data-bs-toggle="pill" data-bs-target="#pills-shopping" type="button" role="tab" aria-controls="pills-shopping" aria-selected="false">Shoppings</button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content" id="pills-listContent">
+                                <div class="tab-pane fade show active" id="pills-highlights" role="tabpanel" aria-labelledby="pills-highlights-tab" tabindex="0">
+                                    <div class="row g-4">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-martini-glass"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Green Wood Fast Food</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>3.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Zigar Smart Bazaar</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>1.50 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Relience Smart Bazar</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-bowl-food"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Smart Pizza Hub</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>3.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-square-parking"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Gandhi Park Smarak</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>3.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-suitcase-medical"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>D. P. Rao Hospital</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="pills-grocery" role="tabpanel" aria-labelledby="pills-grocery-tab" tabindex="0">
+                                    <div class="row g-4">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Vijay Smart Bazar</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>7.70 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Relience Smart Bazar</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Qube Smart Mall</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>3.10 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Raja International Mall</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.10 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="pills-food" role="tabpanel" aria-labelledby="pills-food-tab" tabindex="0">
+                                    <div class="row g-4">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-bowl-food"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Smart Pizza Hub</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>3.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-bowl-food"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Goli Burger Hutt</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>3.00 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-bowl-food"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Shukoon Fast Foods</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>4.20 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-bowl-food"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Ritika Fast Serve</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>3.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="pills-park" role="tabpanel" aria-labelledby="pills-park-tab" tabindex="0">
+                                    <div class="row g-4">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-square-parking"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Gandhi Park Smarak</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>3.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-square-parking"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Kritika International Park</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.20 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-square-parking"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Gyan Gayatri Park</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>4.50 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-square-parking"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Huze Chidiya Ghar</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>1.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="pills-fuel" role="tabpanel" aria-labelledby="pills-fuel-tab" tabindex="0">
+                                    <div class="row g-4">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-gas-pump"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Indian Musterd Oil</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>4.40 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-gas-pump"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Hindustan Petrolium</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-gas-pump"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Hamara Petrol Pumb</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>5.00 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="pills-hospital" role="tabpanel" aria-labelledby="pills-hospital-tab" tabindex="0">
+                                    <div class="row g-4">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-suitcase-medical"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Shanti Om Hospital</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>1.17 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-suitcase-medical"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>D. P. Rao Hospital</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.47 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-suitcase-medical"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>R. D. Verman Hospital</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.30 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="pills-services" role="tabpanel" aria-labelledby="pills-services-tab" tabindex="0">
+                                    <div class="row g-4">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-scissors"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>High hair Cutting Salon</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.10 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="pills-shopping" role="tabpanel" aria-labelledby="pills-shopping-tab" tabindex="0">
+                                    <div class="row g-4">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Green Hubble Mall</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>2.50 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                            <div class="othr-place-list">
+                                                <div class="othr-place-list-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+                                                <div class="othr-place-list-caption">
+                                                    <div class="othr-place-list-title"><h5>Zigar Smart Bazaar</h5></div>
+                                                    <div class="othr-place-list-subtitle"><span>1.50 Miles</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Submit Reviews -->
+                <div class="vesh-detail-bloc" >
+                    <div class="vesh-detail-bloc_header">
+                        <h4 class="property_block_title no-arrow">Submit Review</h4>
+                    </div>
+                    <div class="panels"   >
+                        <div class="vesh-detail-bloc-body">
+                            <form class="simple-form" [formGroup]="addForm" (ngSubmit)="addFeedback()">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" placeholder="Your Name" formControlName="name">
+                                            <div *ngIf="addForm.get('name')!.invalid && (addForm.get('name')!.dirty || addForm.get('name')!.touched)">
+                                                <span class="error">Veuillez saisir votre a Nome & Prénom.</span>
+                                            </div> 
+
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="Your eMail" formControlName="email">
+                                            <div *ngIf="email!.invalid && email!.touched">
+                                                <p *ngIf="email?.errors?.['required']" class="error">Veuillez saisir votre E-mail</p>
+                                                <p *ngIf="email?.errors?.['pattern']" class="error">E-mail Invalide</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                  <!-- <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Phone No.</label>	
+                                            <input type="text" class="form-control" placeholder="Your Contact">
+                                        </div>
+                                    </div>--> 
+                                    
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Your Message</label>
+                                            <textarea class="form-control ht-80" placeholder="Messages" formControlName="description"></textarea>
+                                            <div *ngIf="addForm.get('description')!.invalid && (addForm.get('description')!.dirty || addForm.get('description')!.touched)">
+                                                <span class="error">Veuillez saisir votre Description.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <button  [disabled]="addForm.invalid"  class="btn btn-primary" type="submit">Submit Request</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- property main detail -->
+            
+        </div>
+    </div>
+</section>
+<!-- ============================ Property Detail End ================================== -->
+
+<!-- ============================ Related Property ===================================== -->
+<section>
+    <div class="container">
+    
+        <div class="row">
+            <div class="col-lg-7 col-md-10">
+                <div class="sec-heading">
+                    <h6>Similar Property in NewYork</h6>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+            
+                <div class="similar-slide">
+                
+                    <!-- Single Slide -->
+                    <div class="single-slide">
+                        <div class="veshm-list-wraps">
+                            <div class="veshm-type"><span>For rent</span></div>
+                            
+                            <div class="veshm-list-thumb">
+                                <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
+                                <div class="veshm-list-img-slide">
+                                    <div class="veshm-list-click">
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-2.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-11.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-10.png" class="img-fluid mx-auto" alt=""></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="veshm-list-block">
+                                <div class="veshm-list-head">
+                                    <div class="veshm-list-head-caption">
+                                        <div class="rlhc-price">
+                                            <h4 class="rlhc-price-name theme-cl">$8,540<span class="monthly">/Months</span></h4>
+                                        </div>
+                                        <div class="listing-short-detail-flex">
+                                            <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">Great Apex Realty Group</a></h5>
+                                            <div class="rlhc-prt-location"><img src="assets/img/pin.svg" width="16" class="me-1" alt="">210 Zirak Road, Canada</div>
+                                        </div>
+                                    </div>
+                                    <div class="veshm-list-head-flex">
+                                        <button class="btn btn-like" type="button"><i class="fa-solid fa-heart-circle-check"></i></button>	
+                                    </div>
+                                </div>
+                                
+                                <div class="veshm-list-footer">
+                                    <div class="veshm-list-circls">
+                                        <ul>
+                                            <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>3 Bed</li>
+                                            <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>1 Ba</li>
+                                            <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>2150 Sft</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Single Slide -->
+                    <div class="single-slide">
+                        <div class="veshm-list-wraps">
+                            <div class="veshm-type fr-sale"><span>For Sale</span></div>
+                            
+                            <div class="veshm-list-thumb">
+                                <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
+                                <div class="veshm-list-img-slide">
+                                    <div class="veshm-list-click">
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-3.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-11.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-13.png" class="img-fluid mx-auto" alt=""></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="veshm-list-block">
+                                <div class="veshm-tags featured"><span><i class="fa-solid fa-star"></i>Featured</span></div>
+                                <div class="veshm-list-head">
+                                    <div class="veshm-list-head-caption">
+                                        <div class="rlhc-price">
+                                            <h4 class="rlhc-price-name theme-cl">$50,752</h4>
+                                        </div>
+                                        <div class="listing-short-detail-flex">
+                                            <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">Hearthstone Real Property</a></h5>
+                                            <div class="rlhc-prt-location"><img src="assets/img/pin.svg" width="16" class="me-1" alt="">210 Zirak Road, Canada</div>
+                                        </div>
+                                    </div>
+                                    <div class="veshm-list-head-flex">
+                                        <button class="btn btn-like" type="button"><i class="fa-solid fa-heart-circle-check"></i></button>	
+                                    </div>
+                                </div>
+                                
+                                <div class="veshm-list-footer">
+                                    <div class="veshm-list-circls">
+                                        <ul>
+                                            <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>4 Bed</li>
+                                            <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>2 Ba</li>
+                                            <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>2500 Sft</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Single Slide -->
+                    <div class="single-slide">
+                        <div class="veshm-list-wraps">
+                            <div class="veshm-type"><span>For rent</span></div>
+                            
+                            <div class="veshm-list-thumb">
+                                <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
+                                <div class="veshm-list-img-slide">
+                                    <div class="veshm-list-click">
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-4.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-13.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-15.png" class="img-fluid mx-auto" alt=""></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="veshm-list-block">
+                                <div class="veshm-list-head">
+                                    <div class="veshm-list-head-caption">
+                                        <div class="rlhc-price">
+                                            <h4 class="rlhc-price-name theme-cl">$10,890<span class="monthly">/Months</span></h4>
+                                        </div>
+                                        <div class="listing-short-detail-flex">
+                                            <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">The Select Brick Builders</a></h5>
+                                            <div class="rlhc-prt-location"><img src="assets/img/pin.svg" width="16" class="me-1" alt="">210 Zirak Road, Canada</div>
+                                        </div>
+                                    </div>
+                                    <div class="veshm-list-head-flex">
+                                        <button class="btn btn-like" type="button"><i class="fa-solid fa-heart-circle-check"></i></button>	
+                                    </div>
+                                </div>
+                                
+                                <div class="veshm-list-footer">
+                                    <div class="veshm-list-circls">
+                                        <ul>
+                                            <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>3 Bed</li>
+                                            <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>1 Ba</li>
+                                            <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>2000 Sft</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Single Slide -->
+                    <div class="single-slide">
+                        <div class="veshm-list-wraps">
+                            <div class="veshm-type"><span>For rent</span></div>
+                            
+                            <div class="veshm-list-thumb">
+                                <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
+                                <div class="veshm-list-img-slide">
+                                    <div class="veshm-list-click">
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-5.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-10.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-14.png" class="img-fluid mx-auto" alt=""></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="veshm-list-block">
+                                <div class="veshm-list-head">
+                                    <div class="veshm-list-head-caption">
+                                        <div class="rlhc-price">
+                                            <h4 class="rlhc-price-name theme-cl">$7,999<span class="monthly">/Months</span></h4>
+                                        </div>
+                                        <div class="listing-short-detail-flex">
+                                            <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">Dream Big Real Estate Group</a></h5>
+                                            <div class="rlhc-prt-location"><img src="assets/img/pin.svg" width="16" class="me-1" alt="">210 Zirak Road, Canada</div>
+                                        </div>
+                                    </div>
+                                    <div class="veshm-list-head-flex">
+                                        <button class="btn btn-like" type="button"><i class="fa-solid fa-heart-circle-check"></i></button>	
+                                    </div>
+                                </div>
+                                
+                                <div class="veshm-list-footer">
+                                    <div class="veshm-list-circls">
+                                        <ul>
+                                            <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>4 Bed</li>
+                                            <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>3 Ba</li>
+                                            <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>2300 Sft</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Single Slide -->
+                    <div class="single-slide">
+                        <div class="veshm-list-wraps">
+                            <div class="veshm-type fr-sale"><span>For Sale</span></div>
+                            
+                            <div class="veshm-list-thumb">
+                                <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
+                                <div class="veshm-list-img-slide">
+                                    <div class="veshm-list-click">
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-6.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-14.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-10.png" class="img-fluid mx-auto" alt=""></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="veshm-list-block">
+                                <div class="veshm-tags featured"><span><i class="fa-solid fa-star"></i>Featured</span></div>
+                                <div class="veshm-list-head">
+                                    <div class="veshm-list-head-caption">
+                                        <div class="rlhc-price">
+                                            <h4 class="rlhc-price-name theme-cl">$80,750</h4>
+                                        </div>
+                                        <div class="listing-short-detail-flex">
+                                            <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">Allen Tate Real Company</a></h5>
+                                            <div class="rlhc-prt-location"><img src="assets/img/pin.svg" width="16" class="me-1" alt="">210 Zirak Road, Canada</div>
+                                        </div>
+                                    </div>
+                                    <div class="veshm-list-head-flex">
+                                        <button class="btn btn-like" type="button"><i class="fa-solid fa-heart-circle-check"></i></button>	
+                                    </div>
+                                </div>
+                                
+                                <div class="veshm-list-footer">
+                                    <div class="veshm-list-circls">
+                                        <ul>
+                                            <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>5 Bed</li>
+                                            <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>3 Ba</li>
+                                            <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>2800 Sft</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Single Slide -->
+                    <div class="single-slide">
+                        <div class="veshm-list-wraps">
+                            <div class="veshm-type"><span>For rent</span></div>
+                            
+                            <div class="veshm-list-thumb">
+                                <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
+                                <div class="veshm-list-img-slide">
+                                    <div class="veshm-list-click">
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-7.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-11.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-13.png" class="img-fluid mx-auto" alt=""></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="veshm-list-block">
+                               
+                                
+                                <div class="veshm-list-footer">
+                                    <div class="veshm-list-circls">
+                                        <ul>
+                                            <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>3 Bed</li>
+                                            <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>3 Ba</li>
+                                            <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>2100 Sft</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Single Slide -->
+                    <div class="single-slide">
+                        <div class="veshm-list-wraps">
+                            <div class="veshm-type"><span>For rent</span></div>
+                            
+                            <div class="veshm-list-thumb">
+                                <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
+                                <div class="veshm-list-img-slide">
+                                    <div class="veshm-list-click">
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-8.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-15.png" class="img-fluid mx-auto" alt=""></a></div>
+                                        <div><a href="single-property-1.html"><img src="assets/img/prt-11.png" class="img-fluid mx-auto" alt=""></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="veshm-list-block">
+                                <div class="veshm-tags trending"><span><i class="fa-solid fa-meteor"></i>Trending</span></div>
+                                <div class="veshm-list-head">
+                                    <div class="veshm-list-head-caption">
+                                        <div class="rlhc-price">
+                                            <h4 class="rlhc-price-name theme-cl">$8,570<span class="monthly">/Months</span></h4>
+                                        </div>
+                                        <div class="listing-short-detail-flex">
+                                            <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">Catbird Realty Advisors</a></h5>
+                                            <div class="rlhc-prt-location"><img src="assets/img/pin.svg" width="16" class="me-1" alt="">210 Zirak Road, Canada</div>
+                                        </div>
+                                    </div>
+                                    <div class="veshm-list-head-flex">
+                                        <button class="btn btn-like" type="button"><i class="fa-solid fa-heart-circle-check"></i></button>	
+                                    </div>
+                                </div>
+                                
+                                <div class="veshm-list-footer">
+                                    <div class="veshm-list-circls">
+                                        <ul>
+                                            <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>4 Bed</li>
+                                            <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>3 Ba</li>
+                                            <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>3000 Sft</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</section>
+<!-- ============================= Related Property End ================================= -->
