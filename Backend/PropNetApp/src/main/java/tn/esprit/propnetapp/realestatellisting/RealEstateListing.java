@@ -1,10 +1,12 @@
 package tn.esprit.propnetapp.realestatellisting;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import tn.esprit.propnetapp.address.Address;
 import tn.esprit.propnetapp.appuser.AppUser;
 
@@ -50,8 +52,12 @@ public class RealEstateListing implements Serializable {
     private Float price;
     @Enumerated(EnumType.STRING)
     private RealEstateStatus realEstateStatus;
+
     @ManyToOne
+    @JsonIgnore
+    @Cascade(value={org.hibernate.annotations.CascadeType.ALL})
     private AppUser appUser;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Address address;
 }
