@@ -11,7 +11,6 @@ import { AdministrationComponent } from '../administration/administration.compon
   ],
   imports: [
     CommonModule,
-
     AdministrationRoutingModule
   ]
 })

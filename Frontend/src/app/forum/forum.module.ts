@@ -5,6 +5,7 @@ import { ForumRoutingModule } from './forum-routing.module';
 import { ListPostComponent } from './list-post/list-post.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { DetailPostComponent } from './detail-post/detail-post.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DetailPostComponent } from './detail-post/detail-post.component';
   ],
   imports: [
     CommonModule,
-    ForumRoutingModule
+    ForumRoutingModule,
+    FormsModule, 
   ]
 })
 export class ForumModule { }
