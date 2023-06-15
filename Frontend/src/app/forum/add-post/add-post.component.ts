@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UploadImage } from 'src/app/features/upload-image/UploadImage';
+import { Post } from 'src/app/models/Post';
+import { PostService } from 'src/app/services/post.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -11,38 +14,34 @@ import { UploadImage } from 'src/app/features/upload-image/UploadImage';
 export class AddPostComponent implements OnInit {
 
   uploadedImage!: File;
+  post = new Post();
 
-  postForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    file: new FormControl('', [Validators.required]),
-    fileSource: new FormControl('', [Validators.required])
-  });
-
-  constructor(private uploadImage: UploadImage) { }
+  constructor(private uploadImage: UploadImage, private postService: PostService, private router: Router) { }
 
   ngOnInit(): void {
+
   }
   submit(): void {
 
+    this.postService.addPost(this.post).subscribe(
+      {
+        next: (data) => {
+          console.log(data)
+          this.router.navigate(['/forume/detail/', { "idPost": data.idPost }])
+        }
+      }
+    )
   }
-
+  
   public onImageUpload(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
-    console.log(files);
     this.uploadedImage = files[0];
+    this.uploadImage.imageUploadAction(this.uploadedImage).subscribe({
+      next: (data) => this.post.imageUrl = environment.baseUrl + '/image/get/' + data,
+    })
   }
 
-  public imageUploadAction() {
-    // The return of this method is a string contain the URL to the image
-    this.uploadImage.imageUploadAction(this.uploadedImage).subscribe(
-      {
-        next : (data) => console.log(data),
-        error : (error) => console.log(error),
-        complete : () => console.log("done") 
-      }
-     )
-  }
 
 
 }

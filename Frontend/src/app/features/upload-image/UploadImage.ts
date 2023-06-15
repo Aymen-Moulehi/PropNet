@@ -6,9 +6,6 @@ import { environment } from "src/environments/environment";
   providedIn: 'root'
 })
 export class UploadImage {
-
-  defaultImageUrl = "https://hd2.tudocdn.net/972897?w=1200&h=675"
-
   constructor(private httpClient: HttpClient) { }
 
   imageUploadAction(uploadedImage: File) {

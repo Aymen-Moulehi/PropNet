@@ -13,7 +13,6 @@
 <section>
 
     <div class="container">
-
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-10 text-center">
                 <div class="sec-heading center">
@@ -23,6 +22,7 @@
                 </div>
             </div>
         </div>
+        <form  #form = "ngForm">
         <div class="row align-items-center justify-content-center">
 
             <div class="col-lg-10 col-md-12">
@@ -31,43 +31,58 @@
                     <div class="col-lg-12 col-md-6">
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" class="form-control simple">
+                            <input type="text" class="form-control simple" name="title" [(ngModel)] = "post.title" #title = "ngModel" required minlength="3">
+                            <div *ngIf="title.invalid && title.touched">
+                                <div *ngIf = "title.errors?.['required']" style="color : red">Title is required</div>
+                                <div *ngIf = "title.errors?.['minlength']" style="color : red">Title must have at least 3 characters!</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
                             <label>Category</label>
-                            <input type="email" class="form-control simple">
+                            <input type="text" class="form-control simple" name="category" [(ngModel)] = "post.category" #category = "ngModel" required minlength="3">
+                        </div>
+                        <div *ngIf="category.invalid && category.touched">
+                            <div *ngIf = "category.errors?.['required']" style="color : red">Category is required</div>
+                            <div *ngIf = "category.errors?.['minlength']" style="color : red">Category must have at least 3 characters!</div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
                             <label>Related Tags</label>
-                            <input type="text" class="form-control simple">
+                            <input type="text" class="form-control simple" name="tags" [(ngModel)] = "post.relatedTags" #tags = "ngModel" required minlength="3">
+                        </div>
+                        <div *ngIf="category.invalid && category.touched">
+                            <div *ngIf = "category.errors?.['required']" style="color : red">Tags is required</div>
+                            <div *ngIf = "category.errors?.['minlength']" style="color : red">Tags must have at least 3 characters!</div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-6">
                         <div class="form-group">
                             <label>Large file input example</label>
-                            <input (change)="onImageUpload($event)" class="form-control form-control-lg-24" style="height: 100%;" id="formFileLg"
-                                type="file" >
+                            <input (change)="onImageUpload($event)" class="form-control form-control-lg-24" style="height: 100%;" required type="file" >
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12">
                         <div class="form-group">
                             <label>Content</label>
-                            <textarea class="form-control simple"></textarea>
+                            <textarea class="form-control simple" name="content" [(ngModel)] = "post.content" #content = "ngModel" required minlength="3"></textarea>
+                            <div *ngIf="content.invalid && content.touched">
+                                <div *ngIf = "content.errors?.['required']" style="color : red">Content is required</div>
+                                <div *ngIf = "content.errors?.['minlength']" style="color : red">Content must have at least 3 characters!</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12">
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit" (click)="imageUploadAction()">Post Now</button>
+                            <button class="btn btn-primary" [disabled]="form.invalid" type="submit" (click)="submit()">Post Now</button>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+    </form>
     </div>
 
 </section>

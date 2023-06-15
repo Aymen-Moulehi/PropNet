@@ -24,8 +24,10 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPost;
     private String title;
-    private String Content;
+    private String content;
     private Date postDate;
+    private String category = "";
+    private String relatedTags = "";
     private String imageUrl;
     private Integer likes = 0;
     @OneToMany(mappedBy = "post")
