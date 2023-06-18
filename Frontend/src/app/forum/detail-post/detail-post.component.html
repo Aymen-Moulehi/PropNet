@@ -21,28 +21,19 @@
                         </div>
                         
                         <div class="post-top-meta">
-                            <span class="pst-cats label text-success bg-light-success me-2">Education</span>
-                            <span class="pst-date label text-danger bg-light-danger">10 Jul 2023</span>
+                            <span class="pst-cats label text-success bg-light-success me-2">{{post.category}}</span>
+                            <span class="pst-date label text-danger bg-light-danger">{{formatedDate}}</span>
                         </div>
 
+                        
                         <h3 class="post-title">{{post.title}}</h3>
                         <p>{{post.content}}</p>
-                    <!--- 
-                        <div class="alert alert-info">
-                            <span class="icon"><i class="fas fa-quote-left"></i></span>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tem
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ullamco laboris nisi ut aliquip ex ea commodo onsequat.</p>
-                            <h5 class="name">- Rosalina Pong</h5>
-                        </div>
-                    -->
-                        <div class="post-bottom-meta">
+
+                        <div class="post-bottom-meta" *ngIf="relatedTags.length > 0">
                             <div class="post-tags">
                                 <h4 class="pbm-title">Related Tags</h4>
                                 <ul class="list">
-                                    <li><a href="#">organic</a></li>
-                                    <li><a href="#">Foods</a></li>
-                                    <li><a href="#">tasty</a></li>
+                                    <li *ngFor="let tag of relatedTags"><a href="#">{{tag}}</a></li>
                                 </ul>
                             </div>
                         </div>
