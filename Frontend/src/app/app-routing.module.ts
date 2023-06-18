@@ -12,11 +12,15 @@ const routes: Routes = [
   {path:'contact', component: ContactComponent}, 
 
   {path:'list-annonces', component: ListAnnoncesComponent}, 
-  {path:'detail', component: DetailAnnonceComponent}, 
+  {path:'admin/annonce/listAnnonces/detail/:id', component: DetailAnnonceComponent}, 
 
 
   {path:'singup', component: SingupComponent}, 
   {path:'Add-Annonce', component: AddAnnonceComponent}, 
+
+
+
+
 
 
 

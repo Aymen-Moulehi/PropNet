@@ -12,8 +12,8 @@ import { SingupComponent } from './singup/singup.component';
 import { AddAnnonceComponent } from './add-annonce/add-annonce.component';
 import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [],
