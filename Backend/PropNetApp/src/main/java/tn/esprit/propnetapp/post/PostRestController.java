@@ -25,6 +25,34 @@ public class PostRestController {
     public Post findPostById(@PathVariable("id") Integer postId) {
         return postService.getPostById(postId);
     }
+
+    @GetMapping("/accepted")
+    @CrossOrigin
+    public List<Post> GetPostsAccepted() {
+        return postService.getPostAccepted();
+    }
+
+    @GetMapping("/pending")
+    @CrossOrigin
+    public List<Post> getPostPendding() {
+        return postService.getPostPendding();
+    }
+
+    @GetMapping("/posts")
+    @CrossOrigin
+    public List<Post> getPost() {
+        return postService.getPost();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @CrossOrigin
+    public void deletePost(@PathVariable("id") Integer postId) {
+        postService.deletePost(postId);
+    }
+
+    @PutMapping("/update/{id}")
+    @CrossOrigin
+    public void updatePost(@PathVariable("id") Integer postId) {
+        postService.updatePost(postId);
+    }
 }
-
-

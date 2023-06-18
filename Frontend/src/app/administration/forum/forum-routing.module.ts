@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListPostComponent } from './list-post/list-post.component';
+import { ListPostsComponent } from './list-posts/list-posts.component';
 
 const routes: Routes = [
-  {path:'listtt', component: ListPostComponent}, 
+  {path:'list-posts', component: ListPostsComponent}, 
 
 ];
 

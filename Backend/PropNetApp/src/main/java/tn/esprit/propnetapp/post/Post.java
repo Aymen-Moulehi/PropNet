@@ -34,4 +34,5 @@ public class Post implements Serializable {
     private Collection<Response> responses = new ArrayList<>();
     @ManyToOne
     private AppUser appUser;
+    private String status;
 }
