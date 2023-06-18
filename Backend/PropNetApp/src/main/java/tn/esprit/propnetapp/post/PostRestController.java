@@ -3,6 +3,7 @@ package tn.esprit.propnetapp.post;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -13,15 +14,16 @@ public class PostRestController {
 
     @PostMapping("/add-post")
     @CrossOrigin
-    public Post addPostS(@RequestBody Post post) {
-
-        post.setStatus("pending");
+    public Post addPost(@RequestBody Post post) {
+        if(post != null)
+            post.setPostDate(new Date());
+        System.out.println(post.getPostDate());
         return postService.addPost(post);
     }
 
     @GetMapping("/find-post/{id}")
     @CrossOrigin
-    public Post addPostS(@PathVariable("id") Integer postId) {
+    public Post findPostById(@PathVariable("id") Integer postId) {
         return postService.getPostById(postId);
     }
 

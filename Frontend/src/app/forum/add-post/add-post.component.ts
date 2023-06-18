@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UploadImage } from 'src/app/features/upload-image/UploadImage';
+import { UploadImage } from 'src/app/features/UploadImage';
 import { Post } from 'src/app/models/Post';
 import { PostService } from 'src/app/services/post.service';
 import { environment } from 'src/environments/environment';
