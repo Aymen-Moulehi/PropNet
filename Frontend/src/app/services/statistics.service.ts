@@ -11,7 +11,7 @@ export class StatisticsService {
   constructor(private http: HttpClient) { }
 
   userPostwithLocation() :Observable<[]>{
-    return this.http.get<[]>('http://localhost:8081/app/appUser/user-post-withLocation');
+    return this.http.get<[]>('http://localhost:8089/app/appUser/user-post-withLocation');
   }
   getAdvertisement(){
     return this.http.get<any[]>('https://jsonplaceholder.typicode.com/posts');

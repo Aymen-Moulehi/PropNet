@@ -11,4 +11,5 @@ export class Post {
     appUser!: any;
     category!: string;
     relatedTags !: string;
+    status !: string;
 }
