@@ -9,8 +9,8 @@ const routes: Routes = [
     {path:'', component: DashboardComponent}, 
     {path:'claim', component: ClaimComponent}, 
     {path:'dashbord', component: DashboardComponent}, 
-    {path:'forum', loadChildren:()=> import('./forum/forum.module').then(m=>m.ForumModule)},
     {path:'annonce', loadChildren:()=> import('./Annonce/annonce.module').then(m=>m.AnnonceModule)},
+    {path:'forum', loadChildren:()=> import('./forum/forum.module').then(m=>m.ForumModule)},
     
   ]}
 ];

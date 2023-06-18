@@ -11,6 +11,7 @@ export class ListAnnonceComponent implements OnInit {
    listAnnonce: any[] = [];
    currentPage: number = 1; // Page actuelle
    itemsPerPage: number = 10; // Nombre d'éléments par page
+   selectedPropertyType!: string;
 
  
 
@@ -22,6 +23,8 @@ export class ListAnnonceComponent implements OnInit {
     this.fetchData()
 
   }
+
+ 
 
   fetchData(): void {
     this.apiService.getAdvertisement().subscribe(data => {

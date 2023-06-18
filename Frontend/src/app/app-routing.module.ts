@@ -6,6 +6,7 @@ import { SingupComponent } from './singup/singup.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccueilComponent } from './accueil/accueil.component';
+import { TestingComponent } from './testing/testing.component';
 
 const routes: Routes = [
   {path:'', component: AccueilComponent}, 
@@ -17,6 +18,9 @@ const routes: Routes = [
 
   {path:'singup', component: SingupComponent}, 
   {path:'Add-Annonce', component: AddAnnonceComponent}, 
+  {path:'testing', component: TestingComponent}, 
+
+
 
 
 

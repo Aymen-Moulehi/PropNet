@@ -14,6 +14,7 @@ import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TestingComponent } from './testing/testing.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AddAnnonceComponent,
     ListAnnoncesComponent,
     DetailAnnonceComponent,
+    TestingComponent,
   ],
   imports: [
     BrowserModule,
