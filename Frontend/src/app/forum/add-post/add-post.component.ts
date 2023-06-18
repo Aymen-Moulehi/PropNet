@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UploadImage } from 'src/app/features/upload-image/UploadImage';
+import { Post } from 'src/app/models/Post';
+import { PostService } from 'src/app/services/post.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-add-post',
@@ -7,9 +13,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPostComponent implements OnInit {
 
-  constructor() { }
+  uploadedImage!: File;
+  post = new Post();
+
+  constructor(private uploadImage: UploadImage, private postService: PostService, private router: Router) { }
 
   ngOnInit(): void {
+
   }
+  submit(): void {
+
+    this.postService.addPost(this.post).subscribe(
+      {
+        next: (data) => {
+          console.log(data)
+          this.router.navigate(['/forume/detail/', { "idPost": data.idPost }])
+        }
+      }
+    )
+  }
+  
+  public onImageUpload(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    this.uploadedImage = files[0];
+    this.uploadImage.imageUploadAction(this.uploadedImage).subscribe({
+      next: (data) => this.post.imageUrl = environment.baseUrl + '/image/get/' + data,
+    })
+  }
+
+
 
 }

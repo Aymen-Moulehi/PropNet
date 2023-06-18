@@ -15,7 +15,6 @@ import { ClaimComponent } from './claim/claim.component';
   ],
   imports: [
     CommonModule,
-
     AdministrationRoutingModule
   ]
 })

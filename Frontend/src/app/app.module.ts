@@ -27,8 +27,7 @@ import { TestingComponent } from './testing/testing.component';
     SingupComponent,
     AddAnnonceComponent,
     ListAnnoncesComponent,
-    DetailAnnonceComponent,
-    TestingComponent,
+    DetailAnnonceComponent
   ],
   imports: [
     BrowserModule,

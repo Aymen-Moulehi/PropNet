@@ -2,8 +2,6 @@ package tn.esprit.propnetapp.claim;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.propnetapp.locality.Locality;
-
 import java.util.List;
 
 @RestController

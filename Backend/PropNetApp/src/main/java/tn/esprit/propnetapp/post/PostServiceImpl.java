@@ -19,4 +19,9 @@ public class PostServiceImpl implements IPostService {
     public Post addPost(Post post) {
         return postRepository.save(post);
     }
+
+    @Override
+    public Post getPostById(Integer postId) {
+        return postRepository.findPostByIdPost(postId);
+    }
 }

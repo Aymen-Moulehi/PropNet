@@ -1,84 +1,88 @@
-<!-- ============================ Page Title Start================================== -->
 <div class="page-title" style="background:#017efa url(assets/img/page-title.png) no-repeat;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12">
-                
+
                 <h2 class="ipt-title">Get In touch</h2>
                 <span class="ipn-subtitle">Get all latest news and updates</span>
-                
+
             </div>
         </div>
     </div>
 </div>
-<!-- ============================ Page Title End ================================== -->
-
-<!-- ============================ Contact Start ================================== -->
 <section>
 
     <div class="container">
-    
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-10 text-center">
                 <div class="sec-heading center">
                     <label class="label text-success bg-light-success">Grow Your Business</label>
                     <h2>Activate Next Now</h2>
-                    <p>Please fill the form and we will guide you to the best solution. Our experts will get in touch soon.</p>
+                    <p>Your voice matters! Join our vibrant community and share your unique perspective to inspire, connect, and shape the future together.</p>
                 </div>
             </div>
         </div>
-    
-        <!-- row Start -->
+        <form  #form = "ngForm">
         <div class="row align-items-center justify-content-center">
-        
+
             <div class="col-lg-10 col-md-12">
-                
+
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
+                    <div class="col-lg-12 col-md-6">
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control simple">
+                            <label>Title</label>
+                            <input type="text" class="form-control simple" name="title" [(ngModel)] = "post.title" #title = "ngModel" required minlength="3">
+                            <div *ngIf="title.invalid && title.touched">
+                                <div *ngIf = "title.errors?.['required']" style="color : red">Title is required</div>
+                                <div *ngIf = "title.errors?.['minlength']" style="color : red">Title must have at least 3 characters!</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control simple">
+                            <label>Category</label>
+                            <input type="text" class="form-control simple" name="category" [(ngModel)] = "post.category" #category = "ngModel" required minlength="3">
+                        </div>
+                        <div *ngIf="category.invalid && category.touched">
+                            <div *ngIf = "category.errors?.['required']" style="color : red">Category is required</div>
+                            <div *ngIf = "category.errors?.['minlength']" style="color : red">Category must have at least 3 characters!</div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
-                            <label>Subject</label>
-                            <input type="text" class="form-control simple">
+                            <label>Related Tags</label>
+                            <input type="text" class="form-control simple" name="tags" [(ngModel)] = "post.relatedTags" #tags = "ngModel" required minlength="3">
+                        </div>
+                        <div *ngIf="category.invalid && category.touched">
+                            <div *ngIf = "category.errors?.['required']" style="color : red">Tags is required</div>
+                            <div *ngIf = "category.errors?.['minlength']" style="color : red">Tags must have at least 3 characters!</div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6">
+                    <div class="col-lg-12 col-md-6">
                         <div class="form-group">
-                            <label>Phone.</label>
-                            <input type="text" class="form-control simple">
+                            <label>Large file input example</label>
+                            <input (change)="onImageUpload($event)" class="form-control form-control-lg-24" style="height: 100%;" required type="file" >
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12">
                         <div class="form-group">
-                            <label>Message</label>
-                            <textarea class="form-control simple"></textarea>
+                            <label>Content</label>
+                            <textarea class="form-control simple" name="content" [(ngModel)] = "post.content" #content = "ngModel" required minlength="3"></textarea>
+                            <div *ngIf="content.invalid && content.touched">
+                                <div *ngIf = "content.errors?.['required']" style="color : red">Content is required</div>
+                                <div *ngIf = "content.errors?.['minlength']" style="color : red">Content must have at least 3 characters!</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12">
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Submit Request</button>
+                            <button class="btn btn-primary" [disabled]="form.invalid" type="submit" (click)="submit()">Post Now</button>
                         </div>
                     </div>
-                </div>				
-            </div>		
-            
+                </div>
+            </div>
         </div>
-        <!-- /row -->
-
-       
+    </form>
     </div>
-            
+
 </section>
-<!-- ============================ Contact End ================================== -->
-
-
