@@ -5,7 +5,8 @@ import { PostService } from 'src/app/services/post.service';
 import { DateProcessor } from 'src/app/features/DateProcessor';
 import { StringProcessor } from 'src/app/features/StringProcessor';
 import { environment } from 'src/environments/environment';
-import { CommonModule } from '@angular/common';
+import { Response } from 'src/app/models/Response';
+import { ResponseService } from 'src/app/services/response.service';
 
 @Component({
   selector: 'app-detail-post',
@@ -18,13 +19,16 @@ export class DetailPostComponent implements OnInit {
   post!: Post;
   formatedDate!: string;
   relatedTags: string[] = [];
+  responses!:[Response];
+  userResponse!: Response;
 
   constructor(
     private activatedRouter: ActivatedRoute, 
     private postService: PostService, 
     private dateProcessor: DateProcessor,
-     private stringProcessor: StringProcessor,
+    private stringProcessor: StringProcessor,
     private router: Router,
+    private responseService : ResponseService,
    
   ) { }
 
@@ -39,6 +43,7 @@ export class DetailPostComponent implements OnInit {
           if(data == undefined)
             this.router.navigate([environment.undefinedPageUrl])
           this.post = data;
+          this.responses = data.responses as unknown as [Response] ;
           this.relatedTags = this.stringProcessor.extractWordList(data.relatedTags);
           this.formatedDate = this.dateProcessor.formatDate(new Date(data.postDate));
         }
@@ -46,6 +51,21 @@ export class DetailPostComponent implements OnInit {
     } else {
       this.router.navigate([environment.undefinedPageUrl])
     }
+    this.userResponse = new Response();
   }
 
+  addComment() {
+    const responseElement = new Response()
+    responseElement.author = "Rosalina Kelian";
+    responseElement.content = this.userResponse.content;
+    responseElement.responseDate  = new Date();
+    responseElement.formatedDate = this.dateProcessor.formatDate(responseElement.responseDate);
+
+    this.responseService.addAndAsginResponseToPost(this.post.idPost, responseElement).subscribe({
+      next: (data) => {
+        this.responses.push(responseElement);
+        this.userResponse.content = "   ";
+      }
+    });
+  }
 }
