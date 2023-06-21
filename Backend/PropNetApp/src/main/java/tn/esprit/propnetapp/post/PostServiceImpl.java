@@ -6,7 +6,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -29,15 +31,13 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public List<Post> getPostAccepted() {
-        List<Post> acceptedPosts = postRepository.findByStatus("Accepted");
-        return acceptedPosts;
-
+        return postRepository.findByStatus("Accepted");
     }
 
     @Override
     public List<Post> getPostPendding() {
-        List<Post> PendingPosts = postRepository.findByStatus("Pending");
-        return PendingPosts;    }
+        return postRepository.findByStatus("Pending");
+    }
 
     @Override
     public List<Post> getPost() {
@@ -53,6 +53,16 @@ public class PostServiceImpl implements IPostService {
     public void updatePost(Integer id) {
         Post _post = postRepository.findPostByIdPost(id);
         _post.setStatus("Accepted");
+    }
+
+    @Override
+    public List<Post> findByRelatedTagsInList(List<String> tags) {
+        List<Post> posts = new ArrayList<>();
+        for(String tag : tags){
+            List<Post> matchingPosts = postRepository.findByRelatedTagsContaining(tag);
+            posts.addAll(matchingPosts);
+        }
+        return posts.stream().distinct().collect(Collectors.toList());
     }
 
 
