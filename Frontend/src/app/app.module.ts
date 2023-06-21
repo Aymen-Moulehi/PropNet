@@ -14,6 +14,8 @@ import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MapComponent } from './map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -26,14 +28,18 @@ import { HttpClientModule } from '@angular/common/http';
     SingupComponent,
     AddAnnonceComponent,
     ListAnnoncesComponent,
-    DetailAnnonceComponent
+    DetailAnnonceComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAKgD9o0jABLEOwKB8i7NAR6Bbbwf7hQX0'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
