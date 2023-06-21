@@ -37,6 +37,7 @@ public class PostServiceImpl implements IPostService {
     @Override
     public List<Post> getPostPendding() {
         List<Post> PendingPosts = postRepository.findByStatus("Pending");
+
         return PendingPosts;    }
 
     @Override
@@ -50,9 +51,11 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public void updatePost(Integer id) {
-        Post _post = postRepository.findPostByIdPost(id);
+    public Post updatePost(Integer id) {
+        Post _post = postRepository.findById(id).get();
         _post.setStatus("Accepted");
+        postRepository.save(_post);
+        return _post;
     }
 
 

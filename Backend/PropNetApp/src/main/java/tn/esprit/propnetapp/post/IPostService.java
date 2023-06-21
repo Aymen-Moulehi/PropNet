@@ -11,7 +11,7 @@ public interface IPostService {
     List<Post> getPost();
 
     void deletePost(Integer id);
-    void updatePost(Integer id);
+    Post updatePost(Integer id);
 
 
 }

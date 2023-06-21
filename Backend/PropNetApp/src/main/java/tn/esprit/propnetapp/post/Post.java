@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.post;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class Post implements Serializable {
     private String imageUrl;
     private Integer likes = 0;
     @OneToMany(mappedBy = "post")
+    @JsonIgnore
     private Collection<Response> responses = new ArrayList<>();
     @ManyToOne
     private AppUser appUser;

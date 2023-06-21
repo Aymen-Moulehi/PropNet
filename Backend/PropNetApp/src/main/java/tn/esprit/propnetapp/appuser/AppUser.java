@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.appuser;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,12 +57,16 @@ public class AppUser implements Serializable {
     private AccountType accountType;
     private Date lastLogin;
     private Date creationDate;
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<Claim> claims;
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<Post> posts;
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<Feedback> feedbacks;
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<RealEstateListing> realEstateListings;
 

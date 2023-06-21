@@ -14,8 +14,7 @@ public class PostRestController {
     @PostMapping("/add-post")
     @CrossOrigin
     public Post addPostS(@RequestBody Post post) {
-
-        post.setStatus("pending");
+        post.setStatus("Pending");
         return postService.addPost(post);
     }
 
@@ -45,13 +44,14 @@ public class PostRestController {
 
     @DeleteMapping("/delete/{id}")
     @CrossOrigin
-    public void deletePost(@PathVariable("id") Integer postId) {
-        postService.deletePost(postId);
+    public void deletePost(@PathVariable("id") Integer id) {
+        postService.deletePost(id);
     }
+
 
     @PutMapping("/update/{id}")
     @CrossOrigin
-    public void updatePost(@PathVariable("id") Integer postId) {
-        postService.updatePost(postId);
+    public Post updatePost(@PathVariable("id") Integer postId) {
+        return postService.updatePost(postId);
     }
 }
