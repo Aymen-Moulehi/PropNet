@@ -56,4 +56,10 @@ public class PostRestController {
     public void updatePost(@PathVariable("id") Integer postId) {
         postService.updatePost(postId);
     }
+
+    @GetMapping("/find-related-posts-by-tags")
+    @CrossOrigin
+    public List<Post> findRelatedPostsByTags(@RequestBody List<String> tags){
+        return postService.findByRelatedTagsInList(tags);
+    }
 }

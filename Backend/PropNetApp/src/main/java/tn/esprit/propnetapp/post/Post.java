@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 
 @Entity
@@ -20,7 +21,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post implements Serializable {
+public class Post implements Serializable, Comparator<Post> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPost;
@@ -36,6 +37,14 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "post")
     private Collection<Response> responses = new ArrayList<>();
     @ManyToOne
+    @JsonIgnore
     private AppUser appUser;
-    private String status;
+    private String status = "Pending";
+
+
+
+    @Override
+    public int compare(Post o1, Post o2) {
+        return o1.getIdPost() - o2.getIdPost();
+    }
 }
