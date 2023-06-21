@@ -11,6 +11,8 @@ const routes: Routes = [
     {path:'dashbord', component: DashboardComponent}, 
     {path:'annonce', loadChildren:()=> import('./Annonce/annonce.module').then(m=>m.AnnonceModule)},
     {path:'forum', loadChildren:()=> import('./forum/forum.module').then(m=>m.ForumModule)},
+    {path:'users', loadChildren:()=> import('./user/user.module').then(m=>m.UserModule)},
+
     
   ]}
 ];

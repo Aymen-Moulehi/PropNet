@@ -21,18 +21,17 @@ export class PostService {
     return this.httpClient.get<Post[]>(environment.baseUrl + '/post/accepted');
   }
   getPostsPending() {
-
     return this.httpClient.get<Post[]>(environment.baseUrl + '/post/pending');
   }
   getPosts() {
     return this.httpClient.get<Post[]>(environment.baseUrl + '/post/posts');
   }
   deletePosts(id: number) {
-    return this.httpClient.get<Post>(environment.baseUrl + '/post/delete'+ id);
+    return this.httpClient.delete<Post>(environment.baseUrl + '/post/delete/'+ id);
   }
   
-  updatePosts(id: number) {
-    return this.httpClient.get<Post>(environment.baseUrl + '/post/update'+ id);
+  updatePosts(post: Post) {
+    return this.httpClient.put<Post>(environment.baseUrl + '/post/update/'+ post.idPost, post);
   }
   
 

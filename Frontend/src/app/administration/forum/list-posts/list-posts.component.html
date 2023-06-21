@@ -13,7 +13,7 @@
                     <div class="veshm-list-prty-figure">
                         <div class="veshm-list-img-slide">
                             <div class="veshm-list-click slick-initialized slick-slider"><button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style="display: inline-block;">Previous</button>
-                                <div aria-live="polite" class="slick-list draggable"><div class="slick-track" role="listbox" style="opacity: 1; width: 1500px; transform: translate3d(-250px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-4.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00" style="width: 250px;"><a href="single-property-1.html" tabindex="0"><img src="assets/img/prt-11.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide01" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-2.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide02" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-3.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide03" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-4.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" tabindex="-1" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-11.png" class="img-fluid mx-auto" alt=""></a></div></div></div>
+                                <div aria-live="polite" class="slick-list draggable"><div class="slick-track" role="listbox" style="opacity: 1; width: 1500px; transform: translate3d(-250px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1" style="width: 250px;"></div><div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00" style="width: 250px;"><a href="single-property-1.html" tabindex="0"><img src="{{item.imageUrl}}" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide01" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-2.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide02" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-3.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide03" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-4.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" tabindex="-1" style="width: 250px;"></div></div></div>
    
                             <button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style="display: inline-block;">Next</button></div>
                         </div>
@@ -27,7 +27,7 @@
                              
                             </div>
                             <div class="veshm-list-head-flex">
-                                <button class="btn btn-like active" type="button"><i class="fas fa-trash"></i></button>	
+                                <button class="btn btn-like active" type="button" (click)="deletePost(item.idPost)"><i class="fas fa-trash"></i></button>	
                             </div>
                         </div>
                         <div class="veshm-list-middle">
@@ -41,11 +41,9 @@
                                 </div>
                             </div>
                             <div class="veshm-list-ftr1707" style="margin-right: 10px;">
-                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#offer" class="btn btn-md btn-primary font--medium">Approved</a>
+                                <button class="btn btn-like active" type="button" (click)="updatePost(item)" class="btn btn-md btn-primary font--medium">Approved</button>
                             </div>
-                            <div class="veshm-list-ftr1707">
-                                <a [routerLink]="['detail',item.id]" class="btn btn-md btn-danger font--medium">Delete</a>
-                            </div>
+                     
                       
                         </div>
                     </div>

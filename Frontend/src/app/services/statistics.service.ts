@@ -13,6 +13,9 @@ export class StatisticsService {
   userPostwithLocation() :Observable<[]>{
     return this.http.get<[]>('http://localhost:8089/app/appUser/user-post-withLocation');
   }
+  getUsersByRegion() :Observable<[]>{
+    return this.http.get<[]>('http://localhost:8089/app/appUser/user-by-region');
+  }
   getAdvertisement(){
     return this.http.get<any[]>('https://jsonplaceholder.typicode.com/posts');
   }

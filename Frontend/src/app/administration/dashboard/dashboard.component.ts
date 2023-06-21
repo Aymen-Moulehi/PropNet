@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart,registerables, ChartOptions } from 'chart.js';
+import { PostService } from 'src/app/services/post.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
+import { UserService } from 'src/app/services/user.service';
 Chart.register(...registerables)
 
 @Component({
@@ -10,12 +12,16 @@ Chart.register(...registerables)
 })
 export class DashboardComponent implements OnInit {
   chartData: any[]= [];
+  ListUsersByRegion : any [] = [];
+  CountUsers : any [] = [];
+  ListPostsPending!: any;
+  countPostPending!: any;
 
-  constructor(private apiService: StatisticsService) { }
+
+  constructor(private apiService: StatisticsService,private apiServiceUser : UserService,private apiServicePost : PostService) { }
 
   ngOnInit(): void {
     this.fetchData();
-
   }
   chartOptions: ChartOptions = {
     responsive: true,
@@ -74,15 +80,15 @@ createChart() {
 }
 
 createChart2() {
-  const labels = this.chartData.map(data => data.key);
-  const values = this.chartData.map(data => data.value);
+  const labels = this.ListUsersByRegion.map(data => data.key);
+  const values = this.ListUsersByRegion.map(data => data.value);
   new Chart("myChart2", {
     type: 'doughnut',
     data: {
          labels: labels,
          datasets: [
          {
-             label: "Nombre de poste",
+             label: "Nombre de user",
              data: values,
          }, 
         ]
@@ -96,12 +102,35 @@ createChart2() {
       data => {
         this.chartData = data;
         this.createChart();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    this.apiService.getUsersByRegion().subscribe(
+      data => {
+        this.ListUsersByRegion = data;
         this.createChart2();
       },
       error => {
         console.error(error);
       }
     );
+    this.apiServiceUser.getCountUser().subscribe(
+      data => {
+        this.CountUsers = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    this.apiServicePost.getPostsPending().subscribe(data => {
+console.log("testing");
+      this.countPostPending = data.length;
+   });
+
   }
+
+
 
 }

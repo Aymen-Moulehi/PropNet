@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/Post';
 import { PostService } from 'src/app/services/post.service';
-import { StatisticsService } from 'src/app/services/statistics.service';
 
 @Component({
   selector: 'app-list-posts',
@@ -11,29 +10,44 @@ import { StatisticsService } from 'src/app/services/statistics.service';
 export class ListPostsComponent implements OnInit {
 
   constructor(private apiService : PostService) { }
-  listAnnonce: any[] = [];
   currentPage: number = 1; // Page actuelle
   itemsPerPage: number = 10; // Nombre d'éléments par page
   ListPostsPending: any[] = [];
 
   ngOnInit(): void {
-    console.log(this.fetchData())
     this.fetchData()
 
   }
 
-  deletePost(id: number) {
-    this.apiService.deletePosts(id).subscribe(() => {
-      this.fetchData(); 
-    });
+
+
+  deletePost(id:number){
+    if (confirm('Voulez vous vraiment supprime cette poste !!?')) {
+    this.apiService.deletePosts(id).subscribe({
+      next: () => {
+        this.fetchData(); 
+      },
+      error: (e) => console.error(e), 
+    }) 
+  }
   }
 
+
   fetchData(): void {
-    this.apiService.getPostsPending().subscribe(data => {
+    this.apiService.getPosts().subscribe(data => {
+      console.log(data)
           this.ListPostsPending = data;
        });
       }
 
+      updatePost(post: Post) {
+        if (confirm('Voulez vous vraiment de accepter cette poste !!?')) {
+          this.apiService.updatePosts(post).subscribe(updatedPost => {
+            this.fetchData()
+        })
+        }
+   };
+      
       get totalPages(): number[] {
         return Array(Math.ceil(this.ListPostsPending.length / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
       }
