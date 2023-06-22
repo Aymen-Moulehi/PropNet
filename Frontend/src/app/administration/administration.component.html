@@ -3,11 +3,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12">
-                
-                <h2 class="ipt-title">Hi, Harshvardhan</h2>
+                <h2 class="ipt-title">Hi {{account.email}}</h2>
                 <span class="ipn-subtitle">Manage your profile and view property</span>
-                
-            </div>
+            </div> 
         </div>
     </div>
 </div>
@@ -24,8 +22,8 @@
                     
                     <div class="dash_user_avater">
                         <img src="assets/img/team-3.jpg" class="img-fluid avater" alt="">
-                        <h4>Adam Harshvardhan</h4>
-                        <span class="font--medium small"><i class="fa-solid fa-location-dot me-2"></i>Liverpool, USA</span>
+                        <h4>{{account.name}}</h4>
+                        <span class="font--medium small"><i class="fa-solid fa-location-dot me-2"></i>{{account.address}}</span>
                     </div>
                     
                     <div class="adgt-wriop-social">
@@ -39,7 +37,7 @@
                     
                     <div class="adgt-wriop-footer py-3 px-3">
                         <div class="single-button d-flex align-items-center justify-content-between">
-                            <button type="button" class="btn btn-md font--bold btn-light-primary me-2 full-width"><i class="fa-solid fa-phone me-2"></i>856 742 672</button>
+                            <button type="button" class="btn btn-md font--bold btn-light-primary me-2 full-width"><i class="fa-solid fa-phone me-2"></i>{{account.phoneNumber}}</button>
                             <button type="button" data-bs-toggle="modal" data-bs-target="#message" class="btn btn-md font--bold btn-light-success full-width"><i class="fa-solid fa-paper-plane me-2"></i>Send Message</button>
                         </div>
                     </div>
@@ -59,7 +57,7 @@
                     
                     <div class="dash_user_footer">
                         <ul>
-                            <li><a href="JavaScript:Void(0);"><i class="fa fa-power-off"></i></a></li>
+                            <li (click)="logout()"><a href="JavaScript:Void(0);"><i class="fa fa-power-off"></i></a></li>
                             <li><a href="JavaScript:Void(0);"><i class="fa fa-comment"></i></a></li>
                             <li><a href="JavaScript:Void(0);"><i class="fa fa-cog"></i></a></li>
                         </ul>

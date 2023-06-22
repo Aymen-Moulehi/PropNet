@@ -1,5 +1,8 @@
 package tn.esprit.propnetapp.appuser;
 
 public interface IAppUserService {
-    AppUser addAppUser(AppUser appUser);
+
+    AppUser registerUser(AppUser appUser);
+
+    String login(String email, String password);
 }

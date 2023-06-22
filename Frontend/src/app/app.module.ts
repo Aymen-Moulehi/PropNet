@@ -14,6 +14,8 @@ import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { UpdateAccountComponent } from './update-account/update-account.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
     ContactComponent,
     SingupComponent,
     AddAnnonceComponent,
+    UpdateAccountComponent,
     ListAnnoncesComponent,
-    DetailAnnonceComponent
+    DetailAnnonceComponent,
+    UpdateAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule, 
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

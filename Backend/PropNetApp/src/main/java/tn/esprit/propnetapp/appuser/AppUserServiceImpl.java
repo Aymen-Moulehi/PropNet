@@ -1,22 +1,36 @@
 package tn.esprit.propnetapp.appuser;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tn.esprit.propnetapp.Jwt.JwtUtil;
 
 @Service
-@AllArgsConstructor
-@Aspect
-@Component
 @Slf4j
 public class AppUserServiceImpl implements IAppUserService {
 
-    AppUserRepository appUserRepository;
+    private final AppUserRepository userRepository;
+        private final PasswordEncoder passwordEncoder;
+    private JwtUtil jwtUtil;
+    private AuthenticationManager authenticationManager;
+
+
+        public AppUserServiceImpl(AppUserRepository userRepository, PasswordEncoder passwordEncoder) {
+            this.userRepository = userRepository;
+            this.passwordEncoder = passwordEncoder;
+        }
+
+
+
 
     @Override
-    public AppUser addAppUser(AppUser appUser) {
-        return appUserRepository.save(appUser);
+    public AppUser registerUser(AppUser appUser) {
+        return null;
+    }
+
+    @Override
+    public String login(String email, String password) {
+        return null;
     }
 }
