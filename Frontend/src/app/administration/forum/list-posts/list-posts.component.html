@@ -1,0 +1,76 @@
+<section class="over-top micler gray-simple">
+			
+    <div class="container">
+        
+  
+        <app-filter-forum></app-filter-forum>
+        <!-- Start All Listing -->
+        <div class="row gx-3 gy-4">
+							
+            <!-- Single Property -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngFor="let item of getItemsForCurrentPage()">
+                <div class="veshm-list-prty">
+                    <div class="veshm-list-prty-figure">
+                        <div class="veshm-list-img-slide">
+                            <div class="veshm-list-click slick-initialized slick-slider"><button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style="display: inline-block;">Previous</button>
+                                <div aria-live="polite" class="slick-list draggable"><div class="slick-track" role="listbox" style="opacity: 1; width: 1500px; transform: translate3d(-250px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-4.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00" style="width: 250px;"><a href="single-property-1.html" tabindex="0"><img src="assets/img/prt-11.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide01" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-2.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide02" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-3.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide03" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-4.png" class="img-fluid mx-auto" alt=""></a></div><div class="slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" tabindex="-1" style="width: 250px;"><a href="single-property-1.html" tabindex="-1"><img src="assets/img/prt-11.png" class="img-fluid mx-auto" alt=""></a></div></div></div>
+   
+                            <button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style="display: inline-block;">Next</button></div>
+                        </div>
+                    </div>
+                    <div class="veshm-list-prty-caption">
+                        <div class="veshm-list-kygf">
+                            <div class="veshm-list-kygf-flex">
+                                <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">{{item.title}}</a></h5>
+                                <hr>
+                                <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">{{item.content}}</a></h5>
+                             
+                            </div>
+                            <div class="veshm-list-head-flex">
+                                <button class="btn btn-like active" type="button"><i class="fas fa-trash"></i></button>	
+                            </div>
+                        </div>
+                        <div class="veshm-list-middle">
+                         
+                        </div>
+          
+                        <div class="veshm-list-footers">
+                            <div class="veshm-list-ftr786">
+                                <div class="rlhc-price">
+                                    <h4 class="rlhc-price-name theme-cl"></h4>
+                                </div>
+                            </div>
+                            <div class="veshm-list-ftr1707" style="margin-right: 10px;">
+                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#offer" class="btn btn-md btn-primary font--medium">Approved</a>
+                            </div>
+                            <div class="veshm-list-ftr1707">
+                                <a [routerLink]="['detail',item.id]" class="btn btn-md btn-danger font--medium">Delete</a>
+                            </div>
+                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+   
+        
+        <!-- Start Pagination -->
+        <div class="row">	
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                       
+                        <button *ngFor="let page of totalPages" 
+                        (click)="changePage(page)"
+                        class="btn btn-primary" style="background-color: white; color: black;"
+                        [class.active]="currentPage === page">
+                  {{ page }}
+                </button>
+                      </ul>
+                </nav>
+            </div>
+        </div>
+        
+    </div>		
+</section>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListPostComponent } from './list-post.component';
+import { FilterAnnonceComponent } from './filter-annonce.component';
 
-describe('ListPostComponent', () => {
-  let component: ListPostComponent;
-  let fixture: ComponentFixture<ListPostComponent>;
+describe('FilterAnnonceComponent', () => {
+  let component: FilterAnnonceComponent;
+  let fixture: ComponentFixture<FilterAnnonceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListPostComponent ]
+      declarations: [ FilterAnnonceComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListPostComponent);
+    fixture = TestBed.createComponent(FilterAnnonceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

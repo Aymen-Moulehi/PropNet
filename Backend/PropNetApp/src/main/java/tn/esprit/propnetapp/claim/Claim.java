@@ -17,28 +17,16 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Claim implements Serializable {
-    /**
-     * ID: Long
-     * Title: String
-     * Description: String
-     * User ID: String
-     * Status: String
-     * Creation Date: DateTime
-     * Resolution Date: DateTime
-     * Priority: String
-     * Category: String
-     * Attachments: List of Files
-     * Assigned To: String
-     * Comments: List of Strings
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClaim;
-    private String title;
+    private String name;
+    private String email;
+   // private Date phone;
+    private String sujet;
     private String description;
-    private Date crationDate;
-    private Date resolution;
-    private String assignedTo;
+    @Temporal(TemporalType.DATE)
+    private Date DateCreated ;
     @ManyToOne
     private AppUser appUser;
 }
