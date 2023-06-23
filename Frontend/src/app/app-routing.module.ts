@@ -6,6 +6,7 @@ import { SingupComponent } from './singup/singup.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccueilComponent } from './accueil/accueil.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {path:'', component: AccueilComponent}, 
@@ -27,6 +28,8 @@ const routes: Routes = [
   
   {path:'admin', loadChildren:()=> import('./administration/administration.module').then(m=>m.AdministrationModule)},
   {path:'forume', loadChildren:()=> import('./forum/forum.module').then(m=>m.ForumModule)},
+  {path:'**', component: NotFoundComponent}, 
+
 
 
 ];
