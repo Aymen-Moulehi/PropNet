@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart,registerables, ChartOptions } from 'chart.js';
 import { PostService } from 'src/app/services/post.service';
+import { RealEstateListingService } from 'src/app/services/real-estate-listing.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { UserService } from 'src/app/services/user.service';
 Chart.register(...registerables)
@@ -16,9 +17,10 @@ export class DashboardComponent implements OnInit {
   CountUsers : any [] = [];
   ListPostsPending!: any;
   countPostPending!: any;
+  countPostAnnoncePending!:any;
 
 
-  constructor(private apiService: StatisticsService,private apiServiceUser : UserService,private apiServicePost : PostService) { }
+  constructor(private apiService: StatisticsService,private apiServiceUser : UserService,private apiServicePost : PostService,private apiServiceRealState: RealEstateListingService) { }
 
   ngOnInit(): void {
     this.fetchData();
@@ -125,9 +127,11 @@ createChart2() {
       }
     );
     this.apiServicePost.getPostsPending().subscribe(data => {
-console.log("testing");
       this.countPostPending = data.length;
    });
+   this.apiServiceRealState.getRealEstatePending().subscribe(data =>{
+    this.countPostAnnoncePending = data.length;
+ });
 
   }
 

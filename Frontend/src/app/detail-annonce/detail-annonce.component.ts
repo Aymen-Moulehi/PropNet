@@ -4,6 +4,7 @@ import { StatisticsService } from '../services/statistics.service';
 import { FeedbackService } from '../services/feedback.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RealEstateListingService } from '../services/real-estate-listing.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class DetailAnnonceComponent implements OnInit {
   addForm!: FormGroup; 
   feedbackList:any=[];
 
-  constructor(private route: ActivatedRoute,private apiService: StatisticsService,private feedbackService : FeedbackService) {
+  constructor(private route: ActivatedRoute,private apiService: RealEstateListingService,private feedbackService : FeedbackService) {
     this.addForm = new FormGroup({
       name: new FormControl('', Validators.required) ,
       email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$") ]),
@@ -67,7 +68,7 @@ deleteFeedback(id:number){
 }
 
   getAnnonceWithId(id:String): void {
-    this.apiService.getAdvertisementWithId(id)
+    this.apiService.getRealEstateById(id)
     .subscribe(
       data => {
         this.annonce = data;

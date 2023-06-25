@@ -7,7 +7,7 @@
             <button class="btn btn-like" type="button" (click)="deletePost(item.idAppUser)"><i class="fas fa-trash"></i></button>
             <div class="veshm-list-75"><span>{{item.accountStatus}}</span></div>
             <div class="veshm-agent-thumb">
-                <a href="agency-detail.html" class="d-block"><img src="assets/img/ag-1.png" class="img-fluid circle" alt=""></a>
+                <a href="agency-detail.html" class="d-block"><img src="{{item.biography}}" class="img-fluid circle" alt=""></a>
             </div>
             <div class="veshm-agent-content">
                 <h4 class="vesh-content-title"><a href="#" class="d-block">{{item.name}}</a></h4>

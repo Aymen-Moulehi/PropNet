@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RealEstateListingService } from 'src/app/services/real-estate-listing.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
 
 @Component({
@@ -13,10 +14,8 @@ export class ListAnnonceComponent implements OnInit {
    itemsPerPage: number = 10; // Nombre d'éléments par page
    selectedPropertyType!: string;
 
- 
 
-
-  constructor(private apiService : StatisticsService) { }
+  constructor(private apiService : RealEstateListingService) { }
 
   ngOnInit(): void {
 
@@ -27,7 +26,7 @@ export class ListAnnonceComponent implements OnInit {
  
 
   fetchData(): void {
-    this.apiService.getAdvertisement().subscribe(data => {
+    this.apiService.getRealEstatePending().subscribe(data => {
           this.listAnnonce = data;
        });
       }
@@ -47,5 +46,24 @@ export class ListAnnonceComponent implements OnInit {
     const endIndex = startIndex + this.itemsPerPage;
     return this.listAnnonce.slice(startIndex, endIndex);
   }
+
+  deleteAnnonce(id:number){
+    if (confirm('Voulez vous vraiment supprime cette Annonce !!?')) {
+    this.apiService.deleteRealEstate(id).subscribe({
+      next: () => {
+        this.fetchData(); 
+      },
+      error: (e) => console.error(e), 
+    }) 
+  }
+  }
+  accepteAnnonce(realEstate: any) {
+    if (confirm('Do you really want to accepte this Pub !!?')) {
+      this.apiService.getRealEstateByIdToAccepted(realEstate).subscribe(activate => {
+        this.fetchData()
+    })
+    }
+};
+
 
 }

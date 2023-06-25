@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { UploadImage } from 'src/app/features/upload-image/UploadImage';
 import { User } from 'src/app/models/User';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
@@ -13,7 +14,9 @@ export class ListUserComponent implements OnInit {
   currentPage: number = 1; // Page actuelle
   itemsPerPage: number = 10; // Nombre d'éléments par page
   ListUsers: any[] = [];
-  constructor(private apiService : UserService) { }
+
+
+  constructor(private apiService : UserService,private uploadImage: UploadImage) { }
 
   ngOnInit(): void {
     this.fetchData()
@@ -65,6 +68,7 @@ export class ListUserComponent implements OnInit {
     })
     }
 };
+
 
 
 }
