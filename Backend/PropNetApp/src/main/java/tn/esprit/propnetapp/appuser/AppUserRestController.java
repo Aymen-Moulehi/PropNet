@@ -59,7 +59,12 @@ public class AppUserRestController {
     @CrossOrigin
     public void deactivateAccount(@PathVariable("idAppUser")  Integer idAppUser) {
         appUserService.deactivateAccount(idAppUser);
+    }
 
+    @GetMapping("/address/{address}")
+    @CrossOrigin
+    public List<AppUser> getUsersByAddress(@PathVariable String address) {
+        return appUserService.getUsersByAddress(address);
     }
 
 

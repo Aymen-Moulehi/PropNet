@@ -35,6 +35,7 @@ public class Post implements Serializable {
     @JsonIgnore
     private Collection<Response> responses = new ArrayList<>();
     @ManyToOne
+    @JsonIgnore
     private AppUser appUser;
     private String status;
 }

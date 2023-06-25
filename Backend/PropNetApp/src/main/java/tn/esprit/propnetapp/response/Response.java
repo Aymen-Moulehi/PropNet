@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.response;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +26,6 @@ public class Response implements Serializable {
     private Date responseDate;
     private Integer likes = 0;
     @ManyToOne
+    @JsonIgnore
     private Post post;
 }

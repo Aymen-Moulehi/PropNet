@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.locality;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,9 @@ public class Locality implements Serializable {
     private Float latitude;
     private Float longitude;
     @ManyToOne
+    @JsonIgnore
     private Region region;
     @OneToOne(mappedBy = "locality")
+    @JsonIgnore
     private LocalityDetail localityDetail;
 }

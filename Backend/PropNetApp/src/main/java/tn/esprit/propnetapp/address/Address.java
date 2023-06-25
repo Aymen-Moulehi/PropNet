@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.address;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,9 @@ public class Address implements Serializable {
     private Long idAddress;
     private String description;
     @OneToOne(mappedBy = "address")
+    @JsonIgnore
     private RealEstateListing realEstateListing;
     @ManyToOne
+    @JsonIgnore
     private Governorate governorate;
 }

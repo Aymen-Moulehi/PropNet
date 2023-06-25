@@ -20,5 +20,8 @@ public interface IAppUserService {
     public void activateAccount(Integer idAppUser);
     public void deactivateAccount(Integer idAppUser);
 
+    List<AppUser> getUsersByAddress(String address);
+
+
 
 }

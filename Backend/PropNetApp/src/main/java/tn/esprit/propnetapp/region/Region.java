@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.region;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,9 @@ public class Region implements Serializable {
     private Float latitude;
     private Float longitude;
     @ManyToOne
+    @JsonIgnore
     private Governorate governorate;
     @OneToMany(mappedBy = "region")
+    @JsonIgnore
     private Collection<Locality> localities;
 }

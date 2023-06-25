@@ -1,12 +1,14 @@
 package tn.esprit.propnetapp.realestatellisting;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tn.esprit.propnetapp.address.Address;
 import tn.esprit.propnetapp.appuser.AppUser;
+import tn.esprit.propnetapp.governorate.Governorate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -50,8 +52,11 @@ public class RealEstateListing implements Serializable {
     private Float price;
     @Enumerated(EnumType.STRING)
     private RealEstateStatus realEstateStatus;
+    @JsonIgnore
     @ManyToOne
     private AppUser appUser;
     @OneToOne
     private Address address;
+    @ManyToOne
+    private Governorate governorate;
 }

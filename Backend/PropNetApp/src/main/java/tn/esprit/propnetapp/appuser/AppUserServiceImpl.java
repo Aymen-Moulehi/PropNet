@@ -93,4 +93,9 @@ public class AppUserServiceImpl implements IAppUserService {
     }
 
 
+    public List<AppUser> getUsersByAddress(String address) {
+        return appUserRepository.findByAddress(address);
+    }
+
+
 }

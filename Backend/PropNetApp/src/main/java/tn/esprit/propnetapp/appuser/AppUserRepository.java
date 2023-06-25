@@ -20,6 +20,8 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
     @Query("SELECT u FROM AppUser u ")
     List<AppUser> getAllusers();
 
+    List<AppUser> findByAddress(String address);
+
 
 
 }

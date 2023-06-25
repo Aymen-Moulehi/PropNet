@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.feedback;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,5 +34,6 @@ public class Feedback implements Serializable {
     // private Date phone;
     private String description;
     @ManyToOne
+    @JsonIgnore
     private AppUser appUser;
 }
