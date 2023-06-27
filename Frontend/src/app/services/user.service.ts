@@ -28,6 +28,10 @@ export class UserService {
   deactivateAccount(user:User) {
     return this.http.put<User>(environment.baseUrl + '/appUser/account/deactivate/'+ user.idAppUser, user);
   }
+  getUserByNameAndAccountStatus(name:string,status: string) {
+    return this.http.get<[]>(environment.baseUrl + '/appUser/name/' + name + '/status/' + status);
+
+  }
   
 
 }

@@ -26,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SingupComponent,
     AddAnnonceComponent,
     ListAnnoncesComponent,
-    DetailAnnonceComponent
+    DetailAnnonceComponent,
   ],
   imports: [
     BrowserModule,

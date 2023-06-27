@@ -1,13 +1,60 @@
-
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="full-search-2 mt-2">
+            <div class="hero-search-content colored">
+                
+                <div class="row classic-search-box m-0 gx-2">
+                        
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                        <div class="form-group briod">
+                          <div class="input-with-icon">
+                            <input type="text" class="form-control" placeholder="Name users" [(ngModel)]="selectedValueName" >
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                        <div class="form-group briod">
+                          <div class="input-with-icon">
+                            <select class="form-control" [(ngModel)]="selectedValue">
+                              <option value="USERS">All Users</option>
+                              <option value="ACTIVE">Account Active</option>
+                              <option value="NOT_ACTIVE">Account No Active</option>
+                            </select>
+                   
+                            <i class="fa-solid fa-house-crack"></i>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      
+             
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                        <div class="fliox-search-wiop">
+                            
+                            <div class="form-group">
+                                <form (ngSubmit)="searchUsers()">
+                                <button type="submit" class="btn btn-primary full-width">Search</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                            
+                </div>
+                
+            </div>
+        </div>						
+    </div>
+</div>
 
 <div class="row gx-3 gy-4">
     <!-- Single Agency Start -->
-    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let item of ListUsers ">
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let item of filteredUsers ">
         <div class="veshm-agent-wrap">
-            <button class="btn btn-like" type="button" (click)="deletePost(item.idAppUser)"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-like" type="button" (click)="deleteUser(item.idAppUser)"><i class="fas fa-trash"></i></button>
             <div class="veshm-list-75"><span>{{item.accountStatus}}</span></div>
             <div class="veshm-agent-thumb">
-                <a href="agency-detail.html" class="d-block"><img src="{{item.biography}}" class="img-fluid circle" alt=""></a>
+                <a href="agency-detail.html" class="d-block"><img src="{{item.picture}}" class="img-fluid circle" alt=""></a>
             </div>
             <div class="veshm-agent-content">
                 <h4 class="vesh-content-title"><a href="#" class="d-block">{{item.name}}</a></h4>
@@ -19,10 +66,16 @@
                 <div class="rlhc-prt-location"><i class="fa-solid fa-location-dot me-1"></i>{{item.address}}</div>
                 <div class="veshm-agent-social">
                     <ul>
-                        <li><button type="button" class="btn btn-md font--bold btn-light-warning me-2" (click)="activateAccount(item)">Activate Account</button></li>
-                        <li><button type="button" class="btn btn-md font--bold btn-light-success" data-bs-toggle="modal" data-bs-target="#message" (click)="deactivateAccount(item)">Deactivate Account</button></li>
+                        <div *ngIf="item.accountStatus === 'ACTIVE'">
+                            <li><button type="button" class="btn btn-md font--bold btn-light-success" data-bs-toggle="modal" data-bs-target="#message" (click)="deactivateAccount(item)">Deactivate Account</button></li>
+                        </div>
+                        <div *ngIf="item.accountStatus === 'NOT_ACTIVE'">
+                            <li><button type="button" class="btn btn-md font--bold btn-light-warning me-2" (click)="activateAccount(item)">Activate Account</button></li>
+                        </div>
                     </ul>
                 </div>
+                
+                
             </div>
         </div>
     </div>

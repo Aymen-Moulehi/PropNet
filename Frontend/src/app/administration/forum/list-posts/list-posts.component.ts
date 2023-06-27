@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/Post';
 import { PostService } from 'src/app/services/post.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-posts',
@@ -13,7 +14,7 @@ export class ListPostsComponent implements OnInit {
   currentPage: number = 1; // Page actuelle
   itemsPerPage: number = 10; // Nombre d'éléments par page
   ListPostsPending: any[] = [];
-
+  countPost:number = 0;
   ngOnInit(): void {
     this.fetchData()
 
@@ -21,32 +22,58 @@ export class ListPostsComponent implements OnInit {
 
 
 
-  deletePost(id:number){
-    if (confirm('Voulez vous vraiment supprime cette poste !!?')) {
-    this.apiService.deletePosts(id).subscribe({
-      next: () => {
-        this.fetchData(); 
-      },
-      error: (e) => console.error(e), 
-    }) 
+  deletePost(id: number) {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Do you really want to delete this post?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.apiService.deletePosts(id).subscribe({
+          next: () => {
+            Swal.fire('Deleted', 'The post has been deleted successfully', 'success');
+            this.fetchData();
+          },
+          error: (e) => {
+            console.error(e);
+            Swal.fire('Error', 'An error occurred while deleting the post', 'error');
+          }
+        });
+      }
+    });
   }
-  }
+  
 
 
   fetchData(): void {
     this.apiService.getPosts().subscribe(data => {
+      this.countPost = data.length
       console.log(data)
           this.ListPostsPending = data;
        });
       }
 
       updatePost(post: Post) {
-        if (confirm('Voulez vous vraiment de accepter cette poste !!?')) {
-          this.apiService.updatePosts(post).subscribe(updatedPost => {
-            this.fetchData()
-        })
-        }
-   };
+        Swal.fire({
+          title: 'Confirmation',
+          text: 'Do you really want to accept this post?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.apiService.updatePosts(post).subscribe(updatedPost => {
+              Swal.fire('Accepted', 'The post has been accepted successfully', 'success');
+              this.fetchData();
+            });
+          }
+        });
+      }
+      ;
       
       get totalPages(): number[] {
         return Array(Math.ceil(this.ListPostsPending.length / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
