@@ -25,6 +25,7 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPost;
     private String title;
+    @Column(length = 5000)
     private String content;
     private Date postDate;
     private String category = "";

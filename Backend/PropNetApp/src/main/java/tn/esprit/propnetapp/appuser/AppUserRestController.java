@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.appuser;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.propnetapp.post.Post;
 
@@ -14,7 +15,7 @@ import java.util.Map;
 public class AppUserRestController {
     IAppUserService appUserService;
     AppUserRepository appUserRepository;
-
+    AppUserServiceImpl userService;
 
     @PostMapping("/add-appUser")
     @CrossOrigin
@@ -67,6 +68,12 @@ public class AppUserRestController {
         return appUserService.getUsersByAddress(address);
     }
 
+
+    @GetMapping("/name/{name}/status/{status}")
+    public ResponseEntity<List<AppUser>> getUsersByNameAndStatus(@PathVariable("name") String name, @PathVariable("status") AccountStatus status) {
+        List<AppUser> users = userService.getUserByNameAndAccountStatus(name, status);
+        return ResponseEntity.ok(users);
+    }
 
 
 

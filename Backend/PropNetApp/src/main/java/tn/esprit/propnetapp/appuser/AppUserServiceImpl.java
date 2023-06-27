@@ -2,11 +2,13 @@ package tn.esprit.propnetapp.appuser;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import tn.esprit.propnetapp.post.Post;
+import tn.esprit.propnetapp.appuser.TemplateMail.UserAccountActive;
+import tn.esprit.propnetapp.appuser.TemplateMail.UserAccountDesactivate;
+import tn.esprit.propnetapp.features.email.EmailDetail;
+import tn.esprit.propnetapp.features.email.IEmailDetailService;
 
 import java.util.*;
 
@@ -18,6 +20,7 @@ import java.util.*;
 public class AppUserServiceImpl implements IAppUserService {
 
     AppUserRepository appUserRepository;
+    IEmailDetailService emailDetailService;
 
     @Override
     public AppUser addAppUser(AppUser appUser) {
@@ -82,6 +85,12 @@ public class AppUserServiceImpl implements IAppUserService {
     public void activateAccount(Integer idAppUser) {
         AppUser _appUser = appUserRepository.findById(idAppUser).get();
         _appUser.setAccountStatus(AccountStatus.ACTIVE);
+        UserAccountActive userAccountActive = new UserAccountActive();
+        EmailDetail details = new EmailDetail();
+        details.setSubject("Notification: Account Activate");
+        details.setMsgBody(userAccountActive.ContentMailToRecipient(_appUser.getName()));
+        details.setRecipient(_appUser.getEmail());
+        emailDetailService.sendMail(details);
         appUserRepository.save(_appUser);
     }
 
@@ -89,6 +98,12 @@ public class AppUserServiceImpl implements IAppUserService {
     public void deactivateAccount(Integer idAppUser) {
         AppUser _appUser = appUserRepository.findById(idAppUser).get();
         _appUser.setAccountStatus(AccountStatus.NOT_ACTIVE);
+        UserAccountDesactivate userAccountDesactivate = new UserAccountDesactivate();
+        EmailDetail details = new EmailDetail();
+        details.setSubject("Notification: Account Deactivation");
+        details.setMsgBody(userAccountDesactivate.ContentMailToRecipient(_appUser.getName()));
+        details.setRecipient(_appUser.getEmail());
+        emailDetailService.sendMail(details);
         appUserRepository.save(_appUser);
     }
 
@@ -96,6 +111,11 @@ public class AppUserServiceImpl implements IAppUserService {
     public List<AppUser> getUsersByAddress(String address) {
         return appUserRepository.findByAddress(address);
     }
+
+    public List<AppUser> getUserByNameAndAccountStatus(String name, AccountStatus accountStatus) {
+        return appUserRepository.findUsersByNameAndAccountStatus(name, accountStatus);
+    }
+
 
 
 }

@@ -51,10 +51,9 @@ public class AppUser implements Serializable {
     @Enumerated(EnumType.STRING)
     @JsonIgnore
     private Gender gender;
-    private byte[] picture;
+    private String picture;
     private String biography;
     @Enumerated(EnumType.STRING)
-    @JsonIgnore
     private AccountStatus accountStatus;
     @Enumerated(EnumType.STRING)
     @JsonIgnore

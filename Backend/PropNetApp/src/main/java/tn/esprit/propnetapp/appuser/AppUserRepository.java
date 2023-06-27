@@ -3,6 +3,7 @@ package tn.esprit.propnetapp.appuser;
 import org.hibernate.sql.Select;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -21,6 +22,13 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
     List<AppUser> getAllusers();
 
     List<AppUser> findByAddress(String address);
+
+    @Query("SELECT u FROM AppUser u WHERE u.Name LIKE %:name% AND u.accountStatus = :accountStatus")
+    List<AppUser> findUsersByNameAndAccountStatus(@Param("name") String name, @Param("accountStatus") AccountStatus accountStatus);
+
+
+    List<AppUser> findByAccountStatus(AccountStatus accountStatus);
+
 
 
 
