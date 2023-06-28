@@ -1,0 +1,555 @@
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java	(revision 1c3482e5b66c8cb70de52197f61ad836de7693a5)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java	(date 1686826341439)
+@@ -1,6 +1,7 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+ 
++import com.fasterxml.jackson.annotation.JsonIgnore;
+ import lombok.AllArgsConstructor;
+ import lombok.Getter;
+ import lombok.NoArgsConstructor;
+@@ -47,11 +48,24 @@
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Integer idRealEstateListing;
+     private String date;
+-    private Float price;
+     @Enumerated(EnumType.STRING)
+     private RealEstateStatus realEstateStatus;
++    @JsonIgnore
+     @ManyToOne
+     private AppUser appUser;
++    @JsonIgnore
+     @OneToOne
+     private Address address;
++    private Float price;
++    private Float area;
++    @Enumerated(EnumType.STRING)
++    private Operation operation;
++    private Boolean realEstateIsSold;
++    private Integer numberOfBedrooms;
++    @Enumerated(EnumType.STRING)
++    private PropertyType propertyType ;
++    private Boolean hasParking;
++    private Boolean hasGarden;
++    private Boolean hasBalcony;
++    private Boolean hasPool;
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java	(revision 1c3482e5b66c8cb70de52197f61ad836de7693a5)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java	(date 1686735377471)
+@@ -1,6 +1,7 @@
+ package tn.esprit.propnetapp.region;
+ 
+ 
++import com.fasterxml.jackson.annotation.JsonIgnore;
+ import lombok.AllArgsConstructor;
+ import lombok.Getter;
+ import lombok.NoArgsConstructor;
+@@ -32,8 +33,10 @@
+     private Float area;
+     private Float latitude;
+     private Float longitude;
++    @JsonIgnore
+     @ManyToOne
+     private Governorate governorate;
++    @JsonIgnore
+     @OneToMany(mappedBy = "region")
+     private Collection<Locality> localities;
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java
+new file mode 100644
+--- /dev/null	(date 1686778976283)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java	(date 1686778976283)
+@@ -0,0 +1,170 @@
++package tn.esprit.propnetapp.realestatellisting;
++
++import org.springframework.data.repository.query.Param;
++import org.springframework.stereotype.Component;
++
++import javax.persistence.EntityManager;
++import javax.persistence.PersistenceContext;
++import javax.persistence.TypedQuery;
++import java.util.List;
++@Component
++public class FilterRealEstateListing {
++    @PersistenceContext
++    private EntityManager entityManager;
++    public List<RealEstateListing> filterRealEstateListings(@Param("government") String government,
++                                                            @Param("region") String region,
++                                                            @Param("maxPrice") Float maxPrice,
++                                                            @Param("minArea") Float minArea,
++                                                            @Param("operation") Operation operation,
++                                                            @Param("numberOfBedrooms") Integer numberOfBedrooms) {
++        String queryStr = "SELECT a FROM RealEstateListing a " +
++                "JOIN a.address ad ";
++
++        if (government != null) {
++            queryStr += "JOIN ad.governorate gov ";
++            if (region != null) {
++                queryStr += "JOIN gov.regions r ";
++            }
++        }
++
++        if (operation != null) {
++            queryStr += "WHERE a.operation = :operation ";
++        }
++        if (government != null) {
++            queryStr += "AND gov.name = :government ";
++            if (region != null) {
++                queryStr += "AND r.name = :region ";
++            }
++        }
++        if (minArea != null) {
++            queryStr += "AND a.area >= :minArea ";
++        }
++        if (maxPrice != null) {
++            queryStr += "AND a.price <= :maxPrice ";
++        }
++        if (numberOfBedrooms != null) {
++            queryStr += "AND a.numberOfBedrooms = :numberOfBedrooms ";
++        }
++
++        queryStr += "AND a.realEstateStatus = 'APPROVED' ";
++        queryStr += "AND a.realEstateIsSold = false ";
++
++        TypedQuery<RealEstateListing> query = entityManager.createQuery(queryStr, RealEstateListing.class);
++        if (government != null) {
++            query.setParameter("government", government);
++        }
++        if (region != null) {
++            query.setParameter("region", region);
++        }
++        if (operation != null) {
++            query.setParameter("operation", operation);
++        }
++        if (minArea != null) {
++            query.setParameter("minArea", minArea);
++        }
++        if (maxPrice != null) {
++            query.setParameter("maxPrice", maxPrice);
++        }
++        if (numberOfBedrooms != null) {
++            query.setParameter("numberOfBedrooms", numberOfBedrooms);
++        }
++
++        return query.getResultList();
++    }
++    public List<RealEstateListing> advancedFilterAnnouncements(@Param("government") String government,
++                                                            @Param("region") String region,
++                                                            @Param("maxPrice") Float maxPrice,
++                                                            @Param("minArea") Float minArea,
++                                                            @Param("operation") Operation operation,
++                                                            @Param("numberOfBedrooms") Integer numberOfBedrooms,
++                                                               @Param("propertyType") PropertyType propertyType,
++                                                               @Param("hasBalcony") Boolean hasBalcony,
++                                                               @Param("hasGarden") Boolean hasGarden,
++                                                               @Param("hasParking") Boolean hasParking,
++                                                               @Param("hasPool") Boolean hasPool) {
++
++        String queryStr = "SELECT a FROM RealEstateListing a " +
++                "JOIN a.address ad ";
++
++        if (government != null) {
++            queryStr += "JOIN ad.governorate gov ";
++            if (region != null) {
++                queryStr += "JOIN gov.regions r ";
++            }
++        }
++
++        if (operation != null) {
++            queryStr += "WHERE a.operation = :operation ";
++        }
++        if (propertyType != null) {
++            queryStr += "AND a.propertyType = :propertyType ";
++        }
++        if (government != null) {
++            queryStr += "AND gov.name = :government ";
++            if (region != null) {
++                queryStr += "AND r.name = :region ";
++            }
++        }
++        if (minArea != null) {
++            queryStr += "AND a.area >= :minArea ";
++        }
++        if (maxPrice != null) {
++            queryStr += "AND a.price <= :maxPrice ";
++        }
++        if (numberOfBedrooms != null) {
++            queryStr += "AND a.numberOfBedrooms = :numberOfBedrooms ";
++        }
++        if (hasParking != null) {
++            queryStr += "AND a.hasParking = :hasParking ";
++        }
++        if (hasGarden != null) {
++            queryStr += "AND a.hasGarden = :hasGarden ";
++        }
++        if (hasPool != null) {
++            queryStr += "AND a.hasPool = :hasPool ";
++        }
++        if (hasBalcony != null) {
++            queryStr += "AND a.hasBalcony = :hasBalcony ";
++        }
++
++        queryStr += "AND a.realEstateStatus = 'APPROVED' ";
++        queryStr += "AND a.realEstateIsSold = false ";
++
++        TypedQuery<RealEstateListing> query = entityManager.createQuery(queryStr, RealEstateListing.class);
++        if (government != null) {
++            query.setParameter("government", government);
++        }
++        if (region != null) {
++            query.setParameter("region", region);
++        }
++        if (operation != null) {
++            query.setParameter("operation", operation);
++        }
++        if (minArea != null) {
++            query.setParameter("minArea", minArea);
++        }
++        if (maxPrice != null) {
++            query.setParameter("maxPrice", maxPrice);
++        }
++        if (numberOfBedrooms != null) {
++            query.setParameter("numberOfBedrooms", numberOfBedrooms);
++        }
++        if (propertyType != null) {
++            query.setParameter("propertyType", propertyType);
++        }
++        if (hasBalcony != null) {
++            query.setParameter("hasBalcony", hasBalcony);
++        }
++        if (hasParking != null) {
++            query.setParameter("hasParking", hasParking);
++        }
++        if (hasGarden != null) {
++            query.setParameter("hasGarden", hasGarden);
++        }
++        if (hasPool != null) {
++            query.setParameter("hasPool", hasPool);
++        }
++
++        return query.getResultList();
++    }
++}
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java	(revision 1c3482e5b66c8cb70de52197f61ad836de7693a5)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java	(date 1686735344772)
+@@ -1,6 +1,7 @@
+ package tn.esprit.propnetapp.governorate;
+ 
+ 
++import com.fasterxml.jackson.annotation.JsonIgnore;
+ import lombok.AllArgsConstructor;
+ import lombok.Getter;
+ import lombok.NoArgsConstructor;
+@@ -40,8 +41,10 @@
+     private String mayor;
+     private Float latitude;
+     private Float longitude;
++    @JsonIgnore
+     @OneToMany(mappedBy = "governorate")
+     private Collection<Address> addresses;
++    @JsonIgnore
+     @OneToMany(mappedBy = "governorate")
+     private Collection<Region> regions;
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java	(revision 1c3482e5b66c8cb70de52197f61ad836de7693a5)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java	(date 1686826341417)
+@@ -1,7 +1,8 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+ import org.springframework.data.jpa.repository.JpaRepository;
+-
++import org.springframework.stereotype.Repository;
++@Repository
+ public interface RealEstateListingRepository extends JpaRepository<RealEstateListing, Integer> {
+ 
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java
+new file mode 100644
+--- /dev/null	(date 1686778976301)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java	(date 1686778976301)
+@@ -0,0 +1,5 @@
++package tn.esprit.propnetapp.realestatellisting;
++
++public enum Operation {
++    VENTE, LOCATION
++}
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java	(revision 1c3482e5b66c8cb70de52197f61ad836de7693a5)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java	(date 1686778976251)
+@@ -1,16 +1,57 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+ import lombok.AllArgsConstructor;
++import lombok.extern.slf4j.Slf4j;
+ import org.springframework.web.bind.annotation.*;
+ 
++import java.util.List;
++
+ @RestController
+ @AllArgsConstructor
+ @RequestMapping("/realEstateListing")
++@Slf4j
+ public class RealEstateListingRestController {
+     IRealEstateListingService realEstateListingService;
++    FilterRealEstateListing filterRealEstateListing;
+ 
+     @PostMapping("/add-realEstateListing")
+     public RealEstateListing addRealEstateListingS(@RequestBody RealEstateListing realEstateListing) {
+         return realEstateListingService.addRealEstateListing(realEstateListing);
+     }
++
++    @GetMapping("/filter")
++    public List<RealEstateListing> filterAnnouncements(@RequestBody AllocationFilter filterDTO) {
++        // Convert AllocationFilterDTO to individual filter parameters
++        String government = filterDTO.getGovernment();
++        String region = filterDTO.getRegion();
++        Float maxPrice = filterDTO.getMaxPrice();
++        Float minArea = filterDTO.getArea();
++        Operation operation = filterDTO.getOperation();
++        Boolean realEstateIsSold = filterDTO.getRealEstateIsSold();
++        RealEstateStatus realEstateStatus = filterDTO.getRealEstateStatus();
++        Integer numberOfBedrooms = filterDTO.getNumberOfBedrooms();
++
++        // Use the filter parameters to query the repository
++        return filterRealEstateListing.filterRealEstateListings(government, region, maxPrice, minArea, operation,numberOfBedrooms);
++    }
++    @GetMapping("/advanced-filter")
++    public List<RealEstateListing> advancedFilterAnnouncements(@RequestBody AllocationFilter filterDTO) {
++        // Convert AllocationFilterDTO to individual filter parameters
++        String government = filterDTO.getGovernment();
++        String region = filterDTO.getRegion();
++        Float maxPrice = filterDTO.getMaxPrice();
++        Float minArea = filterDTO.getArea();
++        Operation operation = filterDTO.getOperation();
++        Boolean realEstateIsSold = filterDTO.getRealEstateIsSold();
++        RealEstateStatus realEstateStatus = filterDTO.getRealEstateStatus();
++        Integer numberOfBedrooms = filterDTO.getNumberOfBedrooms();
++        PropertyType propertyType = filterDTO.getPropertyType();
++        Boolean hasParking = filterDTO.getHasParking();
++        Boolean hasGarden = filterDTO.getHasGarden();
++        Boolean hasBalcony = filterDTO.getHasBalcony();
++        Boolean hasPool = filterDTO.getHasPool();
++
++        // Use the filter parameters to query the repository
++        return filterRealEstateListing.advancedFilterAnnouncements(government, region, maxPrice, minArea, operation,numberOfBedrooms, propertyType,hasBalcony,hasGarden,hasParking,hasPool);
++    }
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java
+new file mode 100644
+--- /dev/null	(date 1686778976261)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java	(date 1686778976261)
+@@ -0,0 +1,5 @@
++package tn.esprit.propnetapp.realestatellisting;
++
++public enum PropertyType {
++    MAISON, IMMEUBLE, STUDIO, APPARTEMENT, VILLA, DUPLEX
++}
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java
+new file mode 100644
+--- /dev/null	(date 1686778976270)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java	(date 1686778976270)
+@@ -0,0 +1,141 @@
++package tn.esprit.propnetapp.realestatellisting;
++
++public class AllocationFilter {
++
++    private String government;
++    private String region;
++    private Float maxPrice;
++    private Float area;
++    private Operation operation;
++    private Boolean realEstateIsSold;
++    private RealEstateStatus realEstateStatus;
++    private Integer numberOfBedrooms;
++    private PropertyType propertyType ;
++    private Boolean hasParking;
++    private Boolean hasGarden;
++    private Boolean hasBalcony;
++    private Boolean hasPool;
++
++
++
++    public AllocationFilter(String government, String region, Float maxPrice, Float area, Operation operation, Boolean realEstateIsSold, RealEstateStatus realEstateStatus, Integer numberOfBedrooms, PropertyType propertyType, Boolean hasParking, Boolean hasGarden, Boolean hasBalcony, Boolean hasPool) {
++        this.government = government;
++        this.region = region;
++        this.maxPrice = maxPrice;
++        this.area = area;
++        this.operation = operation;
++        this.realEstateIsSold = realEstateIsSold;
++        this.realEstateStatus = realEstateStatus;
++        this.numberOfBedrooms = numberOfBedrooms;
++        this.propertyType = propertyType;
++        this.hasParking = hasParking;
++        this.hasGarden = hasGarden;
++        this.hasBalcony = hasBalcony;
++        this.hasPool = hasPool;
++    }
++
++    public String getGovernment() {
++        return government;
++    }
++
++    public void setGovernment(String government) {
++        this.government = government;
++    }
++
++    public String getRegion() {
++        return region;
++    }
++
++    public void setRegion(String region) {
++        this.region = region;
++    }
++
++    public Float getMaxPrice() {
++        return maxPrice;
++    }
++
++    public void setMaxPrice(Float maxPrice) {
++        this.maxPrice = maxPrice;
++    }
++
++    public Float getArea() {
++        return area;
++    }
++
++    public void setArea(Float area) {
++        this.area = area;
++    }
++
++    public Boolean getRealEstateIsSold() {
++        return realEstateIsSold;
++    }
++
++    public void setRealEstateIsSold(Boolean realEstateIsSold) {
++        this.realEstateIsSold = realEstateIsSold;
++    }
++
++    public RealEstateStatus getRealEstateStatus() {
++        return realEstateStatus;
++    }
++
++    public void setRealEstateStatus(RealEstateStatus realEstateStatus) {
++        this.realEstateStatus = realEstateStatus;
++    }
++
++    public Integer getNumberOfBedrooms() {
++        return numberOfBedrooms;
++    }
++
++    public void setNumberOfBedrooms(Integer numberOfBedrooms) {
++        this.numberOfBedrooms = numberOfBedrooms;
++    }
++
++    public Operation getOperation() {
++        return operation;
++    }
++
++    public void setOperation(Operation operation) {
++        this.operation = operation;
++    }
++
++    public PropertyType getPropertyType() {
++        return propertyType;
++    }
++
++    public void setPropertyType(PropertyType propertyType) {
++        this.propertyType = propertyType;
++    }
++
++    public Boolean getHasParking() {
++        return hasParking;
++    }
++
++    public void setHasParking(Boolean hasParking) {
++        this.hasParking = hasParking;
++    }
++
++    public Boolean getHasGarden() {
++        return hasGarden;
++    }
++
++    public void setHasGarden(Boolean hasGarden) {
++        this.hasGarden = hasGarden;
++    }
++
++    public Boolean getHasBalcony() {
++        return hasBalcony;
++    }
++
++    public void setHasBalcony(Boolean hasBalcony) {
++        this.hasBalcony = hasBalcony;
++    }
++
++    public Boolean getHasPool() {
++        return hasPool;
++    }
++
++    public void setHasPool(Boolean hasPool) {
++        this.hasPool = hasPool;
++    }
++
++}
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java	(revision 1c3482e5b66c8cb70de52197f61ad836de7693a5)
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java	(date 1686826341428)
+@@ -3,5 +3,4 @@
+ import org.springframework.data.jpa.repository.JpaRepository;
+ 
+ public interface GovernorateRepository extends JpaRepository<Governorate, Long> {
+-
+ }

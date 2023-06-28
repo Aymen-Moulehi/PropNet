@@ -1,0 +1,1891 @@
+Index: Frontend/package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Frontend/package.json b/Frontend/package.json
+--- a/Frontend/package.json	
++++ b/Frontend/package.json	
+@@ -10,7 +10,6 @@
+   },
+   "private": true,
+   "dependencies": {
+-    "@agm/core": "^3.0.0-beta.0",
+     "@angular/animations": "~13.3.0",
+     "@angular/common": "~13.3.0",
+     "@angular/compiler": "~13.3.0",
+@@ -19,6 +18,7 @@
+     "@angular/platform-browser": "~13.3.0",
+     "@angular/platform-browser-dynamic": "~13.3.0",
+     "@angular/router": "~13.3.0",
++    "leaflet": "^1.9.4",
+     "rxjs": "~7.5.0",
+     "tslib": "^2.3.0",
+     "zone.js": "~0.11.4"
+@@ -28,6 +28,7 @@
+     "@angular/cli": "~13.3.0",
+     "@angular/compiler-cli": "~13.3.0",
+     "@types/jasmine": "~3.10.0",
++    "@types/leaflet": "^1.9.3",
+     "@types/node": "^12.11.1",
+     "jasmine-core": "~4.0.0",
+     "karma": "~6.3.0",
+Index: Frontend/src/app/accueil/accueil.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Frontend/src/app/accueil/accueil.component.ts b/Frontend/src/app/accueil/accueil.component.ts
+--- a/Frontend/src/app/accueil/accueil.component.ts	
++++ b/Frontend/src/app/accueil/accueil.component.ts	
+@@ -1,6 +1,8 @@
+ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+ import { Router } from '@angular/router';
+ import { Annonce } from '../models/Annonce';
++import { City } from '../models/City';
++import { Governorate } from '../models/Governorate';
+ import { FilterAnnonceService } from '../services/filter-annonce.service';
+ 
+ @Component({
+@@ -11,32 +13,34 @@
+ export class AccueilComponent implements OnInit {
+   annonces: Annonce[] = [];
+   annonce: Annonce = new Annonce(); 
++  city: City = new City();
++  governorate: Governorate= new Governorate();
+   @ViewChild('ids') ids!: ElementRef;
+   @ViewChild('gov') gov!: ElementRef;
+   @ViewChild('cit') cit!: ElementRef;
+   @ViewChild('nbed') nbed!: ElementRef;
+   @ViewChild('opType') opType!: ElementRef;
+   propertyType: string[];
+-  governorate: string[];
+-  city: string[];
++  govs: string[];
++  cities: string[];
+   nbedRooms: string[];
+   operationType: string[];
+   
+   constructor(private filterAnnonceService:FilterAnnonceService, private router: Router) {
+     this.propertyType = [
+-      "VILLA","APPARTMENT","MAISON","DUPLEX","STUDIO"
+-    ]
+-    this.governorate = [
+-      "Ariana", "Tunis", "Nabeul", "Hammamet", "Bizerte", "Sfax", "Sousse", "Monastir", "Djerba"
+-    ]
+-    this.city = [
+-      "Manar", "Soukra", "Aouina", "Borj Louzir", "Marsa", "Carthage", "Menzah"
++      "Choose Property Type","VILLA","APPARTMENT","MAISON","DUPLEX","STUDIO"
+     ]
+     this.nbedRooms = [
+-      "1", "2", "3", "4","5"
++      "Min Bedrooms","1", "2", "3", "4","5"
+     ]
+     this.operationType = [
+-      "SALE", "RENT"
++      "Choose Operation Type","SALE", "RENT"
++    ]
++    this.govs = [
++      "Choose government", "Ariana", "Tunis", "Nabeul", "Hammamet", "Bizerte", "Sfax", "Sousse", "Monastir", "Djerba"
++    ]
++    this.cities = [
++      "Choose city","Manar", "Bardo", "Aouina", "Borj Louzir", "Marsa", "Carthage", "Menzah1"
+     ]
+   }
+  
+@@ -53,12 +57,24 @@
+   
+   }
+   search(): void { 
+-    this.annonce.propertyType = this.ids.nativeElement.value
+-    this.annonce.city = this.cit.nativeElement.value
+-    this.annonce.governorate = this.gov.nativeElement.value
+-    this.annonce.numberOfBedrooms = this.nbed.nativeElement.value
+-    this.annonce.operation = this.opType.nativeElement.value
++    console.log(this.cit.nativeElement.value);
++    if(this.ids.nativeElement.value!="Choose Property Type"){
++    this.annonce.propertyType = this.ids.nativeElement.value}
++    if(this.cit.nativeElement.value!= "Choose city"){
++      this.city.name = this.cit.nativeElement.value}
++    console.log(this.city.name);
++    if(this.gov.nativeElement.value!="Choose government"){
++      this.governorate.name = this.gov.nativeElement.value}
++      if(this.nbed.nativeElement.value!="Min Bedrooms"){
++    this.annonce.numberOfBedrooms = this.nbed.nativeElement.value}
++    if(this.opType.nativeElement.value!="Choose Operation Type"){
++      this.annonce.operation = this.opType.nativeElement.value}
++    this.annonce.city= this.city;
++    this.annonce.governorate = this.governorate;
++    console.log(this.annonce);
++    console.log(this.annonce.price);
+     this.annonces = []
++   
+ 
+     this.filterAnnonceService.filterAnnonces(this.annonce).subscribe(
+       {
+@@ -72,11 +88,20 @@
+     )
+    }
+    onSelected(){
+-    console.log("Moataz");
++    console.log("Helloooooo");
++  }
++  map(){
++    console.log(this.annonce.price);
+   }
+-
++  isWithinThreeMonths(dateParam: Date): boolean {
++    const today = new Date();
++    const differenceInMonths = (today.getMonth() - dateParam.getMonth()) + (12 * (today.getFullYear() - dateParam.getFullYear()));
++  
++    return differenceInMonths < 3;
++  }
+ 
+   }
++
+ 
+  
+ 
+Index: Frontend/src/app/accueil/accueil.component.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Frontend/src/app/accueil/accueil.component.html b/Frontend/src/app/accueil/accueil.component.html
+--- a/Frontend/src/app/accueil/accueil.component.html	
++++ b/Frontend/src/app/accueil/accueil.component.html	
+@@ -43,16 +43,16 @@
+                                 <div class="col-lg-6 col-md-6 col-sm-6">
+                                     <div class="form-group">
+                                         <label>Operation Type</label>
+-                                        <select #opType (Change)="onSelected()" class="form-control">
+-                                            <option *ngFor="let op of operationType" value="{{op}}">{{op}}</option>
++                                        <select #opType (Change)="onSelected()" class="form-control" required>
++                                            <option *ngFor="let op of operationType"  value="{{op}}" placeholder="Operation Type">{{op}}</option>
+                                         </select>
+                                     </div>
+                                 </div>
+                                 <div class="col-lg-6 col-md-6 col-sm-6">
+                                     <div class="form-group">
+-                                        <label>Property Type</label>
++                                        <label>Property Types</label>
+                                         <select #ids (Change)="onSelected()" class="form-control">
+-                                            <option *ngFor="let prop of propertyType" value="{{prop}}">{{prop}}</option>
++                                            <option *ngFor="let prop of propertyType" value="{{prop}}" placeholder="Property Type">{{prop}}</option>
+                                         </select>
+                                     </div>
+                                 </div>
+@@ -60,8 +60,7 @@
+                                     <div class="form-group">
+                                         <label>Governorate</label>
+                                         <select #gov (Change)="onSelected()" class="form-control">
+-                                            <option *ngFor="let gover of governorate" value="{{gover}}">{{gover}}</option>
+-                
++                                            <option *ngFor="let gover of govs" value="{{gover}}" placeholder="Choose Governorate">{{gover}}</option>
+                                         </select>
+                                     </div>
+                                 </div>
+@@ -69,7 +68,7 @@
+                                     <div class="form-group">
+                                         <label>City</label>
+                                         <select #cit (Change)="onSelected()" class="form-control">
+-                                            <option *ngFor="let ct of city" value="{{ct}}">{{ct}}</option>
++                                            <option *ngFor="let ct of cities" value="{{ct}}" placeholder="Choose City">{{ct}}</option>
+                                         </select>
+                                     </div>
+                                 </div>
+@@ -131,10 +130,10 @@
+             <!-- Single Property -->
+             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let annonce of annonces">
+                 <div class="veshm-list-wraps">
+-                    <div class="veshm-type"><span>For {{annonce.operation}}</span></div>
++                    <div class="veshm-type" [ngClass]="{'fr-sale': annonce.operation === 'SALE'}"><span>For {{annonce.operation}}</span></div>
+ 
+                     <div class="veshm-list-thumb">
+-                        <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
++                        <button  type="button" class="compare-btn">View Details</button>
+                         <div class="veshm-list-img-slide">
+                             <div class="veshm-list-click">
+                                 <div><a href="single-property-1.html"><img src="assets/img/prt-1.png"
+@@ -143,49 +142,33 @@
+                         </div>
+                     </div>
+                     <div class="veshm-list-block">
++                        <div class="veshm-tags trending"><span><i class="fa-solid fa-star"></i>New</span></div>
+                         <div class="veshm-list-head">
+                             <div class="veshm-list-head-caption">
+                                 <div class="rlhc-price">
+-                                    <h4 class="rlhc-price-name theme-cl">{{annonce.price}}DT<span
+-                                            class="monthly">/Months</span></h4>
++                                    <h4 class="rlhc-price-name theme-cl">{{annonce.price}}DT<span *ngIf="annonce.operation ==='RENT'" class="monthly">/Months</span></h4>
+                                 </div>
+                                 <div class="listing-short-detail-flex">
+-                                    <h5 class="rlhc-title-name verified"><a href="single-property-1.html"
+-                                            class="prt-link-detail">{{annonce.title}}</a></h5>
+-                                </div>
+-                                <div class="veshm-list-icons">
+-                                    <ul>
+-                                        <li><i class="fa-solid fa-bed"></i><span>{{annonce.numberOfBedrooms}} Bed</span>
+-                                        </li>
+-                                        <li><i class="fa-solid fa-bath"></i><span>{{annonce.numberOfBathrooms}}
+-                                                Ba</span></li>
+-                                        <li><i class="fa-solid fa-vector-square"></i><span>{{annonce.area}} sft</span>
+-                                        </li>
+-                                    </ul>
++                                    <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">{{annonce.title}}</a></h5>
++                                    <div class="rlhc-prt-location"><img src="assets/img/pin.svg" width="16" class="me-1" alt="">&nbsp;{{annonce.governorate.name}}, {{annonce.city.name}}</div>
+                                 </div>
+                             </div>
+                             <div class="veshm-list-head-flex">
+-                                <button class="btn btn-like active" type="button"><i
+-                                        class="fa-solid fa-heart-circle-check"></i></button>
++                                <button class="btn btn-like" type="button"><i class="fa-sharp fa-solid fa-map-location-dot" [routerLink]="['/map', annonce.longitude, annonce.latitude]"></i></button>	
+                             </div>
+                         </div>
+-
+-                        <div class="resi-prty-offers-box">
+-                            <div class="prty-offers">
+-                                <div class="input-form">
+-                                    <i class="fa-solid fa-calendar-days"></i><span>&nbsp;{{annonce.date |
+-                                        date:'shortDate'}}</span><br>
+-                                    <i
+-                                        class="fa-solid fa-location-dot"></i><span>&nbsp;{{annonce.governorate}},{{annonce.city}}</span>
+-                                </div>
+-                            </div>
+-                            <div class="prty-offers-btn">
+-                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#offer"
+-                                    class="btn btn-offer-send">View details</a>
++                        
++                        <div class="veshm-list-footer">
++                            <div class="veshm-list-circls">
++                                <ul>
++                                    <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>{{annonce.numberOfBedrooms}} Bed</li>
++                                    <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>{{annonce.numberOfBathrooms}} Ba</li>
++                                    <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>{{annonce.area}} Sft</li>
++                                </ul>
+                             </div>
+                         </div>
+                     </div>
+-
++        
+                 </div>
+             </div>
+             <!-- End Single Property -->
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateServiceImpl.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateServiceImpl.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateServiceImpl.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateServiceImpl.java	
+@@ -33,12 +33,12 @@
+     }
+ 
+     @Override
+-    public Governorate retrieveGovernorate(Long idGovernorate) {
++    public Governorate retrieveGovernorate(Integer idGovernorate) {
+         return governorateRepository.findById(idGovernorate).get();
+     }
+ 
+     @Override
+-    public void deleteGovernorate(Long idGovernorate) {
++    public void deleteGovernorate(Integer idGovernorate) {
+         governorateRepository.deleteById(idGovernorate);
+     }
+ }
+\ No newline at end of file
+Index: Frontend/package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Frontend/package-lock.json b/Frontend/package-lock.json
+--- a/Frontend/package-lock.json	
++++ b/Frontend/package-lock.json	
+@@ -8,7 +8,6 @@
+       "name": "immobilier-projet",
+       "version": "0.0.0",
+       "dependencies": {
+-        "@agm/core": "^3.0.0-beta.0",
+         "@angular/animations": "~13.3.0",
+         "@angular/common": "~13.3.0",
+         "@angular/compiler": "~13.3.0",
+@@ -17,6 +16,7 @@
+         "@angular/platform-browser": "~13.3.0",
+         "@angular/platform-browser-dynamic": "~13.3.0",
+         "@angular/router": "~13.3.0",
++        "leaflet": "^1.9.4",
+         "rxjs": "~7.5.0",
+         "tslib": "^2.3.0",
+         "zone.js": "~0.11.4"
+@@ -26,6 +26,7 @@
+         "@angular/cli": "~13.3.0",
+         "@angular/compiler-cli": "~13.3.0",
+         "@types/jasmine": "~3.10.0",
++        "@types/leaflet": "^1.9.3",
+         "@types/node": "^12.11.1",
+         "jasmine-core": "~4.0.0",
+         "karma": "~6.3.0",
+@@ -36,19 +37,6 @@
+         "typescript": "~4.6.2"
+       }
+     },
+-    "node_modules/@agm/core": {
+-      "version": "3.0.0-beta.0",
+-      "resolved": "https://registry.npmjs.org/@agm/core/-/core-3.0.0-beta.0.tgz",
+-      "integrity": "sha512-KNmKbe89Nen7s7+mX63RgX88jBfajUZCFqkHIQ8Fd+Lf/ko/IY6yw4kPh0iYGxgPVPjpsHJ06GZ5m3ZxpEVX9A==",
+-      "dependencies": {
+-        "tslib": "^2.0.0"
+-      },
+-      "peerDependencies": {
+-        "@angular/common": "^9.1.0 || ^10.0.0",
+-        "@angular/core": "^9.1.0 || ^10.0.0",
+-        "@types/googlemaps": "^3.39.8"
+-      }
+-    },
+     "node_modules/@ampproject/remapping": {
+       "version": "2.2.0",
+       "resolved": "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz",
+@@ -2923,6 +2911,12 @@
+         "@types/send": "*"
+       }
+     },
++    "node_modules/@types/geojson": {
++      "version": "7946.0.10",
++      "resolved": "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.10.tgz",
++      "integrity": "sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==",
++      "dev": true
++    },
+     "node_modules/@types/http-proxy": {
+       "version": "1.17.11",
+       "resolved": "https://registry.npmjs.org/@types/http-proxy/-/http-proxy-1.17.11.tgz",
+@@ -2944,6 +2938,15 @@
+       "integrity": "sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==",
+       "dev": true
+     },
++    "node_modules/@types/leaflet": {
++      "version": "1.9.3",
++      "resolved": "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.9.3.tgz",
++      "integrity": "sha512-Caa1lYOgKVqDkDZVWkto2Z5JtVo09spEaUt2S69LiugbBpoqQu92HYFMGUbYezZbnBkyOxMNPXHSgRrRY5UyIA==",
++      "dev": true,
++      "dependencies": {
++        "@types/geojson": "*"
++      }
++    },
+     "node_modules/@types/mime": {
+       "version": "1.3.2",
+       "resolved": "https://registry.npmjs.org/@types/mime/-/mime-1.3.2.tgz",
+@@ -7520,6 +7523,11 @@
+         "node": ">= 8"
+       }
+     },
++    "node_modules/leaflet": {
++      "version": "1.9.4",
++      "resolved": "https://registry.npmjs.org/leaflet/-/leaflet-1.9.4.tgz",
++      "integrity": "sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA=="
++    },
+     "node_modules/less": {
+       "version": "4.1.2",
+       "resolved": "https://registry.npmjs.org/less/-/less-4.1.2.tgz",
+@@ -12155,14 +12163,6 @@
+     }
+   },
+   "dependencies": {
+-    "@agm/core": {
+-      "version": "3.0.0-beta.0",
+-      "resolved": "https://registry.npmjs.org/@agm/core/-/core-3.0.0-beta.0.tgz",
+-      "integrity": "sha512-KNmKbe89Nen7s7+mX63RgX88jBfajUZCFqkHIQ8Fd+Lf/ko/IY6yw4kPh0iYGxgPVPjpsHJ06GZ5m3ZxpEVX9A==",
+-      "requires": {
+-        "tslib": "^2.0.0"
+-      }
+-    },
+     "@ampproject/remapping": {
+       "version": "2.2.0",
+       "resolved": "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz",
+@@ -13910,7 +13910,8 @@
+       "version": "2.2.0",
+       "resolved": "https://registry.npmjs.org/@csstools/selector-specificity/-/selector-specificity-2.2.0.tgz",
+       "integrity": "sha512-+OJ9konv95ClSTOJCmMZqpd5+YGsB2S+x6w3E1oaM8UuR5j8nTNHYSz8c9BEPGDOCMQYIEEGlVPj/VY64iTbGw==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "@discoveryjs/json-ext": {
+       "version": "0.5.6",
+@@ -14016,7 +14017,8 @@
+       "version": "13.3.11",
+       "resolved": "https://registry.npmjs.org/@ngtools/webpack/-/webpack-13.3.11.tgz",
+       "integrity": "sha512-gB33hTbc/RJmHyIgSUYj8ErPazhYYm7yfapOnvwHdYhCjrj1TKkR1ierOlhJtpfBYUQg6FChdl2YpyIQNPjWMA==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "@nodelib/fs.scandir": {
+       "version": "2.1.5",
+@@ -14269,6 +14271,12 @@
+         "@types/send": "*"
+       }
+     },
++    "@types/geojson": {
++      "version": "7946.0.10",
++      "resolved": "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.10.tgz",
++      "integrity": "sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==",
++      "dev": true
++    },
+     "@types/http-proxy": {
+       "version": "1.17.11",
+       "resolved": "https://registry.npmjs.org/@types/http-proxy/-/http-proxy-1.17.11.tgz",
+@@ -14290,6 +14298,15 @@
+       "integrity": "sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==",
+       "dev": true
+     },
++    "@types/leaflet": {
++      "version": "1.9.3",
++      "resolved": "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.9.3.tgz",
++      "integrity": "sha512-Caa1lYOgKVqDkDZVWkto2Z5JtVo09spEaUt2S69LiugbBpoqQu92HYFMGUbYezZbnBkyOxMNPXHSgRrRY5UyIA==",
++      "dev": true,
++      "requires": {
++        "@types/geojson": "*"
++      }
++    },
+     "@types/mime": {
+       "version": "1.3.2",
+       "resolved": "https://registry.npmjs.org/@types/mime/-/mime-1.3.2.tgz",
+@@ -14569,7 +14586,8 @@
+       "version": "1.9.0",
+       "resolved": "https://registry.npmjs.org/acorn-import-assertions/-/acorn-import-assertions-1.9.0.tgz",
+       "integrity": "sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "adjust-sourcemap-loader": {
+       "version": "4.0.0",
+@@ -15131,7 +15149,8 @@
+       "version": "5.2.2",
+       "resolved": "https://registry.npmjs.org/circular-dependency-plugin/-/circular-dependency-plugin-5.2.2.tgz",
+       "integrity": "sha512-g38K9Cm5WRwlaH6g03B9OEz/0qRizI+2I7n+Gz+L5DxXJAPAiWQvwlYNm1V1jkdpUv95bOe/ASm2vfi/G560jQ==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "clean-stack": {
+       "version": "2.2.0",
+@@ -15594,7 +15613,8 @@
+       "version": "6.0.3",
+       "resolved": "https://registry.npmjs.org/css-prefers-color-scheme/-/css-prefers-color-scheme-6.0.3.tgz",
+       "integrity": "sha512-4BqMbZksRkJQx2zAjrokiGMd07RqOa2IxIrrN10lyBe9xhn9DEvjUK79J6jkeiv9D9hQFXKb6g1jwU62jziJZA==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "css-select": {
+       "version": "4.3.0",
+@@ -16996,7 +17016,8 @@
+       "version": "5.1.0",
+       "resolved": "https://registry.npmjs.org/icss-utils/-/icss-utils-5.1.0.tgz",
+       "integrity": "sha512-soFhflCVWLfRNOPU3iv5Z9VUdT44xFRbzjLsEzSr5AQmgqPMTHdU3PMT1Cf1ssx8fLNJDA1juftYl+PUcv3MqA==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "ieee754": {
+       "version": "1.2.1",
+@@ -17684,7 +17705,8 @@
+       "version": "1.7.0",
+       "resolved": "https://registry.npmjs.org/karma-jasmine-html-reporter/-/karma-jasmine-html-reporter-1.7.0.tgz",
+       "integrity": "sha512-pzum1TL7j90DTE86eFt48/s12hqwQuiD+e5aXx2Dc9wDEn2LfGq6RoAxEZZjFiN0RDSCOnosEKRZWxbQ+iMpQQ==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "karma-source-map-support": {
+       "version": "1.4.0",
+@@ -17707,6 +17729,11 @@
+       "integrity": "sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==",
+       "dev": true
+     },
++    "leaflet": {
++      "version": "1.9.4",
++      "resolved": "https://registry.npmjs.org/leaflet/-/leaflet-1.9.4.tgz",
++      "integrity": "sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA=="
++    },
+     "less": {
+       "version": "4.1.2",
+       "resolved": "https://registry.npmjs.org/less/-/less-4.1.2.tgz",
+@@ -19174,13 +19201,15 @@
+       "version": "5.0.0",
+       "resolved": "https://registry.npmjs.org/postcss-font-variant/-/postcss-font-variant-5.0.0.tgz",
+       "integrity": "sha512-1fmkBaCALD72CK2a9i468mA/+tr9/1cBxRRMXOUaZqO43oWPR5imcyPjXwuv7PXbCid4ndlP5zWhidQVVa3hmA==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "postcss-gap-properties": {
+       "version": "3.0.5",
+       "resolved": "https://registry.npmjs.org/postcss-gap-properties/-/postcss-gap-properties-3.0.5.tgz",
+       "integrity": "sha512-IuE6gKSdoUNcvkGIqdtjtcMtZIFyXZhmFd5RUlg97iVEvp1BZKV5ngsAjCjrVy+14uhGBQl9tzmi1Qwq4kqVOg==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "postcss-image-set-function": {
+       "version": "4.0.7",
+@@ -19206,7 +19235,8 @@
+       "version": "4.0.1",
+       "resolved": "https://registry.npmjs.org/postcss-initial/-/postcss-initial-4.0.1.tgz",
+       "integrity": "sha512-0ueD7rPqX8Pn1xJIjay0AZeIuDoF+V+VvMt/uOnn+4ezUKhZM/NokDeP6DwMNyIoYByuN/94IQnt5FEkaN59xQ==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "postcss-lab-function": {
+       "version": "4.2.1",
+@@ -19233,19 +19263,22 @@
+       "version": "5.0.4",
+       "resolved": "https://registry.npmjs.org/postcss-logical/-/postcss-logical-5.0.4.tgz",
+       "integrity": "sha512-RHXxplCeLh9VjinvMrZONq7im4wjWGlRJAqmAVLXyZaXwfDWP73/oq4NdIp+OZwhQUMj0zjqDfM5Fj7qby+B4g==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "postcss-media-minmax": {
+       "version": "5.0.0",
+       "resolved": "https://registry.npmjs.org/postcss-media-minmax/-/postcss-media-minmax-5.0.0.tgz",
+       "integrity": "sha512-yDUvFf9QdFZTuCUg0g0uNSHVlJ5X1lSzDZjPSFaiCWvjgsvu8vEVxtahPrLMinIDEEGnx6cBe6iqdx5YWz08wQ==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "postcss-modules-extract-imports": {
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/postcss-modules-extract-imports/-/postcss-modules-extract-imports-3.0.0.tgz",
+       "integrity": "sha512-bdHleFnP3kZ4NYDhuGlVK+CMrQ/pqUm8bx/oGL93K6gVwiclvX5x0n76fYMKuIGKzlABOy13zsvqjb0f92TEXw==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "postcss-modules-local-by-default": {
+       "version": "4.0.0",
+@@ -19299,7 +19332,8 @@
+       "version": "3.0.4",
+       "resolved": "https://registry.npmjs.org/postcss-page-break/-/postcss-page-break-3.0.4.tgz",
+       "integrity": "sha512-1JGu8oCjVXLa9q9rFTo4MbeeA5FMe00/9C7lN4va606Rdb+HkxXtXsmEDrIraQ11fGz/WvKWa8gMuCKkrXpTsQ==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "postcss-place": {
+       "version": "7.0.5",
+@@ -19364,7 +19398,8 @@
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/postcss-replace-overflow-wrap/-/postcss-replace-overflow-wrap-4.0.0.tgz",
+       "integrity": "sha512-KmF7SBPphT4gPPcKZc7aDkweHiKEEO8cla/GjcBK+ckKxiZslIu3C4GCRW3DNfL0o7yW7kMQu9xlZ1kXRXLXtw==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "postcss-selector-not": {
+       "version": "5.0.0",
+@@ -19814,7 +19849,8 @@
+           "version": "3.5.2",
+           "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-3.5.2.tgz",
+           "integrity": "sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==",
+-          "dev": true
++          "dev": true,
++          "requires": {}
+         },
+         "json-schema-traverse": {
+           "version": "0.4.1",
+@@ -20430,7 +20466,8 @@
+           "version": "3.5.2",
+           "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-3.5.2.tgz",
+           "integrity": "sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==",
+-          "dev": true
++          "dev": true,
++          "requires": {}
+         },
+         "json-schema-traverse": {
+           "version": "0.4.1",
+@@ -20759,7 +20796,8 @@
+           "version": "3.5.2",
+           "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-3.5.2.tgz",
+           "integrity": "sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==",
+-          "dev": true
++          "dev": true,
++          "requires": {}
+         },
+         "json-schema-traverse": {
+           "version": "0.4.1",
+@@ -20986,7 +21024,8 @@
+       "version": "8.11.0",
+       "resolved": "https://registry.npmjs.org/ws/-/ws-8.11.0.tgz",
+       "integrity": "sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==",
+-      "dev": true
++      "dev": true,
++      "requires": {}
+     },
+     "y18n": {
+       "version": "5.0.8",
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/Governorate.java	
+@@ -1,12 +1,14 @@
+ package tn.esprit.propnetapp.governorate;
+ 
+ 
++import com.fasterxml.jackson.annotation.JsonIgnore;
+ import lombok.AllArgsConstructor;
+ import lombok.Getter;
+ import lombok.NoArgsConstructor;
+ import lombok.Setter;
+ import tn.esprit.propnetapp.address.Address;
+-import tn.esprit.propnetapp.region.Region;
++import tn.esprit.propnetapp.city.City;
++import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
+ 
+ import javax.persistence.*;
+ import java.io.Serializable;
+@@ -31,7 +33,7 @@
+      */
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+-    private Long idGovernorate;
++    private Integer idGovernorate;
+     private String name;
+     private String country;
+     private Integer population;
+@@ -40,8 +42,13 @@
+     private String mayor;
+     private Float latitude;
+     private Float longitude;
++    @JsonIgnore
+     @OneToMany(mappedBy = "governorate")
+     private Collection<Address> addresses;
++    @JsonIgnore
+     @OneToMany(mappedBy = "governorate")
+-    private Collection<Region> regions;
++    private Collection<City> cities;
++    @JsonIgnore
++    @OneToMany(mappedBy = "governorate")
++    private Collection<RealEstateListing> realEstateListings;
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRepository.java	
+@@ -2,6 +2,5 @@
+ 
+ import org.springframework.data.jpa.repository.JpaRepository;
+ 
+-public interface GovernorateRepository extends JpaRepository<Governorate, Long> {
+-
++public interface GovernorateRepository extends JpaRepository<Governorate, Integer> {
+ }
+Index: Frontend/angular.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Frontend/angular.json b/Frontend/angular.json
+--- a/Frontend/angular.json	
++++ b/Frontend/angular.json	
+@@ -27,6 +27,7 @@
+               "src/assets"
+             ],
+             "styles": [
++              "./node_modules/leaflet/dist/leaflet.css",
+               "src/styles.css"
+             ],
+             "scripts": []
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRestController.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRestController.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRestController.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/governorate/GovernorateRestController.java	
+@@ -20,11 +20,11 @@
+         return governorateService.retrieveAllGovernorates();
+     }
+     @GetMapping("/retrieve-governorate/{governorate-id}")
+-    public Governorate retrieveGovernorate(@PathVariable("governorate-id") Long governorateId) {
++    public Governorate retrieveGovernorate(@PathVariable("governorate-id") Integer governorateId) {
+         return governorateService.retrieveGovernorate(governorateId);
+     }
+     @DeleteMapping("/remove-governorate/{governorate-id}")
+-    public void removeGovernorate(@PathVariable("governorate-id") Long governorateId) {
++    public void removeGovernorate(@PathVariable("governorate-id") Integer governorateId) {
+         governorateService.deleteGovernorate(governorateId);
+     }
+     @PutMapping("/update-governorate")
+Index: Backend/PropNetApp/src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/resources/application.properties b/Backend/PropNetApp/src/main/resources/application.properties
+--- a/Backend/PropNetApp/src/main/resources/application.properties	
++++ b/Backend/PropNetApp/src/main/resources/application.properties	
+@@ -5,6 +5,6 @@
+ server.servlet.context-path=/app
+ spring.mvc.format.date= yyyy-MM-dd
+ ### JPA / HIBERNATE ###
+-spring.jpa.show-sql=true
+-spring.jpa.hibernate.ddl-auto=create
++spring.jpa.show-sql= true
++spring.jpa.hibernate.ddl-auto= update
+ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListing.java	
+@@ -1,15 +1,21 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+ 
++import com.fasterxml.jackson.annotation.JsonIgnore;
+ import lombok.AllArgsConstructor;
+ import lombok.Getter;
+ import lombok.NoArgsConstructor;
+ import lombok.Setter;
+ import tn.esprit.propnetapp.address.Address;
+ import tn.esprit.propnetapp.appuser.AppUser;
++import tn.esprit.propnetapp.city.City;
++import tn.esprit.propnetapp.features.image.Image;
++import tn.esprit.propnetapp.governorate.Governorate;
+ 
+ import javax.persistence.*;
+ import java.io.Serializable;
++import java.util.Collection;
++import java.util.Date;
+ 
+ @Entity
+ @Getter
+@@ -46,12 +52,42 @@
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Integer idRealEstateListing;
+-    private String date;
+-    private Float price;
++    private String Title;
++    private Date creationDate;
++    private String location;
+     @Enumerated(EnumType.STRING)
+     private RealEstateStatus realEstateStatus;
++    @JsonIgnore
+     @ManyToOne
+     private AppUser appUser;
++    @JsonIgnore
+     @OneToOne
+     private Address address;
++    private Float price;
++    private Float area;
++    @Enumerated(EnumType.STRING)
++    private Operation operation;
++    private Boolean realEstateIsSold;
++    private Integer numberOfBedrooms;
++    private Integer numberOfBathrooms;
++    @Enumerated(EnumType.STRING)
++    private PropertyType propertyType ;
++    private Boolean hasParking;
++    private Boolean hasGarden;
++    private Boolean hasBalcony;
++    private Boolean hasPool;
++    private Boolean isFurnished;
++    private Boolean hasSecurity;
++    @ManyToOne
++    private Governorate governorate;
++    private Float Latitude;
++    private Float Longitude;
++    private Integer builtYear;
++    private Integer floorNumber;
++    @ManyToOne
++    private City city;
++    @OneToMany(mappedBy = "realEstateListing")
++    private Collection<Image> images;
++
++
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRepository.java	
+@@ -1,7 +1,8 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+ import org.springframework.data.jpa.repository.JpaRepository;
+-
++import org.springframework.stereotype.Repository;
++@Repository
+ public interface RealEstateListingRepository extends JpaRepository<RealEstateListing, Integer> {
+ 
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingServiceImpl.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingServiceImpl.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingServiceImpl.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingServiceImpl.java	
+@@ -6,6 +6,8 @@
+ import org.springframework.stereotype.Component;
+ import org.springframework.stereotype.Service;
+ 
++import java.util.List;
++
+ @Service
+ @AllArgsConstructor
+ @Aspect
+@@ -19,4 +21,9 @@
+     public RealEstateListing addRealEstateListing(RealEstateListing realEstateListing) {
+         return realEstateListingRepository.save(realEstateListing);
+     }
++
++    @Override
++    public List<RealEstateListing> retrieveAllRealEstateListings() {
++        return realEstateListingRepository.findAll();
++    }
+ }
+\ No newline at end of file
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/features/image/Image.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/features/image/Image.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/features/image/Image.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/features/image/Image.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/features/image/Image.java	
+@@ -2,6 +2,7 @@
+ 
+ 
+ import lombok.*;
++import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
+ 
+ import javax.persistence.*;
+ import java.io.Serializable;
+@@ -22,4 +23,6 @@
+     private String imageType;
+     @Column(length = 100000)
+     private byte[] imageContent;
++    @ManyToOne
++    RealEstateListing realEstateListing;
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/RealEstateListingRestController.java	
+@@ -1,16 +1,82 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+ import lombok.AllArgsConstructor;
++import lombok.extern.slf4j.Slf4j;
+ import org.springframework.web.bind.annotation.*;
+ 
++import java.util.ArrayList;
++import java.util.List;
++
+ @RestController
+ @AllArgsConstructor
+ @RequestMapping("/realEstateListing")
++@Slf4j
+ public class RealEstateListingRestController {
+     IRealEstateListingService realEstateListingService;
++    FilterRealEstateListing filterRealEstateListing;
+ 
+     @PostMapping("/add-realEstateListing")
++    @CrossOrigin
+     public RealEstateListing addRealEstateListingS(@RequestBody RealEstateListing realEstateListing) {
+         return realEstateListingService.addRealEstateListing(realEstateListing);
+     }
++    @GetMapping("retrieve-all-RealEstateListings")
++    @CrossOrigin
++    public List<RealEstateListing> retrieveAllRealEstateListings(){
++        return realEstateListingService.retrieveAllRealEstateListings();
++    }
++
++/*    @PostMapping("/filter")
++    @CrossOrigin
++    public List<RealEstateListing> filterAnnouncements(@RequestBody AllocationFilter filterDTO) {
++        // Convert AllocationFilterDTO to individual filter parameters
++        String government = filterDTO.getgovernorate();
++        String region = filterDTO.getCity();
++        Float maxPrice = filterDTO.getMaxPrice();
++        PropertyType propertyType = filterDTO.getPropertyType();
++        Operation operation = filterDTO.getOperation();
++        Boolean realEstateIsSold = filterDTO.getRealEstateIsSold();
++        RealEstateStatus realEstateStatus = filterDTO.getRealEstateStatus();
++        Integer numberOfBedrooms = filterDTO.getNumberOfBedrooms();
++        log.info(filterDTO.getgovernorate());
++        log.info(filterDTO.getMaxPrice().toString());
++        log.info(filterDTO.getOperation().toString());
++        log.info(filterDTO.getPropertyType().toString());
++        log.info(filterDTO.getCity());
++        // Use the filter parameters to query the repository
++        return filterRealEstateListing.filterRealEstateListings(government, region, maxPrice, propertyType, operation,numberOfBedrooms);
++    }*/
++    @PostMapping("/advanced-filter")
++    @CrossOrigin
++    public List<RealEstateListing> advancedFilterAnnouncements(@RequestBody AllocationFilter filterDTO) {
++        // Convert AllocationFilterDTO to individual filter parameters
++        String governorate = filterDTO.getGovernorate().getName();
++        String city = filterDTO.getCity().getName();
++        Float maxPrice = filterDTO.getMaxPrice();
++        Float minArea = filterDTO.getMinArea();
++        Operation operation = filterDTO.getOperation();
++        Boolean realEstateIsSold = filterDTO.getRealEstateIsSold();
++        RealEstateStatus realEstateStatus = filterDTO.getRealEstateStatus();
++        Integer numberOfBedrooms = filterDTO.getNumberOfBedrooms();
++        Integer numberOfBathrooms = filterDTO.getNumberOfBathrooms();
++        PropertyType propertyType = filterDTO.getPropertyType();
++        Boolean hasParking = filterDTO.getHasParking();
++        Boolean hasGarden = filterDTO.getHasGarden();
++        Boolean hasBalcony = filterDTO.getHasBalcony();
++        Boolean hasPool = filterDTO.getHasPool();
++        Boolean isFurnished = filterDTO.getFurnished();
++        Boolean hasSecurity = filterDTO.getHasSecurity();
++        Integer builtYear = filterDTO.getBuiltYear();
++        Integer floorNumber = filterDTO.getFloorNumber();
++        String orderBy = filterDTO.getOrderBy();
++
++        log.info(filterDTO.getCity().getName());
++        log.info(filterDTO.getGovernorate().getName());
++        System.out.println(filterDTO.getMaxPrice());
++        log.info(filterDTO.getOrderBy());
++        log.info(filterRealEstateListing.advancedFilterAnnouncements(governorate, city, maxPrice, minArea, operation, numberOfBedrooms, numberOfBathrooms, propertyType, hasBalcony, hasGarden, hasParking, hasPool, hasSecurity, isFurnished, builtYear, floorNumber, orderBy).toString());
++
++        // Use the filter parameters to query the repository
++        return filterRealEstateListing.advancedFilterAnnouncements(governorate, city, maxPrice, minArea, operation, numberOfBedrooms, numberOfBathrooms, propertyType, hasBalcony, hasGarden, hasParking, hasPool, hasSecurity, isFurnished, builtYear, floorNumber, orderBy);
++    }
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/IRealEstateListingService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/IRealEstateListingService.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/IRealEstateListingService.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/IRealEstateListingService.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/IRealEstateListingService.java	
+@@ -1,5 +1,8 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
++import java.util.List;
++
+ public interface IRealEstateListingService {
+     RealEstateListing addRealEstateListing(RealEstateListing realEstateListing);
++    List<RealEstateListing> retrieveAllRealEstateListings();
+ }
+\ No newline at end of file
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionRepository.java
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionRepository.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityRepository.java
+rename from Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionRepository.java
+rename to Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityRepository.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionRepository.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityRepository.java	
+@@ -1,7 +1,7 @@
+-package tn.esprit.propnetapp.region;
++package tn.esprit.propnetapp.city;
+ 
+ import org.springframework.data.jpa.repository.JpaRepository;
+ 
+-public interface RegionRepository extends JpaRepository<Region, Long> {
++public interface CityRepository extends JpaRepository<City, Integer> {
+ 
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionServiceImpl.java
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionServiceImpl.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityServiceImpl.java
+rename from Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionServiceImpl.java
+rename to Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityServiceImpl.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionServiceImpl.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityServiceImpl.java	
+@@ -1,4 +1,4 @@
+-package tn.esprit.propnetapp.region;
++package tn.esprit.propnetapp.city;
+ 
+ import lombok.AllArgsConstructor;
+ import lombok.extern.slf4j.Slf4j;
+@@ -13,33 +13,33 @@
+ @Aspect
+ @Component
+ @Slf4j
+-public class RegionServiceImpl implements IRegionService {
++public class CityServiceImpl implements ICityService {
+ 
+-    RegionRepository regionRepository;
++    CityRepository cityRepository;
+ 
+     @Override
+-    public Region addRegion(Region region) {
+-        return regionRepository.save(region);
++    public City addRegion(City city) {
++        return cityRepository.save(city);
+     }
+ 
+     @Override
+-    public List<Region> retrieveAllRegions() {
+-        return regionRepository.findAll();
++    public List<City> retrieveAllRegions() {
++        return cityRepository.findAll();
+     }
+ 
+     @Override
+-    public Region updateRegion(Region region) {
+-        return regionRepository.save(region);
++    public City updateRegion(City city) {
++        return cityRepository.save(city);
+     }
+ 
+     @Override
+-    public Region retrieveRegion(Long idRegion) {
+-        return regionRepository.findById(idRegion).get();
++    public City retrieveRegion(Integer idRegion) {
++        return cityRepository.findById(idRegion).get();
+     }
+ 
+     @Override
+-    public void deleteRegion(Long idRegion) {
+-        regionRepository.deleteById(idRegion);
++    public void deleteRegion(Integer idRegion) {
++        cityRepository.deleteById(idRegion);
+ 
+     }
+ }
+\ No newline at end of file
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/City.java
+rename from Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java
+rename to Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/City.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/Region.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/City.java	
+@@ -1,12 +1,13 @@
+-package tn.esprit.propnetapp.region;
++package tn.esprit.propnetapp.city;
+ 
+ 
++import com.fasterxml.jackson.annotation.JsonIgnore;
+ import lombok.AllArgsConstructor;
+ import lombok.Getter;
+ import lombok.NoArgsConstructor;
+ import lombok.Setter;
+ import tn.esprit.propnetapp.governorate.Governorate;
+-import tn.esprit.propnetapp.locality.Locality;
++import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
+ 
+ import javax.persistence.*;
+ import java.io.Serializable;
+@@ -17,23 +18,17 @@
+ @Setter
+ @AllArgsConstructor
+ @NoArgsConstructor
+-public class Region implements Serializable {
+-    /**
+-     * ID: Long
+-     * Name: String
+-     * Area: Float
+-     * Latitude: Float
+-     * Longitude: Float
+-     */
++public class City implements Serializable {
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+-    private Long idRegion;
++    private Integer idRegion;
+     private String name;
+     private Float area;
+     private Float latitude;
+     private Float longitude;
+     @ManyToOne
+     private Governorate governorate;
+-    @OneToMany(mappedBy = "region")
+-    private Collection<Locality> localities;
++    @JsonIgnore
++    @OneToMany(mappedBy = "city")
++    private Collection<RealEstateListing> realEstateListings;
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionRestController.java
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionRestController.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityRestController.java
+rename from Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionRestController.java
+rename to Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityRestController.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/RegionRestController.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/CityRestController.java	
+@@ -1,4 +1,4 @@
+-package tn.esprit.propnetapp.region;
++package tn.esprit.propnetapp.city;
+ 
+ import lombok.AllArgsConstructor;
+ import org.springframework.web.bind.annotation.*;
+@@ -8,27 +8,27 @@
+ @RestController
+ @AllArgsConstructor
+ @RequestMapping("/region")
+-public class RegionRestController {
+-    IRegionService regionService;
++public class CityRestController {
++    ICityService regionService;
+ 
+     @PostMapping("/add-region")
+-    public Region addRegion(@RequestBody Region region) {
+-        return regionService.addRegion(region);
++    public City addRegion(@RequestBody City city) {
++        return regionService.addRegion(city);
+     }
+     @GetMapping("/retrieve-all-regions")
+-    public List<Region> getAllRegions() {
++    public List<City> getAllRegions() {
+         return regionService.retrieveAllRegions();
+     }
+     @GetMapping("/retrieve-region/{region-id}")
+-    public Region retrieveRegion(@PathVariable("region-id") Long regionId) {
++    public City retrieveRegion(@PathVariable("region-id") Integer regionId) {
+         return regionService.retrieveRegion(regionId);
+     }
+     @DeleteMapping("/remove-region/{region-id}")
+-    public void removeRegion(@PathVariable("region-id") Long regionId) {
++    public void removeRegion(@PathVariable("region-id") Integer regionId) {
+         regionService.deleteRegion(regionId);
+     }
+     @PutMapping("/update-region")
+-    public Region updateRegion(@RequestBody Region region) {
+-        return regionService.updateRegion(region);
++    public City updateRegion(@RequestBody City city) {
++        return regionService.updateRegion(city);
+     }
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/ClaimRestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/ClaimRestController.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/ClaimRestController.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/ClaimRestController.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/ClaimRestController.java	
+@@ -2,7 +2,6 @@
+ 
+ import lombok.AllArgsConstructor;
+ import org.springframework.web.bind.annotation.*;
+-import tn.esprit.propnetapp.locality.Locality;
+ 
+ import java.util.List;
+ 
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/IClaimService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/IClaimService.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/IClaimService.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/IClaimService.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/claim/IClaimService.java	
+@@ -1,6 +1,5 @@
+ package tn.esprit.propnetapp.claim;
+ 
+-import tn.esprit.propnetapp.locality.Locality;
+ 
+ import java.util.List;
+ 
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/PropertyType.java	
+@@ -1,5 +1,5 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+ public enum PropertyType {
+-    MAISON, IMMEUBLE, STUDIO, APPARTEMENT, VILLA, DUPLEX
++    MAISON, STUDIO, APPARTMENT, VILLA, DUPLEX
+ }
+Index: Frontend/src/app/map/map.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Frontend/src/app/map/map.component.ts b/Frontend/src/app/map/map.component.ts
+--- a/Frontend/src/app/map/map.component.ts	
++++ b/Frontend/src/app/map/map.component.ts	
+@@ -1,15 +1,46 @@
+-import { Component, OnInit } from '@angular/core';
++import { AfterViewInit, Component, OnInit } from '@angular/core';
++import { ActivatedRoute } from '@angular/router';
++import * as L from 'leaflet';
+ 
+ @Component({
+   selector: 'app-map',
+   templateUrl: './map.component.html',
+   styleUrls: ['./map.component.css']
+ })
+-export class MapComponent implements OnInit {
++export class MapComponent implements AfterViewInit {
++  private map:any;
++  private lat!:number;
++  private lon!:number;
++  private markerItem:any;
++
++  private initMap(): void {
++    this.lat = this.route.snapshot.params['latitude'];
++    this.lon = this.route.snapshot.params['longitude'];
++
++    this.map = L.map('map', {
++      center: [ this.lon, this.lat],
++      zoom: 20
++    });
++
++    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
++      maxZoom: 18,
++      minZoom: 3,
++      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
++    });
+ 
+-  constructor() { }
++    tiles.addTo(this.map);
+ 
+-  ngOnInit(): void {
++    this.markerItem= L.marker([this.lon, this.lat]).addTo(this.map).bindPopup("Your place is here!");
++    this.map.fitBounds([
++      this.markerItem.getLatLng().lat,this.markerItem.getLatLng().lng
++    ])
++    console.log(this.lat, this.lon);
+   }
+ 
++  constructor(private route:ActivatedRoute) { }
++
++  ngAfterViewInit(): void {
++    this.initMap();
++  }
+ }
++
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/FilterRealEstateListing.java	
+@@ -1,109 +1,121 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+-import org.springframework.data.repository.query.Param;
++import lombok.extern.slf4j.Slf4j;
+ import org.springframework.stereotype.Component;
+ 
++
+ import javax.persistence.EntityManager;
+ import javax.persistence.PersistenceContext;
+ import javax.persistence.TypedQuery;
+ import java.util.List;
++
+ @Component
++@Slf4j
+ public class FilterRealEstateListing {
+     @PersistenceContext
+     private EntityManager entityManager;
+-    public List<RealEstateListing> filterRealEstateListings(@Param("government") String government,
+-                                                            @Param("region") String region,
+-                                                            @Param("maxPrice") Float maxPrice,
+-                                                            @Param("minArea") Float minArea,
+-                                                            @Param("operation") Operation operation,
+-                                                            @Param("numberOfBedrooms") Integer numberOfBedrooms) {
+-        String queryStr = "SELECT a FROM RealEstateListing a " +
+-                "JOIN a.address ad ";
++
++    /*  public List<RealEstateListing> filterRealEstateListings(String government,
++                                                              String city,
++                                                              Float maxPrice,
++                                                              Integer numberOfBedrooms) {
++          String queryStr = "SELECT a FROM RealEstateListing a " +
++                  "JOIN a.address ad ";
+ 
+-        if (government != null) {
+-            queryStr += "JOIN ad.governorate gov ";
+-            if (region != null) {
+-                queryStr += "JOIN gov.regions r ";
+-            }
+-        }
++          if (government != null) {
++              queryStr += "JOIN ad.governorate gov ";
++              if (city != null) {
++                  queryStr += "JOIN gov.regions r ";
++              }
++          }
+ 
+-        if (operation != null) {
+-            queryStr += "WHERE a.operation = :operation ";
+-        }
+-        if (government != null) {
+-            queryStr += "AND gov.name = :government ";
+-            if (region != null) {
+-                queryStr += "AND r.name = :region ";
+-            }
+-        }
+-        if (minArea != null) {
+-            queryStr += "AND a.area >= :minArea ";
+-        }
+-        if (maxPrice != null) {
+-            queryStr += "AND a.price <= :maxPrice ";
+-        }
+-        if (numberOfBedrooms != null) {
+-            queryStr += "AND a.numberOfBedrooms = :numberOfBedrooms ";
+-        }
++          if (operation != null) {
++              queryStr += "WHERE a.operation = :operation ";
++          }
++          if (government != null) {
++              queryStr += "AND gov.name = :government ";
++              if (city != null) {
++                  queryStr += "AND r.name = :region ";
++              }
++          }
++          if (propertyType != null) {
++              queryStr += "AND a.propertyType = :propertyType ";
++          }
++          if (maxPrice != null) {
++              queryStr += "AND a.price <= :maxPrice ";
++          }
++          if (numberOfBedrooms != null) {
++              queryStr += "AND a.numberOfBedrooms >= :numberOfBedrooms ";
++          }
+ 
+-        queryStr += "AND a.realEstateStatus = 'APPROVED' ";
+-        queryStr += "AND a.realEstateIsSold = false ";
++          queryStr += "AND a.realEstateStatus = 'APPROVED' ";
++          queryStr += "AND a.realEstateIsSold = false ";
+ 
+-        TypedQuery<RealEstateListing> query = entityManager.createQuery(queryStr, RealEstateListing.class);
+-        if (government != null) {
+-            query.setParameter("government", government);
+-        }
+-        if (region != null) {
+-            query.setParameter("region", region);
+-        }
+-        if (operation != null) {
+-            query.setParameter("operation", operation);
+-        }
+-        if (minArea != null) {
+-            query.setParameter("minArea", minArea);
+-        }
+-        if (maxPrice != null) {
+-            query.setParameter("maxPrice", maxPrice);
+-        }
+-        if (numberOfBedrooms != null) {
+-            query.setParameter("numberOfBedrooms", numberOfBedrooms);
+-        }
++          TypedQuery<RealEstateListing> query = entityManager.createQuery(queryStr, RealEstateListing.class);
++          if (government != null) {
++              query.setParameter("government", government);
++          }
++          if (city != null) {
++              query.setParameter("region", city);
++          }
++          if (operation != null) {
++              query.setParameter("operation", operation);
++          }
++          if (propertyType != null) {
++              query.setParameter("propertyType", propertyType);
++          }
++          if (maxPrice != null) {
++              query.setParameter("maxPrice", maxPrice);
++          }
++          if (numberOfBedrooms != null) {
++              query.setParameter("numberOfBedrooms", numberOfBedrooms);
++          }
+ 
+-        return query.getResultList();
+-    }
+-    public List<RealEstateListing> advancedFilterAnnouncements(@Param("government") String government,
+-                                                            @Param("region") String region,
+-                                                            @Param("maxPrice") Float maxPrice,
+-                                                            @Param("minArea") Float minArea,
+-                                                            @Param("operation") Operation operation,
+-                                                            @Param("numberOfBedrooms") Integer numberOfBedrooms,
+-                                                               @Param("propertyType") PropertyType propertyType,
+-                                                               @Param("hasBalcony") Boolean hasBalcony,
+-                                                               @Param("hasGarden") Boolean hasGarden,
+-                                                               @Param("hasParking") Boolean hasParking,
+-                                                               @Param("hasPool") Boolean hasPool) {
++          return query.getResultList();
++      }*/
++    public List<RealEstateListing> advancedFilterAnnouncements(String governorate,
++                                                               String city,
++                                                               Float maxPrice,
++                                                               Float minArea,
++                                                               Operation operation,
++                                                               Integer numberOfBedrooms,
++                                                               Integer numberOfBathrooms,
++                                                               PropertyType propertyType,
++                                                               Boolean hasBalcony,
++                                                               Boolean hasGarden,
++                                                               Boolean hasParking,
++                                                               Boolean hasPool,
++                                                               Boolean hasSecurity,
++                                                               Boolean isFurnished,
++                                                               Integer builtYear,
++                                                               Integer floorNumber,
++                                                               String orderBy) {
+ 
+-        String queryStr = "SELECT a FROM RealEstateListing a " +
+-                "JOIN a.address ad ";
++        String queryStr = "SELECT a FROM RealEstateListing a " ;
+ 
+-        if (government != null) {
+-            queryStr += "JOIN ad.governorate gov ";
+-            if (region != null) {
+-                queryStr += "JOIN gov.regions r ";
+-            }
++        if (governorate != null) {
++            queryStr += "JOIN a.governorate gov ";
++        }
++        if (city != null) {
++            queryStr += "JOIN a.city c ";
++
+         }
++
+ 
+         if (operation != null) {
+-            queryStr += "WHERE a.operation = :operation ";
++                queryStr += "WHERE a.operation = :operation ";
++            } else {
++                queryStr += "WHERE (a.operation = 'RENT' OR a.operation = 'SALE') ";
+         }
+         if (propertyType != null) {
+             queryStr += "AND a.propertyType = :propertyType ";
+         }
+-        if (government != null) {
+-            queryStr += "AND gov.name = :government ";
+-            if (region != null) {
+-                queryStr += "AND r.name = :region ";
+-            }
++        if (governorate != null) {
++            queryStr += "AND gov.name = :governorate ";
++        }
++        if (city != null) {
++            queryStr += "AND c.name = :city ";
++
+         }
+         if (minArea != null) {
+             queryStr += "AND a.area >= :minArea ";
+@@ -114,6 +126,9 @@
+         if (numberOfBedrooms != null) {
+             queryStr += "AND a.numberOfBedrooms = :numberOfBedrooms ";
+         }
++        if (numberOfBathrooms != null) {
++            queryStr += "AND a.numberOfBathrooms = :numberOfBathrooms ";
++        }
+         if (hasParking != null) {
+             queryStr += "AND a.hasParking = :hasParking ";
+         }
+@@ -126,16 +141,37 @@
+         if (hasBalcony != null) {
+             queryStr += "AND a.hasBalcony = :hasBalcony ";
+         }
++        if (hasSecurity != null) {
++            queryStr += "AND a.hasSecurity = :hasSecurity ";
++        }
++        if (isFurnished != null) {
++            queryStr += "AND a.isFurnished = :isFurnished ";
++        }
++        if (builtYear != null) {
++            queryStr += "AND a.builtYear = :builtYear ";
++        }
++        if (floorNumber != null) {
++            queryStr += "AND a.floorNumber = :floorNumber ";
++        }
+ 
+         queryStr += "AND a.realEstateStatus = 'APPROVED' ";
+         queryStr += "AND a.realEstateIsSold = false ";
+ 
++        if (orderBy != null) {
++            if (orderBy.equals("Low Price")) {
++                queryStr += "order by a.price ";
++            }
++            if (orderBy.equals("High Price")) {
++                queryStr += "order by a.price desc ";
++            }
++        }
++
+         TypedQuery<RealEstateListing> query = entityManager.createQuery(queryStr, RealEstateListing.class);
+-        if (government != null) {
+-            query.setParameter("government", government);
++        if (governorate != null) {
++            query.setParameter("governorate", governorate);
+         }
+-        if (region != null) {
+-            query.setParameter("region", region);
++        if (city != null) {
++            query.setParameter("city", city);
+         }
+         if (operation != null) {
+             query.setParameter("operation", operation);
+@@ -149,6 +185,9 @@
+         if (numberOfBedrooms != null) {
+             query.setParameter("numberOfBedrooms", numberOfBedrooms);
+         }
++        if (numberOfBathrooms != null) {
++            query.setParameter("numberOfBathrooms", numberOfBathrooms);
++        }
+         if (propertyType != null) {
+             query.setParameter("propertyType", propertyType);
+         }
+@@ -164,6 +203,20 @@
+         if (hasPool != null) {
+             query.setParameter("hasPool", hasPool);
+         }
++        if (hasSecurity != null) {
++            query.setParameter("hasSecurity", hasSecurity);
++        }
++        if (isFurnished != null) {
++            query.setParameter("isFurnished", isFurnished);
++        }
++        if (builtYear != null) {
++            query.setParameter("builtYear", builtYear);
++        }
++        if (floorNumber != null) {
++            query.setParameter("floorNumber", floorNumber);
++        }
++        log.info("*******************{}", queryStr);
++
+ 
+         return query.getResultList();
+     }
+Index: Frontend/src/app/map/map.component.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Frontend/src/app/map/map.component.html b/Frontend/src/app/map/map.component.html
+--- a/Frontend/src/app/map/map.component.html	
++++ b/Frontend/src/app/map/map.component.html	
+@@ -1,45 +1,5 @@
+-<!-- ============================ Page Title Start================================== -->
+-<div class="page-title" style="background:#017efa url(assets/img/page-title.png) no-repeat;">
+-    <div class="container">
+-        <div class="row">
+-            <div class="col-lg-12 col-md-12">
+-                
+-                <h2 class="ipt-title">Get In touch</h2>
+-                <span class="ipn-subtitle">Get all latest news and updates</span>
+-                
+-            </div>
+-        </div>
+-    </div>
+-</div>
+-<!-- ============================ Page Title End ================================== -->
+-
+-<!-- ============================ User Dashboard ================================== -->
+-
+-<!-- ============================ User Dashboard End ================================== -->
+-
+-<!-- ============================ Call To Action ================================== -->
+-<section class="bg-cover call-action-container dark" style="background:#065eb5 url(assets/img/footer-bg-dark.png)no-repeat;">
+-    <div class="container">
+-        <div class="row justify-content-center">
+-            <div class="col-xl-7 col-lg-10 col-md-12 col-sm-12">
+-                
+-                <div class="call-action-wrap">
+-                    <div class="call-action-caption">
+-                        <h2 class="text-light">Are You Already Working With Us?</h2>
+-                        <p class="text-light">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias</p>
+-                    </div>
+-                    <div class="call-action-form">
+-                        <form>
+-                            <div class="newsltr-form">
+-                                <input type="text" class="form-control" placeholder="Enter Your email">
+-                                <button type="button" class="btn btn-subscribe">Subscribe</button>
+-                            </div>
+-                        </form>
+-                    </div>
+-                </div>
+-                
+-            </div>
+-        </div>
+-    </div>
+-</section>
+-<!-- ============================ Call To Action End ================================== -->
+\ No newline at end of file
++<div class="map-container">
++    <div class="map-frame">
++      <div id="map"></div>
++    </div>
++  </div>
+\ No newline at end of file
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/Operation.java	
+@@ -1,5 +1,5 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
+ public enum Operation {
+-    VENTE, LOCATION
++    SALE, RENT
+ }
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/IRegionService.java
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/IRegionService.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/ICityService.java
+rename from Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/IRegionService.java
+rename to Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/ICityService.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/region/IRegionService.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/city/ICityService.java	
+@@ -1,12 +1,12 @@
+-package tn.esprit.propnetapp.region;
++package tn.esprit.propnetapp.city;
+ 
+ 
+ import java.util.List;
+ 
+-public interface IRegionService {
+-    Region addRegion(Region region);
+-    List<Region> retrieveAllRegions();
+-    Region updateRegion(Region region);
+-    Region retrieveRegion(Long idRegion);
+-    void deleteRegion(Long idRegion);
++public interface ICityService {
++    City addRegion(City city);
++    List<City> retrieveAllRegions();
++    City updateRegion(City city);
++    City retrieveRegion(Integer idRegion);
++    void deleteRegion(Integer idRegion);
+ }
+\ No newline at end of file
+Index: Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java
+--- a/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java	
++++ b/Backend/PropNetApp/src/main/java/tn/esprit/propnetapp/realestatellisting/AllocationFilter.java	
+@@ -1,71 +1,85 @@
+ package tn.esprit.propnetapp.realestatellisting;
+ 
++import tn.esprit.propnetapp.city.City;
++import tn.esprit.propnetapp.governorate.Governorate;
++
+ public class AllocationFilter {
+ 
+-    private String government;
+-    private String region;
+-    private Float maxPrice;
++    private Governorate governorate;
++    private City city;
++    private Float price;
+     private Float area;
+     private Operation operation;
+     private Boolean realEstateIsSold;
+     private RealEstateStatus realEstateStatus;
+     private Integer numberOfBedrooms;
+-    private PropertyType propertyType ;
++    private Integer numberOfBathrooms;
++    private PropertyType propertyType;
+     private Boolean hasParking;
+     private Boolean hasGarden;
+     private Boolean hasBalcony;
+     private Boolean hasPool;
+-
++    private Boolean isFurnished;
++    private Boolean hasSecurity;
++    private Integer builtYear;
++    private Integer floorNumber;
++    private  String orderBy;
+ 
+-
+-    public AllocationFilter(String government, String region, Float maxPrice, Float area, Operation operation, Boolean realEstateIsSold, RealEstateStatus realEstateStatus, Integer numberOfBedrooms, PropertyType propertyType, Boolean hasParking, Boolean hasGarden, Boolean hasBalcony, Boolean hasPool) {
+-        this.government = government;
+-        this.region = region;
+-        this.maxPrice = maxPrice;
++    public AllocationFilter(Governorate governorate, City city, Float price, Float area, Operation operation, Boolean realEstateIsSold, RealEstateStatus realEstateStatus, Integer numberOfBedrooms, Integer numberOfBathrooms, PropertyType propertyType, Boolean hasParking, Boolean hasGarden, Boolean hasBalcony, Boolean hasPool, Boolean isFurnished, Boolean hasSecurity, Integer builtYear, Integer floorNumber, String orderBy) {
++        this.governorate = governorate;
++        this.city = city;
++        this.price = price;
+         this.area = area;
+         this.operation = operation;
+         this.realEstateIsSold = realEstateIsSold;
+         this.realEstateStatus = realEstateStatus;
+         this.numberOfBedrooms = numberOfBedrooms;
++        this.numberOfBathrooms = numberOfBathrooms;
+         this.propertyType = propertyType;
+         this.hasParking = hasParking;
+         this.hasGarden = hasGarden;
+         this.hasBalcony = hasBalcony;
+         this.hasPool = hasPool;
+-    }
+-
+-    public String getGovernment() {
+-        return government;
+-    }
+-
+-    public void setGovernment(String government) {
+-        this.government = government;
+-    }
+-
+-    public String getRegion() {
+-        return region;
+-    }
+-
+-    public void setRegion(String region) {
+-        this.region = region;
+-    }
+-
+-    public Float getMaxPrice() {
+-        return maxPrice;
++        this.isFurnished = isFurnished;
++        this.hasSecurity = hasSecurity;
++        this.builtYear = builtYear;
++        this.floorNumber = floorNumber;
++        this.orderBy = orderBy;
+     }
+ 
+-    public void setMaxPrice(Float maxPrice) {
+-        this.maxPrice = maxPrice;
+-    }
+-
+-    public Float getArea() {
++    public Float getMinArea() {
+         return area;
+     }
+ 
+-    public void setArea(Float area) {
++    public void setMinArea(Float area) {
+         this.area = area;
+     }
+ 
++
++    public City getCity() {
++        return city;
++    }
++
++    public void setCity(City region) {
++        this.city = region;
++    }
++
++    public Governorate getGovernorate() {
++        return governorate;
++    }
++
++    public void setGovernorate(Governorate governorate) {
++        this.governorate = governorate;
++    }
++
++    public Float getMaxPrice() {
++        return price;
++    }
++
++    public void setMaxPrice(Float price) {
++        this.price = price;
++    }
++
+     public Boolean getRealEstateIsSold() {
+         return realEstateIsSold;
+     }
+@@ -138,4 +152,51 @@
+         this.hasPool = hasPool;
+     }
+ 
++    public Integer getNumberOfBathrooms() {
++        return numberOfBathrooms;
++    }
++
++    public void setNumberOfBathrooms(Integer numberOfBathrooms) {
++        this.numberOfBathrooms = numberOfBathrooms;
++    }
++
++    public Boolean getFurnished() {
++        return isFurnished;
++    }
++
++    public void setFurnished(Boolean furnished) {
++        isFurnished = furnished;
++    }
++
++    public Boolean getHasSecurity() {
++        return hasSecurity;
++    }
++
++    public void setHasSecurity(Boolean hasSecurity) {
++        this.hasSecurity = hasSecurity;
++    }
++
++    public Integer getBuiltYear() {
++        return builtYear;
++    }
++
++    public void setBuiltYear(Integer builtYear) {
++        this.builtYear = builtYear;
++    }
++
++    public Integer getFloorNumber() {
++        return floorNumber;
++    }
++
++    public void setFloorNumber(Integer floorNumber) {
++        this.floorNumber = floorNumber;
++    }
++
++    public String getOrderBy() {
++        return orderBy;
++    }
++
++    public void setOrderBy(String orderBy) {
++        this.orderBy = orderBy;
++    }
+ }
+Index: Frontend/src/app/app.module.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Frontend/src/app/app.module.ts b/Frontend/src/app/app.module.ts
+--- a/Frontend/src/app/app.module.ts	
++++ b/Frontend/src/app/app.module.ts	
+@@ -15,7 +15,6 @@
+ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+ import { HttpClientModule } from '@angular/common/http';
+ import { MapComponent } from './map/map.component';
+-import { AgmCoreModule } from '@agm/core';
+ 
+ @NgModule({
+   declarations: [
+@@ -37,9 +36,6 @@
+     HttpClientModule,
+     FormsModule, 
+     ReactiveFormsModule,
+-    AgmCoreModule.forRoot({
+-      apiKey: 'AIzaSyAKgD9o0jABLEOwKB8i7NAR6Bbbwf7hQX0'
+-    })
+   ],
+   providers: [],
+   bootstrap: [AppComponent]

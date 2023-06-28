@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FilterAnnonceComponent } from './filter-annonce.component';
+import {FilterAnnonceComponent} from './filter-annonce.component';
 
 describe('FilterAnnonceComponent', () => {
   let component: FilterAnnonceComponent;

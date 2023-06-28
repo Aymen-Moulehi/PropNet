@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/models/Post';
-import { PostService } from 'src/app/services/post.service';
-import { environment } from 'src/environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {Post} from 'src/app/models/Post';
+import {PostService} from 'src/app/services/post.service';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-post',

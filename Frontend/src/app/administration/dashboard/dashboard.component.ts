@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Chart,registerables, ChartOptions } from 'chart.js';
-import { StatisticsService } from 'src/app/services/statistics.service';
-Chart.register(...registerables)
+import {Component, OnInit} from '@angular/core';
+//import { Chart,registerables, ChartOptions } from 'chart.js';
+import {StatisticsService} from 'src/app/services/statistics.service';
+
+//Chart.register(...registerables)
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +15,10 @@ export class DashboardComponent implements OnInit {
   constructor(private apiService: StatisticsService) { }
 
   ngOnInit(): void {
-    this.fetchData();
+    //this.fetchData();
 
   }
-  chartOptions: ChartOptions = {
+  /* chartOptions: ChartOptions = {
     responsive: true,
     scales: {
       y: {
@@ -29,13 +30,13 @@ export class DashboardComponent implements OnInit {
               return numericValue.toString();
             }else{
               return ""
-            } 
+            }
           },
         },
       },
     },
   };
-  
+
 
 createChart() {
   const labels = this.chartData.map(data => data.key);
@@ -84,13 +85,13 @@ createChart2() {
          {
              label: "Nombre de poste",
              data: values,
-         }, 
+         },
         ]
     },
 });
 
 }
-  
+
   fetchData(): void {
     this.apiService.userPostwithLocation().subscribe(
       data => {
@@ -102,6 +103,6 @@ createChart2() {
         console.error(error);
       }
     );
-  }
+  } */
 
 }

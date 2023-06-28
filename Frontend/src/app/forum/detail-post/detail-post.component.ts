@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from 'src/app/models/Post';
-import { PostService } from 'src/app/services/post.service';
-import { DateProcessor } from 'src/app/features/DateProcessor';
-import { StringProcessor } from 'src/app/features/StringProcessor';
-import { environment } from 'src/environments/environment';
-import { Response } from 'src/app/models/Response';
-import { ResponseService } from 'src/app/services/response.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Post} from 'src/app/models/Post';
+import {PostService} from 'src/app/services/post.service';
+import {DateProcessor} from 'src/app/features/DateProcessor';
+import {StringProcessor} from 'src/app/features/StringProcessor';
+import {environment} from 'src/environments/environment';
+import {Response} from 'src/app/models/Response';
+import {ResponseService} from 'src/app/services/response.service';
 
 @Component({
   selector: 'app-detail-post',
@@ -23,13 +23,13 @@ export class DetailPostComponent implements OnInit {
   userResponse!: Response;
 
   constructor(
-    private activatedRouter: ActivatedRoute, 
-    private postService: PostService, 
+    private activatedRouter: ActivatedRoute,
+    private postService: PostService,
     private dateProcessor: DateProcessor,
     private stringProcessor: StringProcessor,
     private router: Router,
     private responseService : ResponseService,
-   
+
   ) { }
 
   ngOnInit(): void {

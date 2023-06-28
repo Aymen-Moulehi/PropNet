@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Post } from '../models/Post';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from 'src/environments/environment';
+import {Post} from '../models/Post';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +30,11 @@ export class PostService {
   deletePosts(id: number) {
     return this.httpClient.get<Post>(environment.baseUrl + '/post/delete'+ id);
   }
-  
+
   updatePosts(id: number) {
     return this.httpClient.get<Post>(environment.baseUrl + '/post/update'+ id);
   }
-  
+
 
 
 }

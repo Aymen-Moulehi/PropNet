@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { StatisticsService } from 'src/app/services/statistics.service';
+import {Component, OnInit} from '@angular/core';
+import {StatisticsService} from 'src/app/services/statistics.service';
 
 @Component({
   selector: 'app-list-annonce',
@@ -13,7 +13,7 @@ export class ListAnnonceComponent implements OnInit {
    itemsPerPage: number = 10; // Nombre d'éléments par page
    selectedPropertyType!: string;
 
- 
+
 
 
   constructor(private apiService : StatisticsService) { }
@@ -24,7 +24,7 @@ export class ListAnnonceComponent implements OnInit {
 
   }
 
- 
+
 
   fetchData(): void {
     this.apiService.getAdvertisement().subscribe(data => {
@@ -41,7 +41,7 @@ export class ListAnnonceComponent implements OnInit {
       this.currentPage = page;
     }
   }
-    
+
   getItemsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;

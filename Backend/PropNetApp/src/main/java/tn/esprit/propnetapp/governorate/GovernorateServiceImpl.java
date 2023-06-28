@@ -33,12 +33,12 @@ public class GovernorateServiceImpl implements IGovernorateService {
     }
 
     @Override
-    public Governorate retrieveGovernorate(Long idGovernorate) {
+    public Governorate retrieveGovernorate(Integer idGovernorate) {
         return governorateRepository.findById(idGovernorate).get();
     }
 
     @Override
-    public void deleteGovernorate(Long idGovernorate) {
+    public void deleteGovernorate(Integer idGovernorate) {
         governorateRepository.deleteById(idGovernorate);
     }
 }

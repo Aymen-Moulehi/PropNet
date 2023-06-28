@@ -1,12 +1,14 @@
 package tn.esprit.propnetapp.governorate;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tn.esprit.propnetapp.address.Address;
-import tn.esprit.propnetapp.region.Region;
+import tn.esprit.propnetapp.city.City;
+import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,7 +33,7 @@ public class Governorate implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idGovernorate;
+    private Integer idGovernorate;
     private String name;
     private String country;
     private Integer population;
@@ -40,8 +42,13 @@ public class Governorate implements Serializable {
     private String mayor;
     private Float latitude;
     private Float longitude;
+    @JsonIgnore
     @OneToMany(mappedBy = "governorate")
     private Collection<Address> addresses;
+    @JsonIgnore
     @OneToMany(mappedBy = "governorate")
-    private Collection<Region> regions;
+    private Collection<City> cities;
+    @JsonIgnore
+    @OneToMany(mappedBy = "governorate")
+    private Collection<RealEstateListing> realEstateListings;
 }

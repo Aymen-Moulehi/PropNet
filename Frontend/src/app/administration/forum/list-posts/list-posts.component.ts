@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/models/Post';
-import { PostService } from 'src/app/services/post.service';
-import { StatisticsService } from 'src/app/services/statistics.service';
+import {Component, OnInit} from '@angular/core';
+import {PostService} from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-list-posts',
@@ -24,7 +22,7 @@ export class ListPostsComponent implements OnInit {
 
   deletePost(id: number) {
     this.apiService.deletePosts(id).subscribe(() => {
-      this.fetchData(); 
+      this.fetchData();
     });
   }
 
@@ -43,7 +41,7 @@ export class ListPostsComponent implements OnInit {
       this.currentPage = page;
     }
   }
-    
+
   getItemsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;

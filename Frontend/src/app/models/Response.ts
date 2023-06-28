@@ -1,4 +1,4 @@
-import { DateProcessor } from "../features/DateProcessor";
+import {DateProcessor} from "../features/DateProcessor";
 
 export class Response {
     idRespons!: number;
