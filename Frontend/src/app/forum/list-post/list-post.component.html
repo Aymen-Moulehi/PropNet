@@ -17,41 +17,41 @@
         <!-- row Start -->
         <div class="row gx-4 gy-4">
         
-            <!-- Single blog Grid -->
-            <div class="col-lg-6 col-md-12">
+            <div class="col-lg-12 col-md-12" *ngFor="let post of posts" >
                 <div class="blog-list-block">
                     
-                    <div class="blog-list-thumber">
-                        <a href="blog-detail.html"><img src="assets/img/blog-1.jpg" class="img-fluid rounded" alt=""></a>
-                    </div>
                     <div class="blog-list-caption">
                         <div class="blog-info">
-                            <span class="label text-success bg-light-success">Education</span>
-                            <h4 class="bl-title"><a href="blog-detail.html">14 Newsletters You’ll Want in Your Inbox in 2023</a></h4>
+                            <span class="label text-success bg-light-success">{{post.category}}</span>
+                            <h4 class="bl-title"><a href="blog-detail.html">{{post.title}}</a></h4>
                         </div>
                         
                         <div class="blog-body">
-                            <p>These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled</p>
+                            <p>{{post.content}}</p>
                         </div>
                         
                         <div class="blg-authr d-flex align-items-center">
                             <div class="blg-authr-thumb"><img src="assets/img/team-1.jpg" class="img-fluid circle" width="45" alt=""></div>
                             <div class="blg-authr-caption ps-2">
                                 <h6 class="mb-0">Tamilore Oladipo</h6>
-                                <span class="text-mid">3 Days Ago</span>
+                                <span class="text-mid">{{post.formatedDate}}</span>
                             </div>
                         </div>
-                        
+
+                        <div class="veshm-grid-body-footer">
+                            <a href="{{frontBaseUrl  + '/forume/detail;idPost=' + post.idPost}}" class="btn btn-blog-link">Continue Reading</a>
+                        </div>
+                
                     </div>
                 </div>
             </div>
-            
             
           
             
            
            
             <!-- Single blog Grid -->
+            <!--
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                 <div class="veshm-grid-blog">
                     <div class="veshm-grid-blog-thumb">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            
+            -->
         </div>
         <!-- /row -->
 

@@ -21,28 +21,19 @@
                         </div>
                         
                         <div class="post-top-meta">
-                            <span class="pst-cats label text-success bg-light-success me-2">Education</span>
-                            <span class="pst-date label text-danger bg-light-danger">10 Jul 2023</span>
+                            <span class="pst-cats label text-success bg-light-success me-2">{{post.category}}</span>
+                            <span class="pst-date label text-danger bg-light-danger">{{formatedDate}}</span>
                         </div>
 
+                        
                         <h3 class="post-title">{{post.title}}</h3>
                         <p>{{post.content}}</p>
-                    <!--- 
-                        <div class="alert alert-info">
-                            <span class="icon"><i class="fas fa-quote-left"></i></span>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tem
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ullamco laboris nisi ut aliquip ex ea commodo onsequat.</p>
-                            <h5 class="name">- Rosalina Pong</h5>
-                        </div>
-                    -->
-                        <div class="post-bottom-meta">
+
+                        <div class="post-bottom-meta" *ngIf="relatedTags.length > 0">
                             <div class="post-tags">
                                 <h4 class="pbm-title">Related Tags</h4>
                                 <ul class="list">
-                                    <li><a href="#">organic</a></li>
-                                    <li><a href="#">Foods</a></li>
-                                    <li><a href="#">tasty</a></li>
+                                    <li *ngFor="let tag of relatedTags"><a href="">{{tag}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -52,11 +43,11 @@
                         <div class="post-share">
                             <ul class="list">
                                 <li><i class="fa-solid fa-share-nodes"></i></li>
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                <li><a href="#"><i class="fab fa-vk"></i></a></li>
-                                <li><a href="#"><i class="fab fa-tumblr"></i></a></li>
+                                <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                                <li><a href=""><i class="fab fa-linkedin-in"></i></a></li>
+                                <li><a href=""><i class="fab fa-vk"></i></a></li>
+                                <li><a href=""><i class="fab fa-tumblr"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -65,100 +56,25 @@
                 <!-- Blog Comment -->
                 <div class="blog-details single-post-item format-standard">
                     <div class="post-details">
-                    
                         <div class="comment-area">
                             <div class="all-comments">
-                                <h3 class="comments-title">05 Comments</h3>
+                                <h3 class="comments-title">{{responses.length}} Comments</h3>
                                 <div class="comment-list">
                                     <ul>
-                                        <li class="single-comment">
+                                        <li class="single-comment" *ngFor="let response of responses">
                                             <article>
-                                                <div class="comment-author">
-                                                    <img src="assets/img/user-1.png" class="img-fluid circle" alt="">
+                                                <div class="comment-author" style="width: 10%">
+                                                    <img src="assets/img/user-4.png" class=" img-fluid circle" alt="">
                                                 </div>
-                                                <div class="comment-details">
+                                                <div class="comment-details" style="width: 90%">
                                                     <div class="comment-meta">
                                                         <div class="comment-left-meta">
-                                                            <h4 class="author-name">Rosalina Kelian <span class="selected"><i class="fas fa-bookmark"></i></span></h4>
-                                                            <div class="comment-date">19th May 2018</div>
-                                                        </div>
-                                                        <div class="comment-reply">
-                                                            <a href="#" class="reply"><span class="icona"><i class="ti-back-left"></i></span> Reply</a>
+                                                            <h4 class="author-name">{{response.author}}</h4>
+                                                            <div class="comment-date">{{response.formatedDate}}</div>
                                                         </div>
                                                     </div>
                                                     <div class="comment-text">
-                                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-                                                            perspiciatis unde omnis iste natus error.</p>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                            <ul class="children">
-                                                <li class="single-comment">
-                                                    <article>
-                                                        <div class="comment-author">
-                                                            <img src="assets/img/user-2.png" class="img-fluid circle" alt="">
-                                                        </div>
-                                                        <div class="comment-details">
-                                                            <div class="comment-meta">
-                                                                <div class="comment-left-meta">
-                                                                    <h4 class="author-name">Rosalina Kelian</h4>
-                                                                    <div class="comment-date">19th May 2018</div>
-                                                                </div>
-                                                                <div class="comment-reply">
-                                                                    <a href="#" class="reply"><span class="icons"><i class="ti-back-left"></i></span> Reply</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="comment-text">
-                                                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-                                                                    perspiciatis unde omnis iste natus error.</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                    <ul class="children">
-                                                        <li class="single-comment">
-                                                            <article>
-                                                                <div class="comment-author">
-                                                                    <img src="assets/img/user-3.png" class="img-fluid circle" alt="">
-                                                                </div>
-                                                                <div class="comment-details">
-                                                                    <div class="comment-meta">
-                                                                        <div class="comment-left-meta">
-                                                                            <h4 class="author-name">Rosalina Kelian</h4>
-                                                                            <div class="comment-date">19th May 2018</div>
-                                                                        </div>
-                                                                        <div class="comment-reply">
-                                                                            <a href="#" class="reply"><span class="icons"><i class="ti-back-left"></i></span> Reply</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="comment-text">
-                                                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-                                                                            perspiciatis unde omnis iste natus error.</p>
-                                                                    </div>
-                                                                </div>
-                                                            </article>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="single-comment">
-                                            <article>
-                                                <div class="comment-author">
-                                                    <img src="assets/img/user-4.png" class="img-fluid circle" alt="">
-                                                </div>
-                                                <div class="comment-details">
-                                                    <div class="comment-meta">
-                                                        <div class="comment-left-meta">
-                                                            <h4 class="author-name">Rosalina Kelian</h4>
-                                                            <div class="comment-date">19th May 2018</div>
-                                                        </div>
-                                                        <div class="comment-reply">
-                                                            <a href="#" class="reply"><span class="icons"><i class="ti-back-left"></i></span> Reply</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-                                                            perspiciatis unde omnis iste natus error.</p>
+                                                        <p>{{response.content}}</p>
                                                     </div>
                                                 </div>
                                             </article>
@@ -171,24 +87,18 @@
                                 <div class="comment-form">
                                     <form action="#">
                                         <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Your Name">
+                                                    <textarea name="comment" class="form-control" cols="30" rows="6" placeholder="Type your comments...." [(ngModel)] = "userResponse.content" #content = "ngModel" required minlength="3"></textarea>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Your Email">
+                                                <div *ngIf="content.invalid && content.touched">
+                                                    <div *ngIf = "content.errors?.['required']" style="color : red">Content is required</div>
+                                                    <div *ngIf = "content.errors?.['minlength']" style="color : red">Content must have at least 3 characters!</div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="form-group">
-                                                    <textarea name="comment" class="form-control" cols="30" rows="6" placeholder="Type your comments...."></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <div class="form-group">
-                                                    <a href="#" class="btn btn-primary">Submit Now</a>
+                                                    <a class="btn btn-primary" (click)="addComment()">Submit Now</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -234,7 +144,6 @@
                                 </div>
                             </div>
                             <div class="pg-side-block-buttons">
-                                <div class="single-button"><a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#offer" class="btn font--medium btn-light-success full-width"><i class="fa-solid fa-paper-plane me-2"></i>Send An offer</a></div>
                                 <div class="single-button"><a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#message" class="btn font--medium btn-theme full-width"><i class="fa-solid fa-comments me-2"></i>Send A Message</a></div>
                             </div>
                         </div>
@@ -249,31 +158,3 @@
     </div>
             
 </section>
-<!-- ============================ Agency List End ================================== -->
-
-<!-- ============================ Call To Action ================================== -->
-<section class="bg-cover call-action-container dark" style="background:#065eb5 url(assets/img/footer-bg-dark.png)no-repeat;">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-7 col-lg-10 col-md-12 col-sm-12">
-                
-                <div class="call-action-wrap">
-                    <div class="call-action-caption">
-                        <h2 class="text-light">Are You Already Working With Us?</h2>
-                        <p class="text-light">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias</p>
-                    </div>
-                    <div class="call-action-form">
-                        <form>
-                            <div class="newsltr-form">
-                                <input type="text" class="form-control" placeholder="Enter Your email">
-                                <button type="button" class="btn btn-subscribe">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ============================ Call To Action End ================================== -->

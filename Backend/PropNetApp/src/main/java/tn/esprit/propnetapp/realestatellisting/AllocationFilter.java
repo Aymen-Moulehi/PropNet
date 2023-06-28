@@ -1,69 +1,83 @@
 package tn.esprit.propnetapp.realestatellisting;
 
+import tn.esprit.propnetapp.city.City;
+import tn.esprit.propnetapp.governorate.Governorate;
+
 public class AllocationFilter {
 
-    private String government;
-    private String region;
-    private Float maxPrice;
+    private Governorate governorate;
+    private City city;
+    private Float price;
     private Float area;
     private Operation operation;
     private Boolean realEstateIsSold;
     private RealEstateStatus realEstateStatus;
     private Integer numberOfBedrooms;
-    private PropertyType propertyType ;
+    private Integer numberOfBathrooms;
+    private PropertyType propertyType;
     private Boolean hasParking;
     private Boolean hasGarden;
     private Boolean hasBalcony;
     private Boolean hasPool;
+    private Boolean isFurnished;
+    private Boolean hasSecurity;
+    private Integer builtYear;
+    private Integer floorNumber;
+    private  String orderBy;
 
-
-
-    public AllocationFilter(String government, String region, Float maxPrice, Float area, Operation operation, Boolean realEstateIsSold, RealEstateStatus realEstateStatus, Integer numberOfBedrooms, PropertyType propertyType, Boolean hasParking, Boolean hasGarden, Boolean hasBalcony, Boolean hasPool) {
-        this.government = government;
-        this.region = region;
-        this.maxPrice = maxPrice;
+    public AllocationFilter(Governorate governorate, City city, Float price, Float area, Operation operation, Boolean realEstateIsSold, RealEstateStatus realEstateStatus, Integer numberOfBedrooms, Integer numberOfBathrooms, PropertyType propertyType, Boolean hasParking, Boolean hasGarden, Boolean hasBalcony, Boolean hasPool, Boolean isFurnished, Boolean hasSecurity, Integer builtYear, Integer floorNumber, String orderBy) {
+        this.governorate = governorate;
+        this.city = city;
+        this.price = price;
         this.area = area;
         this.operation = operation;
         this.realEstateIsSold = realEstateIsSold;
         this.realEstateStatus = realEstateStatus;
         this.numberOfBedrooms = numberOfBedrooms;
+        this.numberOfBathrooms = numberOfBathrooms;
         this.propertyType = propertyType;
         this.hasParking = hasParking;
         this.hasGarden = hasGarden;
         this.hasBalcony = hasBalcony;
         this.hasPool = hasPool;
+        this.isFurnished = isFurnished;
+        this.hasSecurity = hasSecurity;
+        this.builtYear = builtYear;
+        this.floorNumber = floorNumber;
+        this.orderBy = orderBy;
     }
 
-    public String getGovernment() {
-        return government;
-    }
-
-    public void setGovernment(String government) {
-        this.government = government;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public Float getMaxPrice() {
-        return maxPrice;
-    }
-
-    public void setMaxPrice(Float maxPrice) {
-        this.maxPrice = maxPrice;
-    }
-
-    public Float getArea() {
+    public Float getMinArea() {
         return area;
     }
 
-    public void setArea(Float area) {
+    public void setMinArea(Float area) {
         this.area = area;
+    }
+
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City region) {
+        this.city = region;
+    }
+
+    public Governorate getGovernorate() {
+        return governorate;
+    }
+
+    public void setGovernorate(Governorate governorate) {
+        this.governorate = governorate;
+    }
+
+    public Float getMaxPrice() {
+        return price;
+    }
+
+    public void setMaxPrice(Float price) {
+        this.price = price;
     }
 
     public Boolean getRealEstateIsSold() {
@@ -138,4 +152,51 @@ public class AllocationFilter {
         this.hasPool = hasPool;
     }
 
+    public Integer getNumberOfBathrooms() {
+        return numberOfBathrooms;
+    }
+
+    public void setNumberOfBathrooms(Integer numberOfBathrooms) {
+        this.numberOfBathrooms = numberOfBathrooms;
+    }
+
+    public Boolean getFurnished() {
+        return isFurnished;
+    }
+
+    public void setFurnished(Boolean furnished) {
+        isFurnished = furnished;
+    }
+
+    public Boolean getHasSecurity() {
+        return hasSecurity;
+    }
+
+    public void setHasSecurity(Boolean hasSecurity) {
+        this.hasSecurity = hasSecurity;
+    }
+
+    public Integer getBuiltYear() {
+        return builtYear;
+    }
+
+    public void setBuiltYear(Integer builtYear) {
+        this.builtYear = builtYear;
+    }
+
+    public Integer getFloorNumber() {
+        return floorNumber;
+    }
+
+    public void setFloorNumber(Integer floorNumber) {
+        this.floorNumber = floorNumber;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
 }

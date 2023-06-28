@@ -6,6 +6,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 @Aspect
@@ -18,5 +20,10 @@ public class RealEstateListingServiceImpl implements IRealEstateListingService {
     @Override
     public RealEstateListing addRealEstateListing(RealEstateListing realEstateListing) {
         return realEstateListingRepository.save(realEstateListing);
+    }
+
+    @Override
+    public List<RealEstateListing> retrieveAllRealEstateListings() {
+        return realEstateListingRepository.findAll();
     }
 }

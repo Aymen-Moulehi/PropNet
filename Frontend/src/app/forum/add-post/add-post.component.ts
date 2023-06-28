@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { UploadImage } from 'src/app/features/upload-image/UploadImage';
-import { Post } from 'src/app/models/Post';
-import { PostService } from 'src/app/services/post.service';
-import { environment } from 'src/environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {DateProcessor} from 'src/app/features/DateProcessor';
+import {UploadImage} from 'src/app/features/UploadImage';
+import {Post} from 'src/app/models/Post';
+import {PostService} from 'src/app/services/post.service';
+import {environment} from 'src/environments/environment';
 
 
 @Component({
@@ -16,13 +17,18 @@ export class AddPostComponent implements OnInit {
   uploadedImage!: File;
   post = new Post();
 
-  constructor(private uploadImage: UploadImage, private postService: PostService, private router: Router) { }
+  constructor(
+    private uploadImage: UploadImage,
+    private postService: PostService,
+    private router: Router,
+    private dateProcessor: DateProcessor
+    ) { }
 
   ngOnInit(): void {
 
   }
   submit(): void {
-
+    this.post.formatedDate = this.dateProcessor.formatDate(new Date())
     this.postService.addPost(this.post).subscribe(
       {
         next: (data) => {
@@ -32,7 +38,7 @@ export class AddPostComponent implements OnInit {
       }
     )
   }
-  
+
   public onImageUpload(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;

@@ -1,198 +1,181 @@
 <!-- ============================ Hero Banner  Start================================== -->
 <div class="image-cover hero-header" style="background:url(assets/img/banner-1.png) no-repeat;">
-    <div class="container">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <h3 class="theme-cl">Buy & Rent</h3>
-                <h1 class="mb-4">Choose<br><span>your luxurious room</span></h1>
-                <p>Would you explore nature paradise in the world, let't find the best property in California withus.
-                </p>
-                <div class="lios-vrst">
-                    <ul>
-                        <li>
-                            <div class="lios-parts">
-                                <h2>1.2<span class="theme-cl">M</span></h2>
-                                <h6>Happy Customer</h6>
-                            </div>
-                        </li>
+  <div class="container">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <h3 class="theme-cl">Buy & Rent</h3>
+        <h1 class="mb-4">Choose<br><span>your luxurious room</span></h1>
+        <p>Would you explore nature paradise in the world, let't find the best property in California withus.
+        </p>
+        <div class="lios-vrst">
+          <ul>
+            <li>
+              <div class="lios-parts">
+                <h2>1.2<span class="theme-cl">M</span></h2>
+                <h6>Happy Customer</h6>
+              </div>
+            </li>
 
-                        <li>
-                            <div class="lios-parts">
-                                <h2>100<span class="theme-cl">+</span></h2>
-                                <h6>Ready Property</h6>
-                            </div>
-                        </li>
+            <li>
+              <div class="lios-parts">
+                <h2>100<span class="theme-cl">+</span></h2>
+                <h6>Ready Property</h6>
+              </div>
+            </li>
 
-                        <li>
-                            <div class="lios-parts">
-                                <h2>30<span class="theme-cl">K</span></h2>
-                                <h6>Google reviews</h6>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
-                <form #form="ngForm">
-                    <div class="hero-search-wrap">
-                        <div class="hero-search">
-                            <h1>Find accessible homes For rent & sale</h1>
-                        </div>
-                        <div class="hero-search-content verticle-space">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Operation Type</label>
-                                        <select #opType (Change)="onSelected()" class="form-control">
-                                            <option *ngFor="let op of operationType" value="{{op}}">{{op}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Property Type</label>
-                                        <select #ids (Change)="onSelected()" class="form-control">
-                                            <option *ngFor="let prop of propertyType" value="{{prop}}">{{prop}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Governorate</label>
-                                        <select #gov (Change)="onSelected()" class="form-control">
-                                            <option *ngFor="let gover of governorate" value="{{gover}}">{{gover}}</option>
-                
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>City</label>
-                                        <select #cit (Change)="onSelected()" class="form-control">
-                                            <option *ngFor="let ct of city" value="{{ct}}">{{ct}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Max Price</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control border" placeholder="0"
-                                                name="maxPrice" [(ngModel)]="annonce.price" #maxPrice="ngModel">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Bed Rooms</label>
-                                        <select #nbed (Change)="onSelected()" class="form-control">
-                                            <option *ngFor="let nb of nbedRooms" value="{{nb}}">{{nb}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <input type="submit" class="btn search-btn" (click)="search()" value="Search Result" />
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
+            <li>
+              <div class="lios-parts">
+                <h2>30<span class="theme-cl">K</span></h2>
+                <h6>Google reviews</h6>
+              </div>
+            </li>
+          </ul>
         </div>
+      </div>
+      <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
+        <form #form="ngForm">
+          <div class="hero-search-wrap">
+            <div class="hero-search">
+              <h1>Find accessible homes For rent & sale</h1>
+            </div>
+            <div class="hero-search-content verticle-space">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>Operation Type</label>
+                    <select #opType (Change)="onSelected()" class="form-control" required>
+                      <option *ngFor="let op of operationType"  value="{{op}}" placeholder="Operation Type">{{op}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>Property Types</label>
+                    <select #ids (Change)="onSelected()" class="form-control">
+                      <option *ngFor="let prop of propertyType" value="{{prop}}" placeholder="Property Type">{{prop}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>Governorate</label>
+                    <select #gov (Change)="onSelected()" class="form-control">
+                      <option *ngFor="let gover of govs" value="{{gover}}" placeholder="Choose Governorate">{{gover}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>City</label>
+                    <select #cit (Change)="onSelected()" class="form-control">
+                      <option *ngFor="let ct of cities" value="{{ct}}" placeholder="Choose City">{{ct}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>Max Price</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control border" placeholder="0"
+                             name="maxPrice" [(ngModel)]="annonce.price" #maxPrice="ngModel">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>Bed Rooms</label>
+                    <select #nbed (Change)="onSelected()" class="form-control">
+                      <option *ngFor="let nb of nbedRooms" value="{{nb}}">{{nb}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <input type="submit" class="btn search-btn" (click)="search()" value="Search Result" />
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
     </div>
+  </div>
 </div>
 <!-- ============================ Hero Banner End ================================== -->
 <!-- ============================= Explore Property =============================== -->
 <section>
-    <div class="container">
+  <div class="container">
 
-        <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-10 text-center">
-                <div class="sec-heading center">
-                    <h2>WE SEARCH FOR YOU</h2>
-                    <p>Are you looking for a property, but don't really have time to go through all the offers in search
-                        of the rare pearl?<br>
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 text-center">
+        <div class="sec-heading center">
+          <h2>WE SEARCH FOR YOU</h2>
+          <p>Are you looking for a property, but don't really have time to go through all the offers in search
+            of the rare pearl?<br>
 
-                        Let our network of agencies take care of it!</p>
-                </div>
-            </div>
+            Let our network of agencies take care of it!</p>
         </div>
-
-        <div class="row justify-content-center gx-3 gy-4">
-
-            <!-- Single Property -->
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let annonce of annonces">
-                <div class="veshm-list-wraps">
-                    <div class="veshm-type"><span>For {{annonce.operation}}</span></div>
-
-                    <div class="veshm-list-thumb">
-                        <button type="button" class="compare-btn"><i class="fa-solid fa-repeat"></i>Compare</button>
-                        <div class="veshm-list-img-slide">
-                            <div class="veshm-list-click">
-                                <div><a href="single-property-1.html"><img src="assets/img/prt-1.png"
-                                            class="img-fluid mx-auto" alt=""></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="veshm-list-block">
-                        <div class="veshm-list-head">
-                            <div class="veshm-list-head-caption">
-                                <div class="rlhc-price">
-                                    <h4 class="rlhc-price-name theme-cl">{{annonce.price}}DT<span
-                                            class="monthly">/Months</span></h4>
-                                </div>
-                                <div class="listing-short-detail-flex">
-                                    <h5 class="rlhc-title-name verified"><a href="single-property-1.html"
-                                            class="prt-link-detail">{{annonce.title}}</a></h5>
-                                </div>
-                                <div class="veshm-list-icons">
-                                    <ul>
-                                        <li><i class="fa-solid fa-bed"></i><span>{{annonce.numberOfBedrooms}} Bed</span>
-                                        </li>
-                                        <li><i class="fa-solid fa-bath"></i><span>{{annonce.numberOfBathrooms}}
-                                                Ba</span></li>
-                                        <li><i class="fa-solid fa-vector-square"></i><span>{{annonce.area}} sft</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="veshm-list-head-flex">
-                                <button class="btn btn-like active" type="button"><i
-                                        class="fa-solid fa-heart-circle-check"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="resi-prty-offers-box">
-                            <div class="prty-offers">
-                                <div class="input-form">
-                                    <i class="fa-solid fa-calendar-days"></i><span>&nbsp;{{annonce.date |
-                                        date:'shortDate'}}</span><br>
-                                    <i
-                                        class="fa-solid fa-location-dot"></i><span>&nbsp;{{annonce.governorate}},{{annonce.city}}</span>
-                                </div>
-                            </div>
-                            <div class="prty-offers-btn">
-                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#offer"
-                                    class="btn btn-offer-send">View details</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <!-- End Single Property -->
-
-
-
-        </div>
+      </div>
     </div>
+
+    <div class="row justify-content-center gx-3 gy-4">
+
+      <!-- Single Property -->
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let annonce of annonces">
+        <div class="veshm-list-wraps">
+          <div class="veshm-type" [ngClass]="{'fr-sale': annonce.operation === 'SALE'}"><span>For {{annonce.operation}}</span></div>
+
+          <div class="veshm-list-thumb">
+            <button  type="button" class="compare-btn">View Details</button>
+            <div class="veshm-list-img-slide">
+              <div class="veshm-list-click">
+                <div><a href="single-property-1.html"><img src="assets/img/prt-1.png"
+                                                           class="img-fluid mx-auto" alt=""></a></div>
+              </div>
+            </div>
+          </div>
+          <div class="veshm-list-block">
+            <div class="veshm-tags trending"><span><i class="fa-solid fa-star"></i>New</span></div>
+            <div class="veshm-list-head">
+              <div class="veshm-list-head-caption">
+                <div class="rlhc-price">
+                  <h4 class="rlhc-price-name theme-cl">{{annonce.price}}DT<span *ngIf="annonce.operation ==='RENT'" class="monthly">/Months</span></h4>
+                </div>
+                <div class="listing-short-detail-flex">
+                  <h5 class="rlhc-title-name verified"><a href="single-property-1.html" class="prt-link-detail">{{annonce.title}}</a></h5>
+                  <div class="rlhc-prt-location"><img src="assets/img/pin.svg" width="16" class="me-1" alt="">&nbsp;{{annonce.governorate.name}}, {{annonce.city.name}}</div>
+                </div>
+              </div>
+              <div class="veshm-list-head-flex">
+                <button class="btn btn-like" type="button"><i class="fa-sharp fa-solid fa-map-location-dot" [routerLink]="['/map', annonce.longitude, annonce.latitude]"></i></button>
+              </div>
+            </div>
+
+            <div class="veshm-list-footer">
+              <div class="veshm-list-circls">
+                <ul>
+                  <li><span class="bed-inf"><i class="fa-solid fa-bed"></i></span>{{annonce.numberOfBedrooms}} Bed</li>
+                  <li><span class="bath-inf"><i class="fa-solid fa-bath"></i></span>{{annonce.numberOfBathrooms}} Ba</li>
+                  <li><span class="area-inf"><i class="fa-solid fa-vector-square"></i></span>{{annonce.area}} Sft</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- End Single Property -->
+
+
+
+    </div>
+  </div>
 </section>
 <!-- ============================= End Explore Property =============================== -->

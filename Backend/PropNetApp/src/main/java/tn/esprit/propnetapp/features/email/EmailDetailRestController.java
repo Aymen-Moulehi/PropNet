@@ -1,0 +1,26 @@
+package tn.esprit.propnetapp.features.email;
+
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import tn.esprit.propnetapp.features.inputvalidator.InputValidator;
+import tn.esprit.propnetapp.features.inputvalidator.ValidatorType;
+
+@RestController
+@AllArgsConstructor
+@RequestMapping("/emailDetail")
+public class EmailDetailRestController {
+    IEmailDetailService emailDetailService;
+    @PostMapping("/sendMail")
+    public EmailDetail sendMail(@RequestBody EmailDetail details) {
+        if(!InputValidator.getInstance().validateInput(details.getRecipient(), ValidatorType.EMAIL))
+            throw new IllegalArgumentException();
+        if(!InputValidator.getInstance().validateInput(details.getSubject(), ValidatorType.MIN10CHAR))
+            throw new IllegalArgumentException();
+        if(!InputValidator.getInstance().validateInput(details.getMsgBody(), ValidatorType.MIN10CHAR))
+            throw new IllegalArgumentException();
+        return emailDetailService.sendMail(details);
+    }
+}

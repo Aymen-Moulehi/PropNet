@@ -53,7 +53,7 @@
                             <label>Related Tags</label>
                             <input type="text" class="form-control simple" name="tags" [(ngModel)] = "post.relatedTags" #tags = "ngModel" required minlength="3">
                         </div>
-                        <div *ngIf="category.invalid && category.touched">
+                        <div *ngIf="tags.invalid && tags.touched">
                             <div *ngIf = "category.errors?.['required']" style="color : red">Tags is required</div>
                             <div *ngIf = "category.errors?.['minlength']" style="color : red">Tags must have at least 3 characters!</div>
                         </div>

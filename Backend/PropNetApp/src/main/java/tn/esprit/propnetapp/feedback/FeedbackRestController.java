@@ -2,11 +2,13 @@ package tn.esprit.propnetapp.feedback;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/feedback")
+@CrossOrigin(origins = "http://localhost:4200")
 public class FeedbackRestController {
     IFeedbackService feedbackService;
 

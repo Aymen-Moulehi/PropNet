@@ -10,7 +10,14 @@ public class ResponseRestController {
     IResponseService responseService;
 
     @PostMapping("/add-response")
-    public Response addResponseS(@RequestBody Response response) {
+    @CrossOrigin
+    public Response addResponse(@RequestBody Response response) {
         return responseService.addResponse(response);
+    }
+
+    @PostMapping("/add-and-asgin-response-to-post/{postId}")
+    @CrossOrigin
+    public Response addAndAsginResponseToPost(@PathVariable("postId") Integer postId, @RequestBody Response response) {
+        return responseService.addResponseAndAsginToPost(postId, response);
     }
 }
