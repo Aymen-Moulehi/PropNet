@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PostService} from 'src/app/services/post.service';
-import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/Post';
 import { PostService } from 'src/app/services/post.service';
 import Swal from 'sweetalert2';

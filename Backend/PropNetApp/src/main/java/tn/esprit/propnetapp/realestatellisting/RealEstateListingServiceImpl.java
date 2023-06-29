@@ -5,6 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import tn.esprit.propnetapp.appuser.AppUser;
+import tn.esprit.propnetapp.appuser.AppUserRepository;
+import tn.esprit.propnetapp.features.email.EmailDetail;
+import tn.esprit.propnetapp.features.email.IEmailDetailService;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
