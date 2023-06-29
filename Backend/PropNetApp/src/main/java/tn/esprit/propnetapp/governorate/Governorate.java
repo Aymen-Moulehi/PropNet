@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tn.esprit.propnetapp.address.Address;
+import tn.esprit.propnetapp.city.City;
 import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
-import tn.esprit.propnetapp.region.Region;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,7 +33,7 @@ public class Governorate implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idGovernorate;
+    private Integer idGovernorate;
     private String name;
     private String country;
     private Integer population;
@@ -42,14 +42,13 @@ public class Governorate implements Serializable {
     private String mayor;
     private Float latitude;
     private Float longitude;
-    @OneToMany(mappedBy = "governorate")
     @JsonIgnore
+    @OneToMany(mappedBy = "governorate")
     private Collection<Address> addresses;
-    @OneToMany(mappedBy = "governorate")
     @JsonIgnore
-    private Collection<Region> regions;
-
     @OneToMany(mappedBy = "governorate")
+    private Collection<City> cities;
     @JsonIgnore
+    @OneToMany(mappedBy = "governorate")
     private Collection<RealEstateListing> realEstateListings;
 }

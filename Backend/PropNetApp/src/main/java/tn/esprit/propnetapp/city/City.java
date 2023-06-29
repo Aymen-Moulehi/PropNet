@@ -1,4 +1,4 @@
-package tn.esprit.propnetapp.region;
+package tn.esprit.propnetapp.city;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tn.esprit.propnetapp.governorate.Governorate;
-import tn.esprit.propnetapp.locality.Locality;
+import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,25 +18,17 @@ import java.util.Collection;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Region implements Serializable {
-    /**
-     * ID: Long
-     * Name: String
-     * Area: Float
-     * Latitude: Float
-     * Longitude: Float
-     */
+public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idRegion;
+    private Integer idRegion;
     private String name;
     private Float area;
     private Float latitude;
     private Float longitude;
     @ManyToOne
-    @JsonIgnore
     private Governorate governorate;
-    @OneToMany(mappedBy = "region")
     @JsonIgnore
-    private Collection<Locality> localities;
+    @OneToMany(mappedBy = "city")
+    private Collection<RealEstateListing> realEstateListings;
 }

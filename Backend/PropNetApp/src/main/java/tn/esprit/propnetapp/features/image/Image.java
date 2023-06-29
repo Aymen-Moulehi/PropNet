@@ -2,6 +2,7 @@ package tn.esprit.propnetapp.features.image;
 
 
 import lombok.*;
+import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,4 +23,6 @@ public class Image implements Serializable {
     private String imageType;
     @Column(length = 100000)
     private byte[] imageContent;
+    @ManyToOne
+    RealEstateListing realEstateListing;
 }

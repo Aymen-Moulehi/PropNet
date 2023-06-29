@@ -25,7 +25,7 @@ export class ListAnnonceComponent implements OnInit {
 
   }
 
- 
+
 
   fetchData(): void {
     this.apiService.getRealEstatePending().subscribe(data => {
@@ -43,7 +43,7 @@ export class ListAnnonceComponent implements OnInit {
       this.currentPage = page;
     }
   }
-    
+
   getItemsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
@@ -73,7 +73,7 @@ export class ListAnnonceComponent implements OnInit {
       }
     });
   }
-  
+
 
 accepteAnnonce(realEstate: any) {
   Swal.fire({

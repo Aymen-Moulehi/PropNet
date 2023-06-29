@@ -13,5 +13,7 @@ public interface IPostService {
     void deletePost(Integer id);
     Post updatePost(Integer id);
 
+    List<Post> findByRelatedTagsInList(List<String> tags);
+
 
 }

@@ -37,13 +37,13 @@ export class DashboardComponent implements OnInit {
               return numericValue.toString();
             }else{
               return ""
-            } 
+            }
           },
         },
       },
     },
   };
-  
+
 
 createChart() {
   const labels = this.chartData.map(data => data.key);
@@ -92,13 +92,13 @@ createChart2() {
          {
              label: "Nombre de user",
              data: values,
-         }, 
+         },
         ]
     },
 });
 
 }
-  
+
   fetchData(): void {
     this.apiService.userPostwithLocation().subscribe(
       data => {

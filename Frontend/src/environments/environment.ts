@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8089/app'
+  baseUrl: 'http://localhost:8089/app',
+  undefinedPageUrl: '/forume/add',
+  frontBaseUrl: 'http://localhost:4200'
 };
 
 /*

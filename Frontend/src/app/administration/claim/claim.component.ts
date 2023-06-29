@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ClaimService } from 'src/app/services/claim.service';
+import {Component, OnInit} from '@angular/core';
+import {ClaimService} from 'src/app/services/claim.service';
 
 @Component({
   selector: 'app-list-claim',
@@ -18,10 +18,10 @@ export class ClaimComponent implements OnInit {
   getAllClaim(){
     this.claimServices.getALL().subscribe({
       next: (res) => {
-        this.claimList = res ; 
+        this.claimList = res ;
       },
-      error: (e) => console.error(e), 
-    }) 
+      error: (e) => console.error(e),
+    })
 }
 
 deleteClaim(id:number){
@@ -30,8 +30,8 @@ deleteClaim(id:number){
     next: () => {
         this.getAllClaim();
     },
-    error: (e) => console.error(e), 
-  }) 
+    error: (e) => console.error(e),
+  })
 }
 }
 

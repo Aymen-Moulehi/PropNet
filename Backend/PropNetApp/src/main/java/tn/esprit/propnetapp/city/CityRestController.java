@@ -1,4 +1,4 @@
-package tn.esprit.propnetapp.region;
+package tn.esprit.propnetapp.city;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -8,27 +8,27 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/region")
-public class RegionRestController {
-    IRegionService regionService;
+public class CityRestController {
+    ICityService regionService;
 
     @PostMapping("/add-region")
-    public Region addRegion(@RequestBody Region region) {
-        return regionService.addRegion(region);
+    public City addRegion(@RequestBody City city) {
+        return regionService.addRegion(city);
     }
     @GetMapping("/retrieve-all-regions")
-    public List<Region> getAllRegions() {
+    public List<City> getAllRegions() {
         return regionService.retrieveAllRegions();
     }
     @GetMapping("/retrieve-region/{region-id}")
-    public Region retrieveRegion(@PathVariable("region-id") Long regionId) {
+    public City retrieveRegion(@PathVariable("region-id") Integer regionId) {
         return regionService.retrieveRegion(regionId);
     }
     @DeleteMapping("/remove-region/{region-id}")
-    public void removeRegion(@PathVariable("region-id") Long regionId) {
+    public void removeRegion(@PathVariable("region-id") Integer regionId) {
         regionService.deleteRegion(regionId);
     }
     @PutMapping("/update-region")
-    public Region updateRegion(@RequestBody Region region) {
-        return regionService.updateRegion(region);
+    public City updateRegion(@RequestBody City city) {
+        return regionService.updateRegion(city);
     }
 }

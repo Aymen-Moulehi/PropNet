@@ -8,10 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tn.esprit.propnetapp.address.Address;
 import tn.esprit.propnetapp.appuser.AppUser;
+import tn.esprit.propnetapp.city.City;
+import tn.esprit.propnetapp.features.image.Image;
 import tn.esprit.propnetapp.governorate.Governorate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -48,15 +52,42 @@ public class RealEstateListing implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRealEstateListing;
-    private String date;
-    private Float price;
+    private String Title;
+    private Date creationDate;
+    private String location;
     @Enumerated(EnumType.STRING)
     private RealEstateStatus realEstateStatus;
     @JsonIgnore
     @ManyToOne
     private AppUser appUser;
+    @JsonIgnore
     @OneToOne
     private Address address;
+    private Float price;
+    private Float area;
+    @Enumerated(EnumType.STRING)
+    private Operation operation;
+    private Boolean realEstateIsSold;
+    private Integer numberOfBedrooms;
+    private Integer numberOfBathrooms;
+    @Enumerated(EnumType.STRING)
+    private PropertyType propertyType ;
+    private Boolean hasParking;
+    private Boolean hasGarden;
+    private Boolean hasBalcony;
+    private Boolean hasPool;
+    private Boolean isFurnished;
+    private Boolean hasSecurity;
     @ManyToOne
     private Governorate governorate;
+    private Float Latitude;
+    private Float Longitude;
+    private Integer builtYear;
+    private Integer floorNumber;
+    @ManyToOne
+    private City city;
+    @OneToMany(mappedBy = "realEstateListing")
+    private Collection<Image> images;
+
+
 }

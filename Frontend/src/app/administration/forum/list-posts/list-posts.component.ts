@@ -1,3 +1,5 @@
+import {Component, OnInit} from '@angular/core';
+import {PostService} from 'src/app/services/post.service';
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/Post';
 import { PostService } from 'src/app/services/post.service';
@@ -16,11 +18,10 @@ export class ListPostsComponent implements OnInit {
   ListPostsPending: any[] = [];
   countPost:number = 0;
   ngOnInit(): void {
+    console.log(this.fetchData())
     this.fetchData()
 
   }
-
-
 
   deletePost(id: number) {
     Swal.fire({
@@ -45,8 +46,6 @@ export class ListPostsComponent implements OnInit {
       }
     });
   }
-  
-
 
   fetchData(): void {
     this.apiService.getPosts().subscribe(data => {
@@ -74,7 +73,7 @@ export class ListPostsComponent implements OnInit {
         });
       }
       ;
-      
+
       get totalPages(): number[] {
         return Array(Math.ceil(this.ListPostsPending.length / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
       }
@@ -84,7 +83,7 @@ export class ListPostsComponent implements OnInit {
       this.currentPage = page;
     }
   }
-    
+
   getItemsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;

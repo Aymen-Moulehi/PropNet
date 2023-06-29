@@ -20,11 +20,11 @@ public class GovernorateRestController {
         return governorateService.retrieveAllGovernorates();
     }
     @GetMapping("/retrieve-governorate/{governorate-id}")
-    public Governorate retrieveGovernorate(@PathVariable("governorate-id") Long governorateId) {
+    public Governorate retrieveGovernorate(@PathVariable("governorate-id") Integer governorateId) {
         return governorateService.retrieveGovernorate(governorateId);
     }
     @DeleteMapping("/remove-governorate/{governorate-id}")
-    public void removeGovernorate(@PathVariable("governorate-id") Long governorateId) {
+    public void removeGovernorate(@PathVariable("governorate-id") Integer governorateId) {
         governorateService.deleteGovernorate(governorateId);
     }
     @PutMapping("/update-governorate")

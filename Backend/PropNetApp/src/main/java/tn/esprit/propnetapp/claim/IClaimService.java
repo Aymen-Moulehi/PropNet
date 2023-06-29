@@ -1,6 +1,5 @@
 package tn.esprit.propnetapp.claim;
 
-import tn.esprit.propnetapp.locality.Locality;
 
 import java.util.List;
 

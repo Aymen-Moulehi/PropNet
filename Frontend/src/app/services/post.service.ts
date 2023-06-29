@@ -29,11 +29,11 @@ export class PostService {
   deletePosts(id: number) {
     return this.httpClient.delete<Post>(environment.baseUrl + '/post/delete/'+ id);
   }
-  
+
   updatePosts(post: Post) {
     return this.httpClient.put<Post>(environment.baseUrl + '/post/update/'+ post.idPost, post);
   }
-  
+
 
 
 }

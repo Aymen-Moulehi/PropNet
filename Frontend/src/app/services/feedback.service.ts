@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+
 @Injectable({
     providedIn: 'root'
   })
@@ -15,12 +16,12 @@ import { Injectable } from '@angular/core';
       }
     delete(id:number){
         return  this.http.delete<any>("http://localhost:8089/app/feedback/delete-feedback/"+id);
-      }  
-      
+      }
+
     getDetails(id:number){
        return  this.http.get("http://localhost:8089/app/feedback/retrieve-feedback/"+id);
       }
-     
-      
+
+
 
   }

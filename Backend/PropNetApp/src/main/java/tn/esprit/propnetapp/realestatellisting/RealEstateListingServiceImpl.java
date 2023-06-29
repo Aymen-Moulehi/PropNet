@@ -3,16 +3,8 @@ package tn.esprit.propnetapp.realestatellisting;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import tn.esprit.propnetapp.appuser.AppUser;
-import tn.esprit.propnetapp.appuser.AppUserRepository;
-import org.slf4j.Logger;
-import tn.esprit.propnetapp.features.email.EmailDetail;
-import tn.esprit.propnetapp.features.email.IEmailDetailService;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -20,7 +12,6 @@ import java.util.List;
 @Component
 @Slf4j
 public class RealEstateListingServiceImpl implements IRealEstateListingService {
-    private static final Logger logger = LoggerFactory.getLogger(RealEstateListingServiceImpl.class);
 
     RealEstateListingRepository realEstateListingRepository;
     AppUserRepository appUserRepository;
@@ -33,6 +24,10 @@ public class RealEstateListingServiceImpl implements IRealEstateListingService {
         return realEstateListingRepository.save(realEstateListing);
     }
 
+    @Override
+    public List<RealEstateListing> retrieveAllRealEstateListings() {
+        return realEstateListingRepository.findAll();
+    }
     @Override
     public List<RealEstateListing> getRealEstateListingPendding() {
         return realEstateListingRepository.findByRealEstateStatus(RealEstateStatus.PENDING);
@@ -74,6 +69,5 @@ public class RealEstateListingServiceImpl implements IRealEstateListingService {
 
         return _RealEstateListing;
     }
-
 
 }

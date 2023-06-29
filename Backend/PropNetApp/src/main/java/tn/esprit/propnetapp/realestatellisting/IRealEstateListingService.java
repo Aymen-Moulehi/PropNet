@@ -4,6 +4,8 @@ import tn.esprit.propnetapp.post.Post;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface IRealEstateListingService {
     RealEstateListing addRealEstateListing(RealEstateListing realEstateListing);
 
@@ -15,4 +17,5 @@ public interface IRealEstateListingService {
     void deleteRealEstateListing(Integer id);
     RealEstateListing accepteRealEstateListing(Integer id);
 
+    List<RealEstateListing> retrieveAllRealEstateListings();
 }
