@@ -3,6 +3,9 @@ package tn.esprit.propnetapp.realestatellisting;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.propnetapp.post.Post;
+
+import java.util.List;
 
 import java.util.List;
 
@@ -77,5 +80,34 @@ public class RealEstateListingRestController {
 
         // Use the filter parameters to query the repository
         return filterRealEstateListing.advancedFilterAnnouncements(governorate, city, maxPrice, minArea, operation, numberOfBedrooms, numberOfBathrooms, propertyType, hasBalcony, hasGarden, hasParking, hasPool, hasSecurity, isFurnished, builtYear, floorNumber, orderBy);
+    }
+    @GetMapping("/pending")
+    @CrossOrigin
+    public List<RealEstateListing> getRealEstateListingPENDING() {
+        return realEstateListingService.getRealEstateListingPendding();
+    }
+    @GetMapping("/accepted")
+    @CrossOrigin
+    public List<RealEstateListing> getRealEstateListingACCEPTED() {
+        return realEstateListingService.getRealEstateListingAccepted();
+    }
+
+    @GetMapping("/{id}")
+    @CrossOrigin
+    public RealEstateListing addPostS(@PathVariable("id") Integer id) {
+        return realEstateListingService.getRealEstateListingById(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @CrossOrigin
+    public void deleteRealEstateListing(@PathVariable("id") Integer id) {
+        realEstateListingService.deleteRealEstateListing(id);
+    }
+
+
+    @PutMapping("/accepted/{id}")
+    @CrossOrigin
+    public RealEstateListing accepteRealEstateListing(@PathVariable("id") Integer id) {
+        return realEstateListingService.accepteRealEstateListing(id);
     }
 }

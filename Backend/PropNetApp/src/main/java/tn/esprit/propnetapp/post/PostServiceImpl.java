@@ -31,13 +31,15 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public List<Post> getPostAccepted() {
-        return postRepository.findByStatus("Accepted");
+        List<Post> acceptedPosts = postRepository.findByStatus("Accepted");
+        return acceptedPosts;
+
     }
 
     @Override
     public List<Post> getPostPendding() {
-        return postRepository.findByStatus("Pending");
-    }
+        List<Post> PendingPosts = postRepository.findByStatus("Pending");
+        return PendingPosts;    }
 
     @Override
     public List<Post> getPost() {
@@ -50,9 +52,11 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public void updatePost(Integer id) {
+    public Post updatePost(Integer id) {
         Post _post = postRepository.findPostByIdPost(id);
         _post.setStatus("Accepted");
+        postRepository.save(_post);
+        return _post;
     }
 
     @Override

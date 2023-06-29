@@ -3,9 +3,10 @@ package tn.esprit.propnetapp.features.email;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import javax.mail.internet.MimeMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 @Service
 @Slf4j
@@ -23,23 +24,22 @@ public class EmailDetailServiceImpl implements IEmailDetailService {
 
     @Override
     public EmailDetail sendMail(EmailDetail details) {
-        // Try block to check for exceptions
         try {
-            // Creating a simple mail message
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            // Creating a MIME message
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
             // Setting up necessary details
-            mailMessage.setFrom(sender);
-            mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
-            mailMessage.setSubject(details.getSubject());
+            helper.setFrom(sender);
+            helper.setTo(details.getRecipient());
+            helper.setSubject(details.getSubject());
+            helper.setText(details.getMsgBody(), true); // Set the HTML content
 
             // Sending the mail
-            javaMailSender.send(mailMessage);
+            javaMailSender.send(message);
             emailDetailRepository.save(details);
             log.info("Mail Sent Successfully...");
-        }
-        // Catch block to handle the exceptions
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error while Sending Mail");
         }
         return details;

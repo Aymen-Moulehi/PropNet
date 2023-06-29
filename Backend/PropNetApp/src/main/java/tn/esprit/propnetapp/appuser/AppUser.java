@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.appuser;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -47,22 +49,37 @@ public class AppUser implements Serializable {
     private String password;
     private Date date;
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private Gender gender;
-    private byte[] picture;
+    private String picture;
     private String biography;
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private AccountType accountType;
     private Date lastLogin;
     private Date creationDate;
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<Claim> claims;
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<Post> posts;
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<Feedback> feedbacks;
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<RealEstateListing> realEstateListings;
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "idAppUser=" + idAppUser +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
 
 }

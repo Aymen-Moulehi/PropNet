@@ -47,14 +47,14 @@ public class PostRestController {
 
     @DeleteMapping("/delete/{id}")
     @CrossOrigin
-    public void deletePost(@PathVariable("id") Integer postId) {
-        postService.deletePost(postId);
+    public void deletePost(@PathVariable("id") Integer id) {
+        postService.deletePost(id);
     }
 
     @PutMapping("/update/{id}")
     @CrossOrigin
-    public void updatePost(@PathVariable("id") Integer postId) {
-        postService.updatePost(postId);
+    public Post updatePost(@PathVariable("id") Integer postId) {
+        return postService.updatePost(postId);
     }
 
     @GetMapping("/find-related-posts-by-tags")

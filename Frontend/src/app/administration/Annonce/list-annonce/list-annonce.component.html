@@ -3,8 +3,19 @@
     <div class="container">
         
   
-        <app-filter-annonce></app-filter-annonce>
-        <!-- Start All Listing -->
+
+
+<!-- Start Shorting -->
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="item-shorting-box mt-4 bg-white border rounded px-3 py-3 mb-5">
+            <div class="item-shorting clearfix">
+                <div class="left-column"><h4 class="m-0 text-dark font--medium"><span>{{countAnnonce}}</span> Results Found </h4></div>
+            </div>
+
+        </div>
+    </div>	
+</div>        <!-- Start All Listing -->
         <div class="row gx-3 gy-4">
 							
             <!-- Single Property -->
@@ -21,21 +32,17 @@
                     <div class="veshm-list-prty-caption">
                         <div class="veshm-list-kygf">
                             <div class="veshm-list-kygf-flex">
-                                <div class="veshm-list-typess rent"><span>For Rent</span></div>
-                                <h5 class="rlhc-title-name verified">{{item.title}}</h5>
+                                <div class="veshm-list-typess rent"><span>{{item.realEstateStatus}}</span></div>
+                                <h5 class="rlhc-title-name verified">{{item.price}}</h5>
                                 <hr>
-                                <h5 class="rlhc-title-name verified">{{item.body}}</h5>
-                                <div class="vesh-aget-rates">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span class="resy-98">322 Reviews</span>
-                                </div>
+                                <h5 class="rlhc-title-name verified">description</h5>
+                                    <br>
+                                <div class="rlhc-prt-location"><i class="fa-solid fa-location-dot me-1"></i></div>
+
                             </div>
+
                             <div class="veshm-list-head-flex">
-                                <button class="btn btn-like active" type="button"><i class="fas fa-trash"></i></button>	
+                                <button class="btn btn-like active" type="submit"><i class="fas fa-trash" (click)="deleteAnnonce(item.idRealEstateListing)"></i></button>	
                             </div>
                         </div>
                         <div class="veshm-list-middle">
@@ -43,7 +50,7 @@
                                 <ul>
                                     <li><div class="veshm-list-ftr786">
                                         <div class="rlhc-price">
-                                            <h4 class="rlhc-price-name theme-cl">$7,549<span class="monthly">/Months</span></h4>
+                                            <h4 class="rlhc-price-name theme-cl">${{item.price}}</h4>
                                         </div>
                                     </div></li>
                                 </ul>
@@ -57,10 +64,10 @@
                                 </div>
                             </div>
                             <div class="veshm-list-ftr1707" style="margin-right: 10px;">
-                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#offer" class="btn btn-md btn-primary font--medium">Approved</a>
+                                <button type="button" class="btn btn-md font--bold btn-light-primary me-2" (click)="accepteAnnonce(item)">Approved</button>
                             </div>
                             <div class="veshm-list-ftr1707">
-                                <a [routerLink]="['detail',item.id]" class="btn btn-md btn-warning font--medium">Details</a>
+                                <a [routerLink]="['detail',item.idRealEstateListing]" class="btn btn-md btn-warning font--medium">Details</a>
                             </div>
                       
                         </div>

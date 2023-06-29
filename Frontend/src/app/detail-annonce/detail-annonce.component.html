@@ -16,13 +16,12 @@
                         <div class="vesh-detail-headup-first">
                             <div class="prt-detail-title-desc">
                                 <span class="label label-success">For Sale</span>
-                                <h4>{{annonce.title}}</h4>
-                                <span class="text-mid"><i class="fa-solid fa-location-dot me-2"></i>{{annonce.title}}</span>
+                                <h4>id : {{annonce.idRealEstateListing}}</h4>
+                                <span class="text-mid"><i class="fa-solid fa-location-dot me-2"></i></span>
                                 <div class="list-fx-features mt-2">
                                     <div class="list-fx-fisrt">
-                                        <span class="label font--medium label-light-success me-2">3 Beds</span>
-                                        <span class="label font--medium label-light-info me-2">2 Bath</span>
-                                        <span class=" label font--medium label-light-danger">4500 Sqft</span>
+                                        <span class="label font--medium label-light-success me-2">{{annonce.realEstateStatus}}</span>
+                                  
                                     </div>
                                     <div class="list-fx-last">
                                     
@@ -31,21 +30,10 @@
                             </div>
                         </div>
                         <div class="vesh-detail-headup-last">
-                            <h3 class="prt-price-fix theme-cl">$10,76500<span>One Time</span></h3>
+                            <h3 class="prt-price-fix theme-cl">${{annonce.price}}<span></span></h3>
                         </div>
                     </div>
-                    <div class="vesh-detail-bloc">
-                        <div class="vesh-detail-bloc_header">
-                            <h4 class="property_block_title no-arrow">About Property</h4>
-                        </div>
-                        <div class="vesh-detail-bloc-body">
-                            <div class="row g-3">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <p>T{{annonce.body}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+           
                 </div>
                 
                 <!-- About Property Detail -->

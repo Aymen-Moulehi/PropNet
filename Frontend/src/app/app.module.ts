@@ -18,7 +18,6 @@ import {MapComponent} from './map/map.component';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,8 +36,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule
   ],

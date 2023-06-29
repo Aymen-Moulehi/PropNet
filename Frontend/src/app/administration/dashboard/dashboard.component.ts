@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-//import { Chart,registerables, ChartOptions } from 'chart.js';
-import {StatisticsService} from 'src/app/services/statistics.service';
-
-//Chart.register(...registerables)
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Chart,registerables, ChartOptions } from 'chart.js';
+import { PostService } from 'src/app/services/post.service';
+import { RealEstateListingService } from 'src/app/services/real-estate-listing.service';
+import { StatisticsService } from 'src/app/services/statistics.service';
+import { UserService } from 'src/app/services/user.service';
+Chart.register(...registerables)
 
 @Component({
   selector: 'app-dashboard',
@@ -11,14 +13,19 @@ import {StatisticsService} from 'src/app/services/statistics.service';
 })
 export class DashboardComponent implements OnInit {
   chartData: any[]= [];
+  ListUsersByRegion : any [] = [];
+  CountUsers : any [] = [];
+  ListPostsPending!: any;
+  countPostPending!: any;
+  countPostAnnoncePending!:any;
 
-  constructor(private apiService: StatisticsService) { }
+
+  constructor(private apiService: StatisticsService,private apiServiceUser : UserService,private apiServicePost : PostService,private apiServiceRealState: RealEstateListingService) { }
 
   ngOnInit(): void {
-    //this.fetchData();
-
+    this.fetchData();
   }
-  /* chartOptions: ChartOptions = {
+  chartOptions: ChartOptions = {
     responsive: true,
     scales: {
       y: {
@@ -75,15 +82,15 @@ createChart() {
 }
 
 createChart2() {
-  const labels = this.chartData.map(data => data.key);
-  const values = this.chartData.map(data => data.value);
+  const labels = this.ListUsersByRegion.map(data => data.key);
+  const values = this.ListUsersByRegion.map(data => data.value);
   new Chart("myChart2", {
     type: 'doughnut',
     data: {
          labels: labels,
          datasets: [
          {
-             label: "Nombre de poste",
+             label: "Nombre de user",
              data: values,
          },
         ]
@@ -97,12 +104,37 @@ createChart2() {
       data => {
         this.chartData = data;
         this.createChart();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    this.apiService.getUsersByRegion().subscribe(
+      data => {
+        this.ListUsersByRegion = data;
         this.createChart2();
       },
       error => {
         console.error(error);
       }
     );
-  } */
+    this.apiServiceUser.getCountUser().subscribe(
+      data => {
+        this.CountUsers = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    this.apiServicePost.getPostsPending().subscribe(data => {
+      this.countPostPending = data.length;
+   });
+   this.apiServiceRealState.getRealEstatePending().subscribe(data =>{
+    this.countPostAnnoncePending = data.length;
+ });
+
+  }
+
+
 
 }
