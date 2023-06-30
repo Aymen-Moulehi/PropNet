@@ -51,8 +51,6 @@ public class EmailDetailServiceImpl implements IEmailDetailService {
         details.setSubject(subject);
         details.setMsgBody(body);
         details.setRecipient(recipient);
-        if(details != null){
-           emailDetailService.sendMail(details);
-        }
+        this.sendMail(details);
     }
 }
