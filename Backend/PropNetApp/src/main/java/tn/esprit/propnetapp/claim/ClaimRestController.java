@@ -37,4 +37,11 @@ public class ClaimRestController {
         return claimService.updateClaim(claim);
     }
 
+    @GetMapping("/getLastClaim")
+    public Claim getLastClaim() {
+        List<Claim> ListClaim = claimService.getLastClaimService();
+        return ListClaim.get(0);
+    }
+
+
 }
