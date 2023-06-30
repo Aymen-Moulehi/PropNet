@@ -65,9 +65,8 @@ public class RealEstateListingServiceImpl implements IRealEstateListingService {
 
         for (AppUser item : ListUsers){
 
-            TemplateMail templateMail = new TemplateMail();
             String subject =  "Congratulations on Your New Home Purchase";
-            String body = templateMail.ContentMailToRecipient(item.getName(),_RealEstateListing.getIdRealEstateListing());
+            String body = TemplateMail.ContentMailToRecipient(item.getName(),_RealEstateListing.getIdRealEstateListing());
             String recipient = item.getEmail();
             emailDetailService.sendEmailWithParameters(subject,body,recipient);
         }

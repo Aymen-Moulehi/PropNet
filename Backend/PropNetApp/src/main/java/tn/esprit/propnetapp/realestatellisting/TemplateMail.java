@@ -2,7 +2,7 @@ package tn.esprit.propnetapp.realestatellisting;
 
 public class TemplateMail {
 
-    public String ContentMailToRecipient (String RecipientName,Integer id){
+    public static String ContentMailToRecipient (String RecipientName,Integer id){
         String template = "<body style=\"margin: 0; padding: 0;\" bgcolor=\"#eaeced\">\n"
                 + "  <table style=\"min-width: 320px;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#eaeced\">\n"
                 + "    <tr>\n"
