@@ -36,15 +36,6 @@ public class Governorate implements Serializable {
     private Integer idGovernorate;
     private String name;
     private String country;
-    private Integer population;
-    private Float area;
-    private String timeZone;
-    private String mayor;
-    private Float latitude;
-    private Float longitude;
-    @JsonIgnore
-    @OneToMany(mappedBy = "governorate")
-    private Collection<Address> addresses;
     @JsonIgnore
     @OneToMany(mappedBy = "governorate")
     private Collection<City> cities;

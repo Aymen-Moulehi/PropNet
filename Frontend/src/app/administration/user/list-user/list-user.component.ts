@@ -111,6 +111,7 @@ export class ListUserComponent implements OnInit {
   
 
   searchUsers() {
+    console.log(this.selectedValue)
     this.filterUsers();
   }
 

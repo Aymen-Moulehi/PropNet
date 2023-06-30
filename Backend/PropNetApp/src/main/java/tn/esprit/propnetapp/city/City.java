@@ -23,10 +23,8 @@ public class City implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRegion;
     private String name;
-    private Float area;
-    private Float latitude;
-    private Float longitude;
     @ManyToOne
+    @JsonIgnore
     private Governorate governorate;
     @JsonIgnore
     @OneToMany(mappedBy = "city")

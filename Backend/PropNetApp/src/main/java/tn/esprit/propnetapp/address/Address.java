@@ -27,9 +27,9 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAddress;
     private String description;
-    @OneToOne(mappedBy = "address")
-    @JsonIgnore
-    private RealEstateListing realEstateListing;
+    //@OneToOne(mappedBy = "address")
+    //@JsonIgnore
+    //private RealEstateListing realEstateListing;
     @ManyToOne
     @JsonIgnore
     private Governorate governorate;

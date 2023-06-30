@@ -31,130 +31,141 @@
         <!-- row Start -->
         <div class="row align-items-center justify-content-center">
         
-            
-<div _ngcontent-hcd-c18="" class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
-    <div _ngcontent-hcd-c18="" class="hero-search-wrap">
-        <div _ngcontent-hcd-c18="" class="hero-search">
-            <h1 _ngcontent-hcd-c18="">Find accessible homes For rent</h1>
-        </div>
-        <div _ngcontent-hcd-c18="" class="hero-search-content verticle-space">
-            <div _ngcontent-hcd-c18="" class="row">
-                <div _ngcontent-hcd-c18="" class="col-lg-12 col-md-12 col-sm-12">
-                    <div _ngcontent-hcd-c18="" class="form-group">
-                        <div _ngcontent-hcd-c18="" class="input-with-icon"><input _ngcontent-hcd-c18="" type="text"
-                                placeholder="Search for a location" class="form-control border"><img
-                                _ngcontent-hcd-c18="" src="assets/img/pin.svg" width="18" alt=""></div>
-                    </div>
+            <form  (ngSubmit)="onSubmit()" class="container mt-4">
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input type="text" id="title" name="title" class="form-control" [(ngModel)]="realEstateListing.title" required>
+                  <!-- Add validation messages if needed -->
                 </div>
-                <div _ngcontent-hcd-c18="" class="col-lg-6 col-md-6 col-sm-6">
-                    <div _ngcontent-hcd-c18="" class="form-group"><label _ngcontent-hcd-c18="">Min Price</label><select
-                            _ngcontent-hcd-c18="" class="form-control" style="display: none;">
-                            <option _ngcontent-hcd-c18="" value="1">$500</option>
-                            <option _ngcontent-hcd-c18="" value="2">$1000</option>
-                            <option _ngcontent-hcd-c18="" value="3">$1500</option>
-                            <option _ngcontent-hcd-c18="" value="4">2000</option>
-                            <option _ngcontent-hcd-c18="" value="5">3000</option>
-                        </select>
-                        <div class="nice-select form-control" tabindex="0"><span class="current">$500</span>
-                            <ul class="list">
-                                <li data-value="1" class="option selected">$500</li>
-                                <li data-value="2" class="option">$1000</li>
-                                <li data-value="3" class="option">$1500</li>
-                                <li data-value="4" class="option">2000</li>
-                                <li data-value="5" class="option">3000</li>
-                            </ul>
-                        </div>
-                    </div>
+              
+                <div class="form-group">
+                  <label for="creationDate">Creation Date</label>
+                  <input type="date" id="creationDate" name="creationDate" class="form-control" [(ngModel)]="realEstateListing.creationDate" required>
+                  <!-- Add validation messages if needed -->
                 </div>
-                <div _ngcontent-hcd-c18="" class="col-lg-6 col-md-6 col-sm-6">
-                    <div _ngcontent-hcd-c18="" class="form-group"><label _ngcontent-hcd-c18="">Max Price</label><select
-                            _ngcontent-hcd-c18="" class="form-control" style="display: none;">
-                            <option _ngcontent-hcd-c18="" value="1">$1000</option>
-                            <option _ngcontent-hcd-c18="" value="2">$1500</option>
-                            <option _ngcontent-hcd-c18="" value="3">$2000</option>
-                            <option _ngcontent-hcd-c18="" value="4">$3000</option>
-                            <option _ngcontent-hcd-c18="" value="5">$5000</option>
-                        </select>
-                        <div class="nice-select form-control" tabindex="0"><span class="current">$1000</span>
-                            <ul class="list">
-                                <li data-value="1" class="option selected">$1000</li>
-                                <li data-value="2" class="option">$1500</li>
-                                <li data-value="3" class="option">$2000</li>
-                                <li data-value="4" class="option">$3000</li>
-                                <li data-value="5" class="option">$5000</li>
-                            </ul>
-                        </div>
-                    </div>
+              
+                <!-- Add the remaining form controls using Bootstrap classes -->
+              
+                <div class="form-group">
+                  <label for="price">Price</label>
+                  <input type="number" id="price" name="price" class="form-control" [(ngModel)]="realEstateListing.price" required>
+                  <!-- Add validation messages if needed -->
                 </div>
-                <div _ngcontent-hcd-c18="" class="col-lg-6 col-md-6 col-sm-6">
-                    <div _ngcontent-hcd-c18="" class="form-group"><label _ngcontent-hcd-c18="">Property
-                            Type</label><select _ngcontent-hcd-c18="" class="form-control" style="display: none;">
-                            <option _ngcontent-hcd-c18="" value="1">Rental</option>
-                            <option _ngcontent-hcd-c18="" value="2">Villas</option>
-                            <option _ngcontent-hcd-c18="" value="3">Offices</option>
-                            <option _ngcontent-hcd-c18="" value="4">Condos</option>
-                            <option _ngcontent-hcd-c18="" value="5">Studios</option>
-                        </select>
-                        <div class="nice-select form-control" tabindex="0"><span class="current">Rental</span>
-                            <ul class="list">
-                                <li data-value="1" class="option selected">Rental</li>
-                                <li data-value="2" class="option">Villas</li>
-                                <li data-value="3" class="option">Offices</li>
-                                <li data-value="4" class="option">Condos</li>
-                                <li data-value="5" class="option">Studios</li>
-                            </ul>
-                        </div>
-                    </div>
+              
+                <div class="form-group">
+                  <label for="area">Area</label>
+                  <input type="number" id="area" name="area" class="form-control" [(ngModel)]="realEstateListing.area" required>
+                  <!-- Add validation messages if needed -->
                 </div>
-                <div _ngcontent-hcd-c18="" class="col-lg-6 col-md-6 col-sm-6">
-                    <div _ngcontent-hcd-c18="" class="form-group"><label _ngcontent-hcd-c18="">Bed Rooms</label><select
-                            _ngcontent-hcd-c18="" class="form-control" style="display: none;">
-                            <option _ngcontent-hcd-c18="" value="1">1</option>
-                            <option _ngcontent-hcd-c18="" value="2">2</option>
-                            <option _ngcontent-hcd-c18="" value="3">3</option>
-                            <option _ngcontent-hcd-c18="" value="4">4</option>
-                            <option _ngcontent-hcd-c18="" value="5">5</option>
-                        </select>
-                        <div class="nice-select form-control" tabindex="0"><span class="current">1</span>
-                            <ul class="list">
-                                <li data-value="1" class="option selected">1</li>
-                                <li data-value="2" class="option">2</li>
-                                <li data-value="3" class="option">3</li>
-                                <li data-value="4" class="option">4</li>
-                                <li data-value="5" class="option">5</li>
-                            </ul>
-                        </div>
-                    </div>
+              
+                <div class="form-group">
+                  <label for="operation">Operation</label>
+                  <select #operation  id="operation" name="operation" class="select-normal">
+                    <option value="SALE">SALE</option>
+                    <option value="RENT">Rent</option>
+                </select>
+
+                  <!-- Add validation messages if needed -->
                 </div>
-                <div _ngcontent-hcd-c18="" class="col-lg-12 col-md-12 col-sm-12">
-                    <div _ngcontent-hcd-c18="" class="form-group"><label _ngcontent-hcd-c18="">Property
-                            Location</label><select _ngcontent-hcd-c18="" class="form-control" style="display: none;">
-                            <option _ngcontent-hcd-c18="" value="1">Los Angeles, CA</option>
-                            <option _ngcontent-hcd-c18="" value="2">New York City, NY</option>
-                            <option _ngcontent-hcd-c18="" value="3">Chicago, IL</option>
-                            <option _ngcontent-hcd-c18="" value="4">Houston, TX</option>
-                            <option _ngcontent-hcd-c18="" value="5">Philadelphia, PA</option>
-                            <option _ngcontent-hcd-c18="" value="6">San Antonio, TX</option>
-                            <option _ngcontent-hcd-c18="" value="7">San Jose, CA</option>
-                        </select>
-                        <div class="nice-select form-control" tabindex="0"><span class="current">Los Angeles, CA</span>
-                            <ul class="list">
-                                <li data-value="1" class="option selected">Los Angeles, CA</li>
-                                <li data-value="2" class="option">New York City, NY</li>
-                                <li data-value="3" class="option">Chicago, IL</li>
-                                <li data-value="4" class="option">Houston, TX</li>
-                                <li data-value="5" class="option">Philadelphia, PA</li>
-                                <li data-value="6" class="option">San Antonio, TX</li>
-                                <li data-value="7" class="option">San Jose, CA</li>
-                            </ul>
-                        </div>
-                    </div>
+              
+                <div class="form-group form-check">
+                  <input type="checkbox" id="realEstateIsSold" name="realEstateIsSold" class="form-check-input" [(ngModel)]="realEstateListing.realEstateIsSold">
+                  <label for="realEstateIsSold" class="form-check-label">Real Estate Is Sold</label>
                 </div>
-                <div _ngcontent-hcd-c18="" class="col-lg-12 col-md-12 col-sm-12"><button _ngcontent-hcd-c18=""
-                        type="submit" class="btn search-btn">Search Result</button></div>
-            </div>
-        </div>
-    </div>
-</div>
+              
+                <div class="form-group">
+                  <label for="numberOfBedrooms">Number of Bedrooms</label>
+                  <input type="number" id="numberOfBedrooms" name="numberOfBedrooms" class="form-control" [(ngModel)]="realEstateListing.numberOfBedrooms">
+                </div>
+              
+                <div class="form-group">
+                  <label for="numberOfBathrooms">Number of Bathrooms</label>
+                  <input type="number" id="numberOfBathrooms" name="numberOfBathrooms" class="form-control" [(ngModel)]="realEstateListing.numberOfBathrooms">
+                </div>
+              
+                <div class="form-group">
+                  <label for="propertyType">Property Type</label>
+                  <select #propertyType id="propertyType" name="propertyType" class="form-control" [(ngModel)]="realEstateListing.propertyType" required>
+                    <option value="APARTMENT">Apartment</option>
+                    <option value="HOUSE">House</option>
+                    <!-- Add more options if needed -->
+                  </select>
+
+                  
+                  <!-- Add validation messages if needed -->
+                </div>
+              
+                <div class="form-group form-check">
+                  <input type="checkbox" id="hasParking" name="hasParking" class="form-check-input" [(ngModel)]="realEstateListing.hasParking">
+                  <label for="hasParking" class="form-check-label">Has Parking</label>
+                </div>
+              
+                <div class="form-group form-check">
+                  <input type="checkbox" id="hasGarden" name="hasGarden" class="form-check-input" [(ngModel)]="realEstateListing.hasGarden">
+                  <label for="hasGarden" class="form-check-label">Has Garden</label>
+                </div>
+              
+                <div class="form-group form-check">
+                  <input type="checkbox" id="hasBalcony" name="hasBalcony" class="form-check-input" [(ngModel)]="realEstateListing.hasBalcony">
+                  <label for="hasBalcony" class="form-check-label">Has Balcony</label>
+                </div>
+              
+                <div class="form-group form-check">
+                  <input type="checkbox" id="hasPool" name="hasPool" class="form-check-input" [(ngModel)]="realEstateListing.hasPool">
+                  <label for="hasPool" class="form-check-label">Has Pool</label>
+                </div>
+              
+                <div class="form-group form-check">
+                  <input type="checkbox" id="isFurnished" name="isFurnished" class="form-check-input" [(ngModel)]="realEstateListing.isFurnished">
+                  <label for="isFurnished" class="form-check-label">Is Furnished</label>
+                </div>
+              
+                <div class="form-group form-check">
+                  <input type="checkbox" id="hasSecurity" name="hasSecurity" class="form-check-input" [(ngModel)]="realEstateListing.hasSecurity">
+                  <label for="hasSecurity" class="form-check-label">Has Security</label>
+                </div>
+              
+                <div class="form-group">
+                  <label for="governorate">Governorate</label>
+                  <select #governorate class="form-control" name="governorate">
+                    <option *ngFor="let gouvernorate of ListGouvernorate"  value="{{gouvernorate.id}}">{{gouvernorate.name}}</option>
+                  </select>
+                 
+                                             <!-- Replace with a dropdown or autocomplete if selecting from a list -->
+                </div>
+
+    
+                <div class="form-group">
+                  <label for="latitude">Latitude</label>
+                  <input type="number" id="latitude" name="latitude" class="form-control" [(ngModel)]="realEstateListing.latitude">
+                </div>
+              
+                <div class="form-group">
+                  <label for="longitude">Longitude</label>
+                  <input type="number" id="longitude" name="longitude" class="form-control" [(ngModel)]="realEstateListing.longitude">
+                </div>
+              
+                <div class="form-group">
+                  <label for="builtYear">Built Year</label>
+                  <input type="number" id="builtYear" name="builtYear" class="form-control" [(ngModel)]="realEstateListing.builtYear">
+                </div>
+              
+         
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <select #city name="city" id="city" *ngFor="let city of ListCity" >
+                      <option  value={{city}}>{{ city.name }}</option>
+                  </select>
+                </div>
+
+           
+                
+                
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+              
+
         </div>
         <!-- /row -->

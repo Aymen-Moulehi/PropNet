@@ -12,22 +12,27 @@ public class CityRestController {
     ICityService regionService;
 
     @PostMapping("/add-region")
+    @CrossOrigin
     public City addRegion(@RequestBody City city) {
         return regionService.addRegion(city);
     }
     @GetMapping("/retrieve-all-regions")
+    @CrossOrigin
     public List<City> getAllRegions() {
         return regionService.retrieveAllRegions();
     }
     @GetMapping("/retrieve-region/{region-id}")
+    @CrossOrigin
     public City retrieveRegion(@PathVariable("region-id") Integer regionId) {
         return regionService.retrieveRegion(regionId);
     }
     @DeleteMapping("/remove-region/{region-id}")
+    @CrossOrigin
     public void removeRegion(@PathVariable("region-id") Integer regionId) {
         regionService.deleteRegion(regionId);
     }
     @PutMapping("/update-region")
+    @CrossOrigin
     public City updateRegion(@RequestBody City city) {
         return regionService.updateRegion(city);
     }

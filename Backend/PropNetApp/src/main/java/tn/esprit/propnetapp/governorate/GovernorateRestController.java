@@ -8,6 +8,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/governorate")
+@CrossOrigin
 public class GovernorateRestController {
     IGovernorateService governorateService;
 
