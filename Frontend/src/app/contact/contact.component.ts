@@ -32,10 +32,24 @@ export class ContactComponent implements OnInit {
 
     this.claimServices.add(data).subscribe(
       {
-        next: ()=>{this.router.navigate(['/']);}
+        next: ()=>{
+          this.router.navigate(['/'])
+          this.verifieEmail()
+         
+      }
       }
      )
      console.log(data)
+  }
+  verifieEmail(){
+    let data = this.addForm.value
+    console.log(data)
+    this.claimServices.verifieEmailUser(data).subscribe({
+      next: (res:any) => { console.log(res)
+          this.addForm.reset();
+      },
+      error: (e) => console.error(e), 
+    }) 
   }
 
 }

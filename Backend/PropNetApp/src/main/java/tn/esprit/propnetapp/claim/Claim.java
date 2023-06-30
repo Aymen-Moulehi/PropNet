@@ -1,6 +1,7 @@
 package tn.esprit.propnetapp.claim;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Claim implements Serializable {
+public class Claim implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClaim;
@@ -27,6 +28,7 @@ public class Claim implements Serializable {
     private String description;
     @Temporal(TemporalType.DATE)
     private Date DateCreated ;
+    @JsonIgnore
     @ManyToOne
     private AppUser appUser;
 }

@@ -44,6 +44,10 @@ public class ClaimServiceImpl implements IClaimService {
 
     }
 
+    @Override
+    public List<Claim> getLastClaimService() {
+        return claimRepository.getLastClaim();
+    }
 
 
 }

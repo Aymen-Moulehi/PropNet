@@ -20,6 +20,9 @@ import { Injectable } from '@angular/core';
   getDetails(id:number){
     return  this.http.get("http://localhost:8089/app/claim/retrieve-claim/"+id);
   }
+  verifieEmailUser(data:any){
+    return this.http.post<any>("http://localhost:8089/app/claim/confirme", data); 
+  }
      
       
 
