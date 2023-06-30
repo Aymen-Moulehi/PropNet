@@ -11,4 +11,5 @@ public interface IClaimService {
     Claim retrieveClaim (Integer idClaim);
 
     void deleteClaim(Integer idClaim);
+    List<Claim> getLastClaimService();
 }

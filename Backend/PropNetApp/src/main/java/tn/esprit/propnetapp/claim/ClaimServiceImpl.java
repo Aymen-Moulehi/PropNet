@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import tn.esprit.propnetapp.appuser.TemplateMail.UserAccountActive;
+import tn.esprit.propnetapp.claim.TemplateMail.ClaimEmail;
+import tn.esprit.propnetapp.features.email.IEmailDetailService;
 
 import java.util.List;
 
@@ -16,9 +19,16 @@ import java.util.List;
 public class ClaimServiceImpl implements IClaimService {
 
     ClaimRepository claimRepository;
+    IEmailDetailService emailDetailService;
 
     @Override
     public Claim addClaim(Claim claim) {
+        UserAccountActive userAccountActive = new UserAccountActive();
+        String subject =  claim.getSujet();
+        String body = ClaimEmail.ContentMailToRecipient(claim.getName());
+        String recipient = claim.getEmail();
+        emailDetailService.sendEmailWithParameters(subject,body,recipient);
+
         return claimRepository.save(claim);
     }
 
@@ -43,6 +53,12 @@ public class ClaimServiceImpl implements IClaimService {
         claimRepository.deleteById(idClaim);
 
     }
+
+    @Override
+    public List<Claim> getLastClaimService() {
+        return claimRepository.getLastClaim();
+    }
+
 
 
 
