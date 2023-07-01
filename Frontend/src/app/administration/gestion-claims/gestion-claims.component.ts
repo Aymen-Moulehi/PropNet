@@ -9,7 +9,6 @@ import { ClaimServicesService } from 'src/app/services/claim-services.service';
 export class GestionClaimsComponent implements OnInit {
   claimList:any=[];
   Total!:number;
-
   constructor( private claimServices : ClaimServicesService) { }
 
   ngOnInit(): void {

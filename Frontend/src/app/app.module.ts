@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -11,9 +10,7 @@ import {SingupComponent} from './singup/singup.component';
 import {AddAnnonceComponent} from './add-annonce/add-annonce.component';
 import {ListAnnoncesComponent} from './list-annonces/list-annonces.component';
 import {HttpClientModule} from '@angular/common/http';
-
 import {MapComponent} from './map/map.component';
-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ClaimComponent } from './claim/claim.component';
 import { DetailsAnnonceComponent } from './details-annonce/details-annonce.component';

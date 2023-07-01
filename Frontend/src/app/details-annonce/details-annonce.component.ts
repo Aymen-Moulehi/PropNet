@@ -33,7 +33,6 @@ export class DetailsAnnonceComponent implements OnInit {
   }
 
   getAllFeedback(){
-
     this.feedbackService.getALL().subscribe({
       next: (res) => {
         this.feedbackList = res ;
@@ -50,7 +49,6 @@ export class DetailsAnnonceComponent implements OnInit {
       }
      )
      console.log(data)
-
   }
 
 deleteFeedback(id:number){

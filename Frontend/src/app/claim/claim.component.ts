@@ -25,7 +25,6 @@ export class ClaimComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   addClaim(){
     let data = this.addForm.value;
 

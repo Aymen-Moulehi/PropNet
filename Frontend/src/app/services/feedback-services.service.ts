@@ -8,7 +8,6 @@ export class FeedbackServicesService {
 
   constructor(private http: HttpClient) { }
 
-
   add(feedback:any){
       return this.http.post<any>("http://localhost:8089/app/feedback/add-feedback/",feedback);
     }

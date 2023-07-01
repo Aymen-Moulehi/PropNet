@@ -15,8 +15,6 @@ import { DetailsAnnonceComponent } from './details-annonce/details-annonce.compo
 const routes: Routes = [
   {path:'', component: AccueilComponent},
   {path:'claim', component: ClaimComponent},
-
-
   {path:'list-annonces', component: ListAnnoncesComponent},
   {path:'admin/annonce/listAnnonces/detail/:id', component: DetailsAnnonceComponent},
 

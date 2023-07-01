@@ -8,7 +8,6 @@ export class ClaimServicesService {
 
   constructor(private http: HttpClient) { }
 
-
     add(claim:any){
         return this.http.post<any>("http://localhost:8089/app/claim/add-claim/",claim);
       }
