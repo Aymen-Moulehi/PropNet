@@ -1,12 +1,12 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
-  })
-  export class ClaimService {
-    constructor(private http: HttpClient) { }
+  providedIn: 'root'
+})
+export class ClaimServicesService {
 
+  constructor(private http: HttpClient) { }
 
     add(claim:any){
         return this.http.post<any>("http://localhost:8089/app/claim/add-claim/",claim);
@@ -23,5 +23,5 @@ import {Injectable} from '@angular/core';
   }
 
 
-
-  }
+  
+}

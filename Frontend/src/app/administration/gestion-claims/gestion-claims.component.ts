@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ClaimService} from 'src/app/services/claim.service';
+import { Component, OnInit } from '@angular/core';
+import { ClaimServicesService } from 'src/app/services/claim-services.service';
 
 @Component({
-  selector: 'app-list-claim',
-  templateUrl: './claim.component.html',
-  styleUrls: ['./claim.component.css']
+  selector: 'app-gestion-claims',
+  templateUrl: './gestion-claims.component.html',
+  styleUrls: ['./gestion-claims.component.css']
 })
-export class ClaimComponent implements OnInit {
+export class GestionClaimsComponent implements OnInit {
   claimList:any=[];
   Total!:number;
-
-  constructor( private claimServices : ClaimService) { }
+  constructor( private claimServices : ClaimServicesService) { }
 
   ngOnInit(): void {
     this.getAllClaim();
