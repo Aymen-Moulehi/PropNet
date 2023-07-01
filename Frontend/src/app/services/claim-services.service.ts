@@ -1,11 +1,12 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
-  })
-  export class ClaimService {
-    constructor(private http: HttpClient) { }
+  providedIn: 'root'
+})
+export class ClaimServicesService {
+
+  constructor(private http: HttpClient) { }
 
 
     add(claim:any){
@@ -23,5 +24,5 @@ import {Injectable} from '@angular/core';
   }
 
 
-
-  }
+  
+}

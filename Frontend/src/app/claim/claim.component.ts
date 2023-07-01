@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {ClaimService} from '../services/claim.service';
-
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ClaimServicesService } from '../services/claim-services.service';
 
 @Component({
-  selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  selector: 'app-claim',
+  templateUrl: './claim.component.html',
+  styleUrls: ['./claim.component.css']
 })
-export class ContactComponent implements OnInit {
+export class ClaimComponent implements OnInit {
   addForm!: FormGroup;
-  constructor( private claimServices : ClaimService,
+  constructor( private claimServices : ClaimServicesService,
     private router:Router ){
       this.addForm = new FormGroup({
       name: new FormControl('', Validators.required) ,
@@ -39,3 +38,6 @@ export class ContactComponent implements OnInit {
   }
 
 }
+
+
+

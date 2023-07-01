@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { StatisticsService } from '../services/statistics.service';
-import { FeedbackService } from '../services/feedback.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { FeedbackServicesService } from '../services/feedback-services.service';
 import { RealEstateListingService } from '../services/real-estate-listing.service';
 
-
 @Component({
-  selector: 'app-detail-annonce',
-  templateUrl: './detail-annonce.component.html',
-  styleUrls: ['./detail-annonce.component.css']
+  selector: 'app-details-annonce',
+  templateUrl: './details-annonce.component.html',
+  styleUrls: ['./details-annonce.component.css']
 })
-export class DetailAnnonceComponent implements OnInit {
+export class DetailsAnnonceComponent implements OnInit {
   itemId!: string;
   annonce : any
   addForm!: FormGroup;
   feedbackList:any=[];
 
-  constructor(private route: ActivatedRoute,private apiService: RealEstateListingService,private feedbackService : FeedbackService) {
+  constructor(private route: ActivatedRoute,private apiService: RealEstateListingService,private feedbackService : FeedbackServicesService) {
     this.addForm = new FormGroup({
       name: new FormControl('', Validators.required) ,
       email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$") ]),
@@ -79,6 +76,5 @@ deleteFeedback(id:number){
       }
     );
   }
-
 
 }

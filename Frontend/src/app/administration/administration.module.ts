@@ -4,14 +4,14 @@ import {CommonModule} from '@angular/common';
 import {AdministrationRoutingModule} from './administration-routing.module';
 import {AdministrationComponent} from '../administration/administration.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {ClaimComponent} from './claim/claim.component';
+import { GestionClaimsComponent } from './gestion-claims/gestion-claims.component';
 
 
 @NgModule({
   declarations: [
     AdministrationComponent,
     DashboardComponent,
-    ClaimComponent,
+    GestionClaimsComponent,
   ],
   imports: [
     CommonModule,
