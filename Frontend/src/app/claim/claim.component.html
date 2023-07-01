@@ -30,13 +30,13 @@
         <!-- row Start -->
         <div class="row align-items-center justify-content-center">
         
-            <form class="col-lg-10 col-md-12" [formGroup]="addForm" (ngSubmit)="addClaim()" >
+            <form class="col-lg-10 col-md-12" [formGroup]="addFroms" (ngSubmit)="addClaims()" >
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control simple" formControlName="name">
-                            <div *ngIf="addForm.get('name')!.invalid && (addForm.get('name')!.dirty || addForm.get('name')!.touched)">
+                            <input type="text" class="form-control simple" formControlName="Name">
+                            <div *ngIf="addFroms.get('Name')!.invalid && (addFroms.get('Name')!.dirty || addFroms.get('Name')!.touched)">
                                 <span class="error">Veuillez saisir votre a Nome & Prénom.</span>
                             </div> 
                         </div>
@@ -55,8 +55,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
                             <label>Subject</label>
-                            <input type="text" class="form-control simple"  formControlName="sujet">
-                            <div *ngIf="addForm.get('sujet')!.invalid && (addForm.get('sujet')!.dirty || addForm.get('sujet')!.touched)">
+                            <input type="text" class="form-control simple"  formControlName="Subject">
+                            <div *ngIf="addFroms.get('Subject')!.invalid && (addFroms.get('Subject')!.dirty || addFroms.get('Subject')!.touched)">
                                 <span class="error">Veuillez saisir votre Sujet.</span>
                             </div>
                         </div>
@@ -70,15 +70,15 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="form-group">
                             <label>Message</label>
-                            <textarea class="form-control simple" formControlName="description"></textarea>
-                            <div *ngIf="addForm.get('description')!.invalid && (addForm.get('description')!.dirty || addForm.get('description')!.touched)">
+                            <textarea class="form-control simple" formControlName="Message"></textarea>
+                            <div *ngIf="addFroms.get('Message')!.invalid && (addFroms.get('Message')!.dirty || addFroms.get('Message')!.touched)">
                                 <span class="error">Veuillez saisir votre Description.</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12">
                         <div class="form-group">
-                            <button  [disabled]="addForm.invalid"  class="btn btn-primary" type="submit">Submit Request</button>
+                            <button  [disabled]="addFroms.invalid"  class="btn btn-primary" type="submit">Submit Request</button>
                         </div>
                     </div>
                 </div>				

@@ -9,31 +9,29 @@ import { ClaimServicesService } from '../services/claim-services.service';
   styleUrls: ['./claim.component.css']
 })
 export class ClaimComponent implements OnInit {
-  addForm!: FormGroup;
+  addFroms!: FormGroup;
   constructor( private claimServices : ClaimServicesService,
-    private router:Router ){
-      this.addForm = new FormGroup({
-      name: new FormControl('', Validators.required) ,
+    private rout:Router ){
+      this.addFroms = new FormGroup({
+      Name: new FormControl('', Validators.required) ,
       email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$") ]),
-      sujet: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
+      Subject: new FormControl('', Validators.required),
+      Message: new FormControl('', Validators.required),
     });
 
   }
-  get email(){ return this.addForm.get('email')};
+  get email(){ return this.addFroms.get('email')};
 
   ngOnInit(): void {
   }
 
-  addClaim(){
-    let data = this.addForm.value;
-
-    this.claimServices.add(data).subscribe(
+  addClaims(){
+    let res = this.addFroms.value;
+    this.claimServices.add(res).subscribe(
       {
-        next: ()=>{this.router.navigate(['/']);}
+        next: ()=>{this.rout.navigate(['/']);}
       }
-     )
-     console.log(data)
+    )
   }
 
 }
