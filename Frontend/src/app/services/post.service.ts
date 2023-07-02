@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/Post';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,17 @@ export class PostService {
     return this.httpClient.put<Post>(environment.baseUrl + '/post/update/'+ post.idPost, post);
   }
 
-
-
+  downloadPostPDF(postId: number): Observable<HttpResponse<ArrayBuffer>> {
+    const url = environment.baseUrl + "/pdf-generator/post/" + postId;
+    const headers = new HttpHeaders().set('Accept', 'application/pdf');
+    return this.httpClient.get(url, {
+      headers: headers,
+      observe: 'response',
+      responseType: 'arraybuffer'
+    });
+  }  
 }
+
+
+
+
