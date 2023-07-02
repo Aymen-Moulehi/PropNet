@@ -1,7 +1,5 @@
 package tn.esprit.propnetapp.post;
 
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 
 public interface IPostService {
@@ -13,7 +11,7 @@ public interface IPostService {
     List<Post> getPost();
 
     void deletePost(Integer id);
-    void updatePost(Integer id);
+    Post updatePost(Integer id);
 
     List<Post> findByRelatedTagsInList(List<String> tags);
 

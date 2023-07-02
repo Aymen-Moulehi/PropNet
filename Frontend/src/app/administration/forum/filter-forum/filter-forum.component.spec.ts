@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FilterForumComponent } from './filter-forum.component';
+import {FilterForumComponent} from './filter-forum.component';
 
 describe('FilterForumComponent', () => {
   let component: FilterForumComponent;

@@ -6,6 +6,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.propnetapp.Jwt.JwtUtil;
 import tn.esprit.propnetapp.Jwt.LogoutService;
@@ -13,6 +15,7 @@ import tn.esprit.propnetapp.features.email.EmailDetail;
 import tn.esprit.propnetapp.features.email.IEmailDetailService;
 import tn.esprit.propnetapp.features.inputvalidator.InputValidator;
 import tn.esprit.propnetapp.features.inputvalidator.ValidatorType;
+import tn.esprit.propnetapp.post.Post;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,9 +49,14 @@ public class AppUserRestController {
        log.info("in login controller");
         return ResponseEntity.ok(authenticateService.authenticate(request, httpRequest, httpResponse));
     }
+    IAppUserService appUserService;
+    AppUserRepository appUserRepository;
+    AppUserServiceImpl userService;
 
     @PostMapping("/add-appUser")
     public AppUser addAppUserS(AppUser appUser) {
+    @CrossOrigin
+    public AppUser addAppUserS(@RequestBody AppUser appUser) {
         return appUserService.addAppUser(appUser);
     }
 
@@ -90,9 +98,61 @@ public class AppUserRestController {
     public String checkpasscode(HttpServletRequest httpRequest, HttpServletResponse httpResponse, @RequestBody UserResetPassword userResetPassword) {
 
         return authenticateService.checkpasscode(httpRequest , httpResponse ,userResetPassword );
+    @GetMapping("/user-post-withLocation")
+    @CrossOrigin
+    List<Map<String, Object>> findPostWithLocation() {
+        return appUserService.findPostWithLocation();
     }
 
     
+    @GetMapping("/user-by-region")
+    @CrossOrigin
+    public List<Map<String, Object>> getUsersCountByRegion() {
+        return appUserService.getUsersByRegion();
+    }
+
+    @GetMapping("/countUser")
+    @CrossOrigin
+    public Integer countUsers() {
+        return appUserService.countUsers();
+    }
+
+    @GetMapping("/users")
+    @CrossOrigin
+    public List<AppUser> getUsers(){
+        return appUserRepository.getAllusers();}
+    @DeleteMapping("/delete/{idAppUser}")
+    @CrossOrigin
+    public void deleteUser(@PathVariable("idAppUser") Integer idAppUser) {
+        appUserService.deleteUser(idAppUser);
+    }
+    @PutMapping("/account/activate/{idAppUser}")
+    @CrossOrigin
+    public void activateAccount(@PathVariable("idAppUser")  Integer idAppUser) {
+        appUserService.activateAccount(idAppUser);
+
+    }
+    @PutMapping("/account/deactivate/{idAppUser}")
+    @CrossOrigin
+    public void deactivateAccount(@PathVariable("idAppUser")  Integer idAppUser) {
+        appUserService.deactivateAccount(idAppUser);
+    }
+
+    @GetMapping("/address/{address}")
+    @CrossOrigin
+    public List<AppUser> getUsersByAddress(@PathVariable String address) {
+        return appUserService.getUsersByAddress(address);
+    }
+
+
+    @GetMapping("/name/{name}/status/{status}")
+    public ResponseEntity<List<AppUser>> getUsersByNameAndStatus(@PathVariable("name") String name, @PathVariable("status") AccountStatus status) {
+        List<AppUser> users = userService.getUserByNameAndAccountStatus(name, status);
+        return ResponseEntity.ok(users);
+    }
+
+
+
 }
 
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RealEstateListingService } from 'src/app/services/real-estate-listing.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-annonce',
@@ -12,11 +14,10 @@ export class ListAnnonceComponent implements OnInit {
    currentPage: number = 1; // Page actuelle
    itemsPerPage: number = 10; // Nombre d'éléments par page
    selectedPropertyType!: string;
+   countAnnonce: number = 0;
 
- 
 
-
-  constructor(private apiService : StatisticsService) { }
+  constructor(private apiService : RealEstateListingService) { }
 
   ngOnInit(): void {
 
@@ -24,10 +25,11 @@ export class ListAnnonceComponent implements OnInit {
 
   }
 
- 
+
 
   fetchData(): void {
-    this.apiService.getAdvertisement().subscribe(data => {
+    this.apiService.getRealEstatePending().subscribe(data => {
+         this.countAnnonce = data.length
           this.listAnnonce = data;
        });
       }
@@ -41,11 +43,56 @@ export class ListAnnonceComponent implements OnInit {
       this.currentPage = page;
     }
   }
-    
+
   getItemsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.listAnnonce.slice(startIndex, endIndex);
   }
+
+  deleteAnnonce(id: number) {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Do you really want to delete this announcement?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.apiService.deleteRealEstate(id).subscribe({
+          next: () => {
+            Swal.fire('Deleted', 'The announcement has been deleted successfully', 'success');
+            this.fetchData();
+          },
+          error: (e) => {
+            console.error(e);
+            Swal.fire('Error', 'An error occurred while deleting the announcement', 'error');
+          }
+        });
+      }
+    });
+  }
+
+
+accepteAnnonce(realEstate: any) {
+  Swal.fire({
+    title: 'Confirmation',
+    text: 'Do you really want to accept this advertisement?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.apiService.getRealEstateByIdToAccepted(realEstate).subscribe(activate => {
+        Swal.fire('Accepted', 'The advertisement has been accepted successfully', 'success');
+        this.fetchData();
+      });
+    }
+  });
+}
+
+
 
 }

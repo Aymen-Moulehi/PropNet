@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { DateProcessor } from 'src/app/features/DateProcessor';
-import { UploadImage } from 'src/app/features/UploadImage';
-import { Post } from 'src/app/models/Post';
-import { PostService } from 'src/app/services/post.service';
-import { environment } from 'src/environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {DateProcessor} from 'src/app/features/DateProcessor';
+import {UploadImage} from 'src/app/features/UploadImage';
+import {Post} from 'src/app/models/Post';
+import {PostService} from 'src/app/services/post.service';
+import {environment} from 'src/environments/environment';
 
 
 @Component({

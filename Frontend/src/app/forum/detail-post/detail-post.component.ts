@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from 'src/app/models/Post';
-import { PostService } from 'src/app/services/post.service';
-import { DateProcessor } from 'src/app/features/DateProcessor';
-import { StringProcessor } from 'src/app/features/StringProcessor';
-import { environment } from 'src/environments/environment';
-import { Response } from 'src/app/models/Response';
-import { ResponseService } from 'src/app/services/response.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Post} from 'src/app/models/Post';
+import {PostService} from 'src/app/services/post.service';
+import {DateProcessor} from 'src/app/features/DateProcessor';
+import {StringProcessor} from 'src/app/features/StringProcessor';
+import {environment} from 'src/environments/environment';
+import {Response} from 'src/app/models/Response';
+import {ResponseService} from 'src/app/services/response.service';
+import { HttpResponse } from '@angular/common/http';
+import { SaveFile } from 'src/app/features/SaveFile';
 
 @Component({
   selector: 'app-detail-post',
@@ -23,13 +25,13 @@ export class DetailPostComponent implements OnInit {
   userResponse!: Response;
 
   constructor(
-    private activatedRouter: ActivatedRoute, 
-    private postService: PostService, 
+    private activatedRouter: ActivatedRoute,
+    private postService: PostService,
     private dateProcessor: DateProcessor,
     private stringProcessor: StringProcessor,
     private router: Router,
     private responseService : ResponseService,
-   
+    private fileSaver: SaveFile
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +68,13 @@ export class DetailPostComponent implements OnInit {
         this.responses.push(responseElement);
         this.userResponse.content = "   ";
       }
+    });
+  }
+
+  downloadPdfPost(): void {
+    this.postService.downloadPostPDF(this.post.idPost).subscribe(res => {
+      const filename = 'file.pdf';
+      this.fileSaver.save(res.body as ArrayBuffer, filename);
     });
   }
 }

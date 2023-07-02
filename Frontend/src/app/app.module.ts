@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -17,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import {MapComponent} from './map/map.component';
+import { ClaimComponent } from './claim/claim.component';
+import { DetailsAnnonceComponent } from './details-annonce/details-annonce.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +30,12 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
     ContactComponent,
     SingupComponent,
     AddAnnonceComponent,
-    UpdateAccountComponent,
     ListAnnoncesComponent,
     DetailAnnonceComponent,
+    MapComponent,
+    ClaimComponent,
     UpdateAccountComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ CookieService ],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

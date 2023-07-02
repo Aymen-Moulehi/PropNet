@@ -13,6 +13,7 @@ import tn.esprit.propnetapp.realestatellisting.RealEstateListing;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +52,7 @@ public class AppUser implements UserDetails {
     private Date date;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    //private byte[] picture;
+    private byte[] picture;
     private String biography;
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
@@ -101,4 +102,13 @@ public class AppUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "idAppUser=" + idAppUser +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+
 }

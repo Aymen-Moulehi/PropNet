@@ -18,6 +18,7 @@ public class EmailDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEmailDetail;
     private String recipient;
+    @Column(length = 100000)
     private String msgBody;
     private String subject;
     private Date creationDate = new Date();
