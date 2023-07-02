@@ -2,6 +2,8 @@ import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.componen
 import { ContactComponent } from './contact/contact.component';
 import { ListUserComponent } from './administration/user/list-user/list-user.component';
 import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+
 import { AddAnnonceComponent } from './add-annonce/add-annonce.component';
 import { SingupComponent } from './singup/singup.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
@@ -13,6 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 const routes: Routes = [
   {path:'', component: AccueilComponent},
   {path:'contact', component: ContactComponent},
+  {path:'resetpassword', component: ResetpasswordComponent},
 
   {path:'list-annonces', component: ListAnnoncesComponent},
   {path:'admin/annonce/listAnnonces/detail/:id', component: DetailAnnonceComponent},

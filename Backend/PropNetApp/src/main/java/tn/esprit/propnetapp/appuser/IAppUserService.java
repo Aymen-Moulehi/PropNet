@@ -1,8 +1,11 @@
 package tn.esprit.propnetapp.appuser;
 
+import java.util.List;
+import java.util.Map;
+
 public interface IAppUserService {
 
-    AppUser registerUser(AppUser appUser);
+    AppUser addAppUser(AppUser appUser);
 
-    String login(String email, String password);
+    List<Map<String, Object>> findPostWithLocation();
 }

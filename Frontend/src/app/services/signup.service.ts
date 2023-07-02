@@ -14,7 +14,7 @@ export class SignupService {
  private token !: string
  cookieValue !: string;
   constructor(private httpClient: HttpClient , private cookieService: CookieService) {
-    
+
 }
   login(login: Login , withCredentials: boolean = false):Observable<any> {
     const requestOptions: any = {
@@ -31,7 +31,7 @@ export class SignupService {
     this.cookieValue = this.cookieService.get('jwtToken');
     const httpOptions = {
       withCredentials: true
-    };  
+    };
     console.log("cookie from logout ----", this.cookieValue);
     const requestOptions: any = {
       headers: {
@@ -45,39 +45,38 @@ export class SignupService {
     );
   }
   retrieveaccount(token: string) {
-    
+
     this.cookieValue = this.cookieService.get('jwtToken');
     const httpOptions = {
       withCredentials: true
-    };  
+    };
     console.log("cookie from service ----", this.cookieValue);
-  
+
     const requestOptions: any = {
       headers: {
         'Authorization': `Bearer ${this.cookieValue}`
       }
     };
-  
     return this.httpClient.post<Account>(
       environment.baseUrl + '/appUser/getAccount',
-      this.token,
+      token,
       httpOptions
     );
   }
   isTokenAv(token: string) {
-    
+
     this.cookieValue = this.cookieService.get('jwtToken');
     const httpOptions = {
       withCredentials: true
-    };  
+    };
     console.log("cookie from av ----", this.cookieValue);
-  
+
     const requestOptions: any = {
       headers: {
         'Authorization': `Bearer ${this.cookieValue}`
       }
     };
-  
+
     return this.httpClient.post<Boolean>(
       environment.baseUrl + '/appUser/isTokenAv',
       this.token,
@@ -85,7 +84,7 @@ export class SignupService {
     ).pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {
-     let stat: string 
+     let stat: string
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
@@ -100,6 +99,6 @@ export class SignupService {
     return throwError(() => stat);
   }
 
-  
-      
+
+
 }

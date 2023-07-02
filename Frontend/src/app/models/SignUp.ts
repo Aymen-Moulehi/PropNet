@@ -1,6 +1,6 @@
 export class SignUp {
     email!: string;
-    username!: String;
+    name!: String;
     password!: string;
     gender! :string;
 }

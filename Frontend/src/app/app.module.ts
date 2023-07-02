@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { UpdateAccountComponent } from './update-account/update-account.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +31,14 @@ import { UpdateAccountComponent } from './update-account/update-account.componen
     UpdateAccountComponent,
     ListAnnoncesComponent,
     DetailAnnonceComponent,
-    UpdateAccountComponent
+    UpdateAccountComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [ CookieService ],

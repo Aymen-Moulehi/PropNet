@@ -1,0 +1,50 @@
+<div class="col-xl-6 col-lg-8 col-md-12">
+    <div class="vesh-detail-bloc">
+        <div class="vesh-detail-bloc-body pt-3">
+
+            <div class="tab-content" id="pills-tabContent">
+
+                <div >
+                    <div class="row gx-3 gy-4">
+                        <div class="modal-login-form">
+                            <form>
+
+                                <div class="form-floating mb-4">
+                                    <input name="name" [(ngModel)] = "account.name" #name = "ngModel" required class="form-control" placeholder="{{account.name}}">
+                                    <label>Full Name</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input name="email" [(ngModel)] = "account.email" #email = "ngModel" required type="email" class="form-control" placeholder="{{account.email}}">
+                                    <label>Email</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input name="phoneNumber" [(ngModel)]="account.phoneNumber" #phoneNumber="ngModel" required  class="form-control" placeholder="{{account.phoneNumber}}">
+                                    <label>Phone Number</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input name="address" [(ngModel)]="account.address" #address="ngModel" required  class="form-control" placeholder="{{account.address}}">
+                                    <label>Adresse</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input name="date" [(ngModel)]="account.date" #date="ngModel" required  class="form-control" placeholder="{{account.date}}">
+                                    <label>Date Birth</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input name="biography" [(ngModel)]="account.biography" #biography="ngModel" required  class="form-control" placeholder="{{account.biography}}">
+                                    <label>Biography</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input name="password" [(ngModel)]="account.password" #password="ngModel" required type="password" class="form-control" placeholder="{{account.password}}">
+                                    <label>Password</label>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" (click) = "update()" class="btn btn-primary full-width font--bold btn-lg">Update Your Account</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

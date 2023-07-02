@@ -21,27 +21,23 @@ public class AppUserServiceImpl implements IAppUserService {
     private AuthenticationManager authenticationManager;
 
 
-        public AppUserServiceImpl(AppUserRepository userRepository, PasswordEncoder passwordEncoder) {
-            this.userRepository = userRepository;
+        public AppUserServiceImpl(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
+            this.userRepository = appUserRepository;
             this.passwordEncoder = passwordEncoder;
         }
 
 
 
-
     @Override
-    public AppUser registerUser(AppUser appUser) {
-        return null;
+    public AppUser addAppUser(AppUser appUser) {
+        return userRepository.save(appUser);
     }
 
-    @Override
-    public String login(String email, String password) {
-        return null;
-    }
+
 
     @Override
     public List<Map<String, Object>> findPostWithLocation() {
-        List<Object[]> results = appUserRepository.findPostWithLocation();
+        List<Object[]> results = userRepository.findPostWithLocation();
 
         List<Map<String, Object>> keyValueList = new ArrayList<>();
 

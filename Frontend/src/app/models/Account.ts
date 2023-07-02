@@ -1,21 +1,20 @@
 export class Account {
     email!: string;
-    name!: String;
+    name!: string;
     password!: string;
     gender! :string;
-    address!: String
-    phoneNumber!: String
+    address!: string
+    phoneNumber!: string
     date!: Date
     //ProfilePicture!: Image
-    biography!: String
-    accountStatus!: String
+    biography!: string
+    accountStatus!: string
     lastLogin!: Date
     creationDate! : Date
-    accountType!: String
+    accountType!: string
     claims !: []
     posts !: []
     feedbacks !: []
     realEstateListings !: []
 
-     
 }

@@ -21,9 +21,12 @@ export class AdministrationComponent implements OnInit {
 
   constructor(private signupService: SignupService , private router: Router , private cookieService: CookieService  ) { }
 
-  ngOnInit(): void 
- 
+  ngOnInit(): void
+
   {
+    this.cookieValue = this.cookieService.get('jwtToken');
+    console.log(this.cookieValue)
+     if (this.cookieValue!== undefined && this.cookieValue !== '') {
     this.signupService.isTokenAv(this.cookieValue).subscribe(
       {
         next: (data) => { this.tokenAv = data
@@ -41,17 +44,18 @@ export class AdministrationComponent implements OnInit {
             }
 
             }
-            
+
           ) }
           else{
             this.router.navigateByUrl('/singup');
          }
         },
-        
-      }
-    )
 
-    
+      }
+    )}   else{
+      this.router.navigateByUrl('/singup');
+   }
+
 
   }
   chercher() : void {
@@ -65,6 +69,6 @@ export class AdministrationComponent implements OnInit {
       }
     });
   }
-  
+
 
 }

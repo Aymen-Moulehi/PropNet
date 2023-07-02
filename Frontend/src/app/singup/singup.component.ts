@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Login } from '../models/Login';
 import { SignupService } from '../services/signup.service';
 import { Router } from '@angular/router';
-import { UploadImage } from 'src/app/features/upload-image/UploadImage';
+//import { UploadImage } from 'src/app/features/upload-image/UploadImage';
 import { Post } from 'src/app/models/Post';
 import { PostService } from 'src/app/services/post.service';
 import { environment } from 'src/environments/environment';
 import { SignUp } from '../models/SignUp';
 import { Account } from '../models/Account';
 import { CookieService } from 'ngx-cookie-service';
-import { Response } from '../models/Response';
+import { ResponseT } from '../models/ResponseT';
 
 @Component({
   selector: 'app-singup',
@@ -19,7 +19,7 @@ import { Response } from '../models/Response';
 export class SingupComponent implements OnInit {
   login = new Login();
   signup = new SignUp();
-  response : Response = new Response();
+  response : ResponseT = new ResponseT();
   account : Account = new Account();
   token !: string;
   cookieValue !: string;
@@ -59,7 +59,7 @@ export class SingupComponent implements OnInit {
 
       }
    }
-      
+
     }
   )
   }
@@ -74,7 +74,7 @@ export class SingupComponent implements OnInit {
   }
   register(): void {
 
-    this.signupService.register(this.signup ).subscribe(
+    this.signupService.register(this.signup).subscribe(
       {
         next: (data) => {
           console.log(data)
@@ -83,5 +83,6 @@ export class SingupComponent implements OnInit {
       }
     )
   }
+
 
 }

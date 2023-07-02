@@ -2,22 +2,21 @@ package tn.esprit.propnetapp.appuser;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tn.esprit.propnetapp.Jwt.JwtUtil;
+import tn.esprit.propnetapp.features.email.EmailDetail;
+import tn.esprit.propnetapp.features.email.EmailDetailServiceImpl;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 
 @Slf4j
@@ -27,10 +26,13 @@ public class AuthenticateService {
 
     private final AppUserRepository repository;
     private final PasswordEncoder passwordEncoder;
+
+    private final EmailDetailServiceImpl emailDetailService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        log.info("aaaaa{}",request.getName());
         var user = AppUser.builder()
                 .phoneNumber(request.getPhoneNumber())
                 .gender(request.getGender())
@@ -54,7 +56,8 @@ public class AuthenticateService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletRequest httpRequest , HttpServletResponse httpResponse) {
-        log.info("-----------------cdcdedededdc-------{}" );
+        log.info("-----------------cdcdedededdc-------{}",request.getEmail());
+        log.info("-----------------cdcdededdddeddc-------{}",request.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(), request.getPassword()
@@ -79,8 +82,6 @@ public class AuthenticateService {
         session.setAttribute("email" , user.getEmail());
         return AuthenticationResponse.builder().appUser(user).token(jwtToken).build();
     }
-
-
 
     public AuthenticationResponse hello(HttpSession session) {
         // Retrieve the token from the session
@@ -129,7 +130,7 @@ public class AuthenticateService {
 
         throw new IllegalArgumentException("Invalid token");
     }
-    public AuthenticationResponse update(HttpServletRequest httpRequest , RegisterRequest request ) {
+    public AuthenticationResponse update(HttpServletRequest httpRequest , RegisterRequest request , HttpServletResponse httpResponse ) {
         log.info("----------------------IN update SERVICE--{}");
         // Retrieve the token from the session
         Cookie[] cookies = httpRequest.getCookies();
@@ -152,13 +153,14 @@ public class AuthenticateService {
                user.setDate(request.getDate());
                user.setBiography(request.getBiography());
                user.setAccountStatus(request.getAccountStatus());
-               user.setGender(request.getGender());
                user.setName(request.getName());
                user.setPhoneNumber(request.getPhoneNumber());
-               user.setPassword(request.getPassword());
 
                repository.save(user);
-
+               log.info("------------------{}" , user.getName());
+            HttpHeaders headers = new HttpHeaders();
+            //headers.set("Access-Control-Allow-Origin", "http://localhost:4200");
+            //httpResponse.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
             return AuthenticationResponse.builder().appUser(user).build();
 
         }
@@ -168,10 +170,74 @@ public class AuthenticateService {
 
 
 
+    public boolean sendpassword(HttpServletRequest httpRequest  , HttpServletResponse httpResponse ,  UserResetPassword  userResetPassword) {
+        httpResponse.setHeader("Access-Control-Allow-Origin" , "http://localhost:4200");
+        httpResponse.setHeader("Access-Control-Allow-Credentials" , "true");
+        String code = "";
+/*        Cookie[] cookies = httpRequest.getCookies();
+        String token = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("jwtToken".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }*/
+        String useremailrequest = userResetPassword.getEmail();
+        log.info("token from passss{}" , useremailrequest);
 
+        log.info("token from resilt{}" , repository.findByEmail(useremailrequest));
+        if (repository.findByEmail(useremailrequest).isPresent()) {
+            code = UUID.randomUUID().toString();
+            AppUser user = repository.findByEmail(useremailrequest)
+                    .orElseThrow();
+            user.setCode(code);
+            repository.save(user);
+            EmailDetail emailDetail = EmailDetail.builder()
+                    .recipient(useremailrequest)
+                    .msgBody(code)
+                    .subject("This the Code to reset your password please keep it a secret")
+                    .build();
+            emailDetailService.sendMail(emailDetail);
+            return true;
+        }
+       else return false;
+    }
+    public String checkpasscode(HttpServletRequest httpRequest  , HttpServletResponse httpResponse ,  UserResetPassword  userResetPassword) {
+        httpResponse.setHeader("Access-Control-Allow-Origin" , "http://localhost:4200");
+        httpResponse.setHeader("Access-Control-Allow-Credentials" , "true");
+        String code = userResetPassword.getCode();
+/*        Cookie[] cookies = httpRequest.getCookies();
+        String token = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("jwtToken".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }*/
+        log.info("aaaaaaaaaaaaa{}", userResetPassword.getNewPassword());
+        String useremailrequest = userResetPassword.getEmail();
+        String sendedcode = userResetPassword.getCode();
+        if (repository.findByEmail(useremailrequest).isPresent()) {
+            AppUser appUser  = repository.findByEmail(useremailrequest).orElseThrow();;
+            String usercode = appUser.getCode();
+            boolean stat = sendedcode.equals(usercode);
+            if (stat) {
+                appUser.setPassword((passwordEncoder.encode(userResetPassword.getNewPassword())));
+                repository.save(appUser);
+                return "password has been set";
 
-    public Boolean isTokenAv(HttpServletRequest httpRequest) {
+            } else return "wrong code";
+        }
+        else return "email not found";
+    }
 
+    public Boolean isTokenAv(HttpServletRequest httpRequest  , HttpServletResponse httpResponse) {
+        httpResponse.setHeader("Access-Control-Allow-Origin" , "http://localhost:4200");
+        httpResponse.setHeader("Access-Control-Allow-Credentials" , "true");
         Boolean Res;
         Cookie[] cookies = httpRequest.getCookies();
         String token = null;
@@ -183,8 +249,8 @@ public class AuthenticateService {
                 }
             }
         }
-
-        if (token == " "){
+        log.info("token from tokav{}" , token);
+        if (token != ""){
         String email = jwtUtil.extractUsername(token);
         Res = jwtUtil.isTokenValid(token ,email);
         }

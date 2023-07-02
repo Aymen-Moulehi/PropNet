@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+/* import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart,registerables, ChartOptions } from 'chart.js';
 import { StatisticsService } from 'src/app/services/statistics.service';
 Chart.register(...registerables)
@@ -29,13 +29,13 @@ export class DashboardComponent implements OnInit {
               return numericValue.toString();
             }else{
               return ""
-            } 
+            }
           },
         },
       },
     },
   };
-  
+
 
 createChart() {
   const labels = this.chartData.map(data => data.key);
@@ -84,13 +84,13 @@ createChart2() {
          {
              label: "Nombre de poste",
              data: values,
-         }, 
+         },
         ]
     },
 });
 
 }
-  
+
   fetchData(): void {
     this.apiService.userPostwithLocation().subscribe(
       data => {
@@ -105,3 +105,4 @@ createChart2() {
   }
 
 }
+ */

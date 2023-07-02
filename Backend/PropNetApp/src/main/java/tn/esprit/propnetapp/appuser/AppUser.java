@@ -2,6 +2,7 @@ package tn.esprit.propnetapp.appuser;
 
 
 import lombok.*;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,6 +59,7 @@ public class AppUser implements UserDetails {
     private AccountType accountType;
     private Date lastLogin;
     private Date creationDate;
+    private String code;
     @OneToMany(mappedBy = "appUser")
     private Collection<Claim> claims;
     @OneToMany(mappedBy = "appUser")

@@ -31,7 +31,6 @@ import java.io.IOException;
 
 @Slf4j
 @Component
-@CrossOrigin
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
@@ -59,45 +58,51 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 }
             }
         }
-        log.info("-----------------TOKEN--------{}" , token);
 
-        log.info("--------------------infilter-----{}");
 
 
         if (request.getServletPath().contains("/register")) {
-            log.info("--------------------inregister-----{}");
             filterChain.doFilter(request, response);
             return;}
 
 
         if (request.getServletPath().contains("/login")) {
-            log.info("--------------------inlogin-----{}");
+            log.info("in login");
             filterChain.doFilter(request, response);
+            log.info("done in login");
             return;}
-
+        if (request.getServletPath().contains("/resetpassword")) {
+            log.info("in resetpassword");
+            filterChain.doFilter(request, response);
+            log.info("done in resetpassword");
+            return;}
+        if (request.getServletPath().contains("/checkpasscode")) {
+            log.info("in checkpasscode");
+            filterChain.doFilter(request, response);
+            log.info("done in checkpasscode");
+            return;}
         if (request.getServletPath().contains("/isTokenAv")) {
-            log.info("--------------------TOKEN AVVVVV-----{}");
+            filterChain.doFilter(request, response);
             response.setHeader("Access-Control-Allow-Origin" , "http://localhost:4200");
-            response.setHeader("Access-Control-Allow-Credentials" , "true");
+            return;}
+        if (request.getServletPath().contains("/update")) {
             filterChain.doFilter(request, response);
             return;}
-
+        if (request.getServletPath().contains("/swagger-ui/*")) {
+            filterChain.doFilter(request, response);
+            return;}
 
         /*if (authorizationHeader == null && request.getSession().getAttribute("jwtToken")==null) {
             log.info("--------------------header null-----{}");
             filterChain.doFilter(request, response);
             return;
         }*/
-        //String jtt = (String) request.getSession().getAttribute("jwtToken");
-        HttpSession session = request.getSession();
+        //String jtt = (String) request.getSession().getAttribute("jwtToken")
         //String tt = (String) session.getAttribute("jwtToken");
-        log.info("--------------------cookies-----{}");
-        log.info("-----------------getAccount--------{}" , token);
+        log.info("out of filter__{}");
         useremail = jwtUtil.extractUsername(token);
         if (useremail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userService.loadUserByUsername(useremail);
-            log.info("-------------------------{}" , userDetails.getUsername().toString());
-            log.info("-------------------------{}" , userDetails.getAuthorities());
             if (jwtUtil.isTokenValid(token, userDetails.getUsername())) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
@@ -105,9 +110,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
-        response.setHeader("Access-Control-Allow-Origin" , "http://localhost:4200");
+        //  response.setHeader("Access-Control-Allow-Origin" , "http://localhost:4200");
         response.setHeader("Access-Control-Allow-Credentials" , "true");
         filterChain.doFilter(request, response);
-        log.info("resp-{}" , response.getHeader("Access-Control-Allow-Credentials"));
+
     }
 }

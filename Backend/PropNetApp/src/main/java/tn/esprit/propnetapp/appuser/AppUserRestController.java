@@ -9,17 +9,25 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.propnetapp.Jwt.JwtUtil;
 import tn.esprit.propnetapp.Jwt.LogoutService;
+import tn.esprit.propnetapp.features.email.EmailDetail;
+import tn.esprit.propnetapp.features.email.IEmailDetailService;
+import tn.esprit.propnetapp.features.inputvalidator.InputValidator;
+import tn.esprit.propnetapp.features.inputvalidator.ValidatorType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200/" , allowCredentials = "true")
 @RequestMapping("/appUser")
 public class AppUserRestController {
     private final IAppUserService appUserService;
+    IEmailDetailService emailDetailService;
 
     private final AppUserRepository appUserRepository;
     private final LogoutService logoutService;
@@ -35,55 +43,56 @@ public class AppUserRestController {
     @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
+       log.info("in login controller");
         return ResponseEntity.ok(authenticateService.authenticate(request, httpRequest, httpResponse));
     }
 
-
-    @CrossOrigin
-    @GetMapping("/hello")
-    public ResponseEntity<?> hello(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-
-        if (session == null || session.getAttribute("jwtToken") == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("You need to log in");
-        }
-        AuthenticationResponse response = authenticateService.hello(session);
-        return ResponseEntity.ok(response);
+    @PostMapping("/add-appUser")
+    public AppUser addAppUserS(AppUser appUser) {
+        return appUserService.addAppUser(appUser);
     }
+
+
 
     @CrossOrigin
     @PostMapping("/getAccount")
     public ResponseEntity<AppUser> getAccount(HttpServletRequest httpRequest) {
+        log.info("in get acc");
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Access-Control-Allow-Origin", "http://localhost:4200");
-
         //log.info("----------------return token from controller getaccount{}",token);
         AuthenticationResponse response = authenticateService.getAccount(httpRequest);
         log.info("----------------return{}", ResponseEntity.ok(response.getAppUser()));
         return ResponseEntity.ok().body(response.getAppUser());
     }
-
     @CrossOrigin
     @PostMapping("/logout")
     public void logout(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Authentication request) {
         logoutService.logout(httpRequest, httpResponse, request);
     }
-
-
     @CrossOrigin
     @PostMapping("/update")
-    public ResponseEntity<AuthenticationResponse> updateAccount(HttpServletRequest httpRequest , @RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authenticateService.update(httpRequest , request));
+    public ResponseEntity<AuthenticationResponse> updateAccount(HttpServletRequest httpRequest ,HttpServletResponse httpResponse, @RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authenticateService.update(httpRequest , request , httpResponse));
     }
     @CrossOrigin
     @PostMapping("/isTokenAv")
     public Boolean isTokenAv(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Authentication request) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Access-Control-Allow-Origin", "http://localhost:4200");
-        return authenticateService.isTokenAv(httpRequest);
+        return authenticateService.isTokenAv(httpRequest , httpResponse);
+    }
+    @CrossOrigin
+    @PostMapping("/resetpassword")
+    public boolean resetpassword(HttpServletRequest httpRequest, HttpServletResponse httpResponse, @RequestBody UserResetPassword userResetPassword) {
+
+        return authenticateService.sendpassword(httpRequest , httpResponse ,userResetPassword );
+    }
+    @CrossOrigin
+    @PostMapping("/checkpasscode")
+    public String checkpasscode(HttpServletRequest httpRequest, HttpServletResponse httpResponse, @RequestBody UserResetPassword userResetPassword) {
+
+        return authenticateService.checkpasscode(httpRequest , httpResponse ,userResetPassword );
     }
 
+    
 }
 
 

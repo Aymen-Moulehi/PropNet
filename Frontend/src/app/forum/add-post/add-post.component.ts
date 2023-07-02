@@ -18,7 +18,7 @@ export class AddPostComponent implements OnInit {
   post = new Post();
 
   constructor(
-    private uploadImage: UploadImage, 
+    private uploadImage: UploadImage,
     private postService: PostService,
     private router: Router,
     private dateProcessor: DateProcessor
@@ -38,7 +38,7 @@ export class AddPostComponent implements OnInit {
       }
     )
   }
-  
+
   public onImageUpload(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
