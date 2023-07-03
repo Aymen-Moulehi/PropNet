@@ -1,10 +1,10 @@
 package tn.esprit.propnetapp.appuser;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tn.esprit.propnetapp.Jwt.JwtUtil;
 import tn.esprit.propnetapp.appuser.TemplateMail.UserAccountActive;
 import tn.esprit.propnetapp.appuser.TemplateMail.UserAccountDesactivate;
 import tn.esprit.propnetapp.features.email.EmailDetail;
@@ -13,23 +13,34 @@ import tn.esprit.propnetapp.features.email.IEmailDetailService;
 import java.util.*;
 
 @Service
-@AllArgsConstructor
-@Aspect
-@Component
 @Slf4j
 public class AppUserServiceImpl implements IAppUserService {
+
+    private final AppUserRepository userRepository;
+        private final PasswordEncoder passwordEncoder;
+    private JwtUtil jwtUtil;
+    private AuthenticationManager authenticationManager;
+
+
+        public AppUserServiceImpl(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
+            this.userRepository = appUserRepository;
+            this.passwordEncoder = passwordEncoder;
+        }
+
 
     AppUserRepository appUserRepository;
     IEmailDetailService emailDetailService;
 
     @Override
     public AppUser addAppUser(AppUser appUser) {
-        return appUserRepository.save(appUser);
+        return userRepository.save(appUser);
     }
+
+
 
     @Override
     public List<Map<String, Object>> findPostWithLocation() {
-        List<Object[]> results = appUserRepository.findPostWithLocation();
+        List<Object[]> results = userRepository.findPostWithLocation();
 
         List<Map<String, Object>> keyValueList = new ArrayList<>();
 

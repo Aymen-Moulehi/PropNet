@@ -1,12 +1,14 @@
 package tn.esprit.propnetapp.post;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
 @RestController
+@Slf4j
 @AllArgsConstructor
 @RequestMapping("/post")
 public class PostRestController {
@@ -15,6 +17,7 @@ public class PostRestController {
     @PostMapping("/add-post")
     @CrossOrigin
     public Post addPost(@RequestBody Post post) {
+        log.info("on post");
         if(post != null)
             post.setPostDate(new Date());
         System.out.println(post.getPostDate());

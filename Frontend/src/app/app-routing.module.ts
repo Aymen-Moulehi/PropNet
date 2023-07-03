@@ -1,14 +1,15 @@
-import {ListAnnoncesComponent} from './list-annonces/list-annonces.component';
-import {AddAnnonceComponent} from './add-annonce/add-annonce.component';
-import {SingupComponent} from './singup/singup.component';
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {AccueilComponent} from './accueil/accueil.component';
-
-import {MapComponent} from './map/map.component';
-
-import {NotFoundComponent} from './not-found/not-found.component';
+import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
+import { AddAnnonceComponent } from './add-annonce/add-annonce.component';
+import { SingupComponent } from './singup/singup.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AccueilComponent } from './accueil/accueil.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { UpdateAccountComponent } from './update-account/update-account.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { ListUserComponent } from './administration/user/list-user/list-user.component';
 import { ClaimComponent } from './claim/claim.component';
+import {MapComponent} from './map/map.component';
 import { DetailsAnnonceComponent } from './details-annonce/details-annonce.component';
 
 
@@ -17,11 +18,10 @@ const routes: Routes = [
   {path:'claim', component: ClaimComponent},
   {path:'list-annonces', component: ListAnnoncesComponent},
   {path:'admin/annonce/listAnnonces/detail/:id', component: DetailsAnnonceComponent},
-
-
+  {path:'resetpassword', component: ResetpasswordComponent},
   {path:'singup', component: SingupComponent},
   {path:'Add-Annonce', component: AddAnnonceComponent},
-
+  {path:'update', component: UpdateAccountComponent},
   {path:'map/:latitude/:longitude', component: MapComponent},
 
 

@@ -1,11 +1,11 @@
 package tn.esprit.propnetapp.appuser;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.aspectj.apache.bcel.classfile.Code;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import tn.esprit.propnetapp.claim.Claim;
 import tn.esprit.propnetapp.feedback.Feedback;
 import tn.esprit.propnetapp.post.Post;
@@ -16,13 +16,15 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppUser implements Serializable {
+public class AppUser implements UserDetails {
     /**
      * Name: String
      * Age: Integer
@@ -42,37 +44,64 @@ public class AppUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAppUser;
-    private String Name;
+    private String name;
     private String email;
     private String address;
     private String phoneNumber;
     private String password;
     private Date date;
     @Enumerated(EnumType.STRING)
-    @JsonIgnore
     private Gender gender;
-    private String picture;
+    private byte[] picture;
     private String biography;
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
     @Enumerated(EnumType.STRING)
-    @JsonIgnore
     private AccountType accountType;
     private Date lastLogin;
     private Date creationDate;
-    @JsonIgnore
+    private String code;
     @OneToMany(mappedBy = "appUser")
     private Collection<Claim> claims;
-    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<Post> posts;
-    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<Feedback> feedbacks;
-    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private Collection<RealEstateListing> realEstateListings;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(accountType.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+    @Override
+    public String getPassword() {
+        return password;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
     @Override
     public String toString() {
         return "AppUser{" +
