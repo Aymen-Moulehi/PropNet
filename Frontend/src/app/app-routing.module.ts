@@ -1,5 +1,3 @@
-import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
-import { ContactComponent } from './contact/contact.component';
 import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
 import { AddAnnonceComponent } from './add-annonce/add-annonce.component';
 import { SingupComponent } from './singup/singup.component';
@@ -12,13 +10,14 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
 import { ListUserComponent } from './administration/user/list-user/list-user.component';
 import { ClaimComponent } from './claim/claim.component';
 import {MapComponent} from './map/map.component';
+import { DetailsAnnonceComponent } from './details-annonce/details-annonce.component';
+
 
 const routes: Routes = [
   {path:'', component: AccueilComponent},
-  {path:'contact', component: ContactComponent},
   {path:'claim', component: ClaimComponent},
   {path:'list-annonces', component: ListAnnoncesComponent},
-  {path:'admin/annonce/listAnnonces/detail/:id', component: DetailAnnonceComponent},
+  {path:'admin/annonce/listAnnonces/detail/:id', component: DetailsAnnonceComponent},
   {path:'resetpassword', component: ResetpasswordComponent},
   {path:'singup', component: SingupComponent},
   {path:'Add-Annonce', component: AddAnnonceComponent},

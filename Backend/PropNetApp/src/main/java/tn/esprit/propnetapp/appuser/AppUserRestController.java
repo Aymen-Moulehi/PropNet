@@ -34,6 +34,8 @@ public class AppUserRestController {
 
     private final AppUserRepository appUserRepository;
     private final LogoutService logoutService;
+
+    AppUserServiceImpl userService;
     private final AuthenticateService authenticateService;
     private final JwtUtil jwtUtil;
 
@@ -49,19 +51,15 @@ public class AppUserRestController {
        log.info("in login controller");
         return ResponseEntity.ok(authenticateService.authenticate(request, httpRequest, httpResponse));
     }
-    IAppUserService appUserService;
-    AppUserRepository appUserRepository;
-    AppUserServiceImpl userService;
+
 
     @PostMapping("/add-appUser")
-    public AppUser addAppUserS(AppUser appUser) {
     @CrossOrigin
+
+
     public AppUser addAppUserS(@RequestBody AppUser appUser) {
         return appUserService.addAppUser(appUser);
     }
-
-
-
     @CrossOrigin
     @PostMapping("/getAccount")
     public ResponseEntity<AppUser> getAccount(HttpServletRequest httpRequest) {
@@ -97,7 +95,8 @@ public class AppUserRestController {
     @PostMapping("/checkpasscode")
     public String checkpasscode(HttpServletRequest httpRequest, HttpServletResponse httpResponse, @RequestBody UserResetPassword userResetPassword) {
 
-        return authenticateService.checkpasscode(httpRequest , httpResponse ,userResetPassword );
+        return authenticateService.checkpasscode(httpRequest , httpResponse ,userResetPassword );}
+
     @GetMapping("/user-post-withLocation")
     @CrossOrigin
     List<Map<String, Object>> findPostWithLocation() {

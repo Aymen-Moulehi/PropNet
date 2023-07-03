@@ -88,8 +88,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (request.getServletPath().contains("/update")) {
             filterChain.doFilter(request, response);
             return;}
-        if (request.getServletPath().contains("/swagger-ui/*")) {
+        if (request.getServletPath().contains("/swagger-ui")) {
             filterChain.doFilter(request, response);
+            return;}
+        if (request.getServletPath().contains("/v3")) {
+            //filterChain.doFilter(request, response);
             return;}
 
         /*if (authorizationHeader == null && request.getSession().getAttribute("jwtToken")==null) {

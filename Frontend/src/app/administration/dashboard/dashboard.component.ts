@@ -1,4 +1,4 @@
-/* import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart,registerables, ChartOptions } from 'chart.js';
 import { PostService } from 'src/app/services/post.service';
 import { RealEstateListingService } from 'src/app/services/real-estate-listing.service';
@@ -138,4 +138,4 @@ createChart2() {
 
 
 }
- */
+

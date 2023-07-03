@@ -6,11 +6,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { TempComponent } from './temp/temp.component';
-import { ContactComponent } from './contact/contact.component';
 import { SingupComponent } from './singup/singup.component';
 import { AddAnnonceComponent } from './add-annonce/add-annonce.component';
 import { ListAnnoncesComponent } from './list-annonces/list-annonces.component';
-import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
@@ -27,15 +25,14 @@ import { DetailsAnnonceComponent } from './details-annonce/details-annonce.compo
     FooterComponent,
     AccueilComponent,
     TempComponent,
-    ContactComponent,
     SingupComponent,
     AddAnnonceComponent,
     ListAnnoncesComponent,
-    DetailAnnonceComponent,
     MapComponent,
     ClaimComponent,
     UpdateAccountComponent,
     ResetpasswordComponent,
+    DetailsAnnonceComponent
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,7 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/appUser/register","/appUser/login" , "/appUser/isTokenAv", "/appUser/update" ,"/appUser/resetpassword" ,"/appUser/checkpasscode" )
+                .antMatchers("/swagger-ui/*","/appUser/register","/appUser/login" , "/appUser/isTokenAv", "/appUser/update" ,"/appUser/resetpassword" ,"/appUser/checkpasscode" )
                 .permitAll()
                 .antMatchers("/appUser/logout").hasAnyAuthority(Admin.name())
                 //.antMatchers(HttpMethod.POST, "/post/add-post")
