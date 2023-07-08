@@ -92,7 +92,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;}
         if (request.getServletPath().contains("/v3")) {
-            //filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
             return;}
 
         /*if (authorizationHeader == null && request.getSession().getAttribute("jwtToken")==null) {
