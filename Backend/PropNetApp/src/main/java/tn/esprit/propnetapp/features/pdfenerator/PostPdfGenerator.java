@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import tn.esprit.propnetapp.post.Post;
-
-import java.awt.*;
 import java.io.IOException;
 
 @Component
