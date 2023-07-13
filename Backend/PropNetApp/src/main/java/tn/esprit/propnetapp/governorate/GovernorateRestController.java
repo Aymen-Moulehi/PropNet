@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/governorate")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class GovernorateRestController {
     IGovernorateService governorateService;
 
@@ -16,6 +16,8 @@ public class GovernorateRestController {
     public Governorate addGovernorate(@RequestBody Governorate governorate) {
         return governorateService.addGovernorate(governorate);
     }
+
+
     @GetMapping("/retrieve-all-governorates")
     public List<Governorate> getAllGovernorates() {
         return governorateService.retrieveAllGovernorates();

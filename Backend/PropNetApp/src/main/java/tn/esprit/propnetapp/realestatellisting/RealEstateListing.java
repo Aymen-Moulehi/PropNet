@@ -42,6 +42,8 @@ public class RealEstateListing implements Serializable {
     private Boolean hasPool;
     private Boolean isFurnished;
     private Boolean hasSecurity;
+
+    @JsonIgnore
     @ManyToOne
     private Governorate governorate;
     private Float Latitude;

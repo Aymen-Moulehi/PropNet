@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/realEstateListing")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:4200")
 public class RealEstateListingRestController {
     IRealEstateListingService realEstateListingService;
     FilterRealEstateListing filterRealEstateListing;

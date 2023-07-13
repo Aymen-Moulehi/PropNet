@@ -1,171 +1,27 @@
-<!-- ============================ Page Title Start================================== -->
-<div class="page-title" style="background:#017efa url(assets/img/page-title.png) no-repeat;">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                
-                <h2 class="ipt-title">Get In touch</h2>
-                <span class="ipn-subtitle">Get all latest news and updates</span>
-                
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ============================ Page Title End ================================== -->
-
-<!-- ============================ Contact Start ================================== -->
-<section>
-
-    <div class="container">
-    
-        <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-10 text-center">
-                <div class="sec-heading center">
-                    <label class="label text-success bg-light-success">Grow Your Business</label>
-                    <h2>Activate Next Now</h2>
-                    <p>Please fill the form and we will guide you to the best solution. Our experts will get in touch soon.</p>
-                </div>
-            </div>
-        </div>
-    
-        <!-- row Start -->
-        <div class="row align-items-center justify-content-center">
-        
-            <form  (ngSubmit)="onSubmit()" class="container mt-4">
-                <div class="form-group">
-                  <label for="title">Title</label>
-                  <input type="text" id="title" name="title" class="form-control" [(ngModel)]="realEstateListing.title" required>
-                  <!-- Add validation messages if needed -->
-                </div>
-              
-                <div class="form-group">
-                  <label for="creationDate">Creation Date</label>
-                  <input type="date" id="creationDate" name="creationDate" class="form-control" [(ngModel)]="realEstateListing.creationDate" required>
-                  <!-- Add validation messages if needed -->
-                </div>
-              
-                <!-- Add the remaining form controls using Bootstrap classes -->
-              
-                <div class="form-group">
-                  <label for="price">Price</label>
-                  <input type="number" id="price" name="price" class="form-control" [(ngModel)]="realEstateListing.price" required>
-                  <!-- Add validation messages if needed -->
-                </div>
-              
-                <div class="form-group">
-                  <label for="area">Area</label>
-                  <input type="number" id="area" name="area" class="form-control" [(ngModel)]="realEstateListing.area" required>
-                  <!-- Add validation messages if needed -->
-                </div>
-              
-                <div class="form-group">
-                  <label for="operation">Operation</label>
-                  <select #operation  id="operation" name="operation" class="select-normal">
-                    <option value="SALE">SALE</option>
-                    <option value="RENT">Rent</option>
+               <form>
+                <!-- <ng-select>
+                  <option *ngFor="let gouvernorate of ListGouvernorate" [value]="gouvernorate" >{{gouvernorate}}</option>
+               </ng-select> -->
+                <label>Governorate</label>
+                <select class="form-control" name="governorate" >
+                  <option *ngFor="let gouvernorate of ListGouvernorate" [value]="gouvernorate" >{{gouvernorate}}</option>
                 </select>
+                <!-- <ng-select [items]="ListGouvernorate" [(ngModel)]="newgovernorate"></ng-select> -->
+               </form>
 
-                  <!-- Add validation messages if needed -->
-                </div>
-              
-                <div class="form-group form-check">
-                  <input type="checkbox" id="realEstateIsSold" name="realEstateIsSold" class="form-check-input" [(ngModel)]="realEstateListing.realEstateIsSold">
-                  <label for="realEstateIsSold" class="form-check-label">Real Estate Is Sold</label>
-                </div>
-              
-                <div class="form-group">
-                  <label for="numberOfBedrooms">Number of Bedrooms</label>
-                  <input type="number" id="numberOfBedrooms" name="numberOfBedrooms" class="form-control" [(ngModel)]="realEstateListing.numberOfBedrooms">
-                </div>
-              
-                <div class="form-group">
-                  <label for="numberOfBathrooms">Number of Bathrooms</label>
-                  <input type="number" id="numberOfBathrooms" name="numberOfBathrooms" class="form-control" [(ngModel)]="realEstateListing.numberOfBathrooms">
-                </div>
-              
-                <div class="form-group">
-                  <label for="propertyType">Property Type</label>
-                  <select #propertyType id="propertyType" name="propertyType" class="form-control" [(ngModel)]="realEstateListing.propertyType" required>
-                    <option value="APARTMENT">Apartment</option>
-                    <option value="HOUSE">House</option>
-                    <!-- Add more options if needed -->
-                  </select>
 
-                  
-                  <!-- Add validation messages if needed -->
-                </div>
-              
-                <div class="form-group form-check">
-                  <input type="checkbox" id="hasParking" name="hasParking" class="form-check-input" [(ngModel)]="realEstateListing.hasParking">
-                  <label for="hasParking" class="form-check-label">Has Parking</label>
-                </div>
-              
-                <div class="form-group form-check">
-                  <input type="checkbox" id="hasGarden" name="hasGarden" class="form-check-input" [(ngModel)]="realEstateListing.hasGarden">
-                  <label for="hasGarden" class="form-check-label">Has Garden</label>
-                </div>
-              
-                <div class="form-group form-check">
-                  <input type="checkbox" id="hasBalcony" name="hasBalcony" class="form-check-input" [(ngModel)]="realEstateListing.hasBalcony">
-                  <label for="hasBalcony" class="form-check-label">Has Balcony</label>
-                </div>
-              
-                <div class="form-group form-check">
-                  <input type="checkbox" id="hasPool" name="hasPool" class="form-check-input" [(ngModel)]="realEstateListing.hasPool">
-                  <label for="hasPool" class="form-check-label">Has Pool</label>
-                </div>
-              
-                <div class="form-group form-check">
-                  <input type="checkbox" id="isFurnished" name="isFurnished" class="form-check-input" [(ngModel)]="realEstateListing.isFurnished">
-                  <label for="isFurnished" class="form-check-label">Is Furnished</label>
-                </div>
-              
-                <div class="form-group form-check">
-                  <input type="checkbox" id="hasSecurity" name="hasSecurity" class="form-check-input" [(ngModel)]="realEstateListing.hasSecurity">
-                  <label for="hasSecurity" class="form-check-label">Has Security</label>
-                </div>
-              
-                <div class="form-group">
-                  <label for="governorate">Governorate</label>
-                  <select #governorate class="form-control" name="governorate">
-                    <option *ngFor="let gouvernorate of ListGouvernorate"  value="{{gouvernorate.id}}">{{gouvernorate.name}}</option>
-                  </select>
+
+                  <!-- <div *ngFor="let gouvernorate of ListGouvernorate">
+                    <h1>{{gouvernorate.name}}</h1>
+                  </div> 
+
+                  <div class="form-group">
+                    <label>Governorate</label>
+                    <select #opType class="form-control" required>
+                      <option *ngFor="let gouvernorate of ListGouvernorate"  value="{{gouvernorate.idGovernorate}}" placeholder="Operation Type">{{gouvernorate.name}}</option>
+                    </select>-->
                  
-                                             <!-- Replace with a dropdown or autocomplete if selecting from a list -->
-                </div>
+                                          
 
-    
-                <div class="form-group">
-                  <label for="latitude">Latitude</label>
-                  <input type="number" id="latitude" name="latitude" class="form-control" [(ngModel)]="realEstateListing.latitude">
-                </div>
-              
-                <div class="form-group">
-                  <label for="longitude">Longitude</label>
-                  <input type="number" id="longitude" name="longitude" class="form-control" [(ngModel)]="realEstateListing.longitude">
-                </div>
-              
-                <div class="form-group">
-                  <label for="builtYear">Built Year</label>
-                  <input type="number" id="builtYear" name="builtYear" class="form-control" [(ngModel)]="realEstateListing.builtYear">
-                </div>
-              
-         
-                <div class="form-group">
-                  <label for="city">City</label>
-                  <select #city name="city" id="city" *ngFor="let city of ListCity" >
-                      <option  value={{city}}>{{ city.name }}</option>
-                  </select>
-                </div>
 
-           
-                
-                
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-              
-
-        </div>
-        <!-- /row -->
+               

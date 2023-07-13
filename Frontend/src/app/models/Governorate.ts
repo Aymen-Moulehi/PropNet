@@ -1,5 +1,5 @@
 export class Governorate{
     idGovernorate!: number;
-    name!: any;
-    
+    name!: String;
+    country!: String;
 }

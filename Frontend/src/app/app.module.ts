@@ -15,6 +15,7 @@ import {DetailAnnonceComponent} from './detail-annonce/detail-annonce.component'
 import {HttpClientModule} from '@angular/common/http';
 
 import {MapComponent} from './map/map.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -37,7 +38,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

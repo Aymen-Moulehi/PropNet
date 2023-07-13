@@ -7,7 +7,7 @@ export class Annonce{
     price!: number;
     area!: number;
     operation!: any;
-    location!: string;
+    //location!: string;
     numberOfBedrooms! :number;
     numberOfBathrooms! :number;
     propertyType!: any;
