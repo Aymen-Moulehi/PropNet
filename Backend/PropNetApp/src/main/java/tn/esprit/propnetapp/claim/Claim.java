@@ -23,9 +23,8 @@ public class Claim implements Serializable {
     private Integer idClaim;
     private String name;
     private String email;
-   // private Date phone;
-    private String sujet;
-    private String description;
+    private String subject;
+    private String message;
     @Temporal(TemporalType.DATE)
     private Date DateCreated ;
     @ManyToOne

@@ -23,8 +23,7 @@ public class ClaimServiceImpl implements IClaimService {
 
     @Override
     public Claim addClaim(Claim claim) {
-        UserAccountActive userAccountActive = new UserAccountActive();
-        String subject =  claim.getSujet();
+        String subject =  claim.getSubject();
         String body = ClaimEmail.ContentMailToRecipient(claim.getName());
         String recipient = claim.getEmail();
         emailDetailService.sendEmailWithParameters(subject,body,recipient);

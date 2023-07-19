@@ -13,10 +13,10 @@ export class ClaimComponent implements OnInit {
   constructor( private claimServices : ClaimServicesService,
     private rout:Router ){
       this.addFroms = new FormGroup({
-      Name: new FormControl('', Validators.required) ,
+      name: new FormControl('', Validators.required) ,
       email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$") ]),
-      Subject: new FormControl('', Validators.required),
-      Message: new FormControl('', Validators.required),
+      subject: new FormControl('', Validators.required),
+      message: new FormControl('', Validators.required),
     });
 
   }
@@ -29,7 +29,11 @@ export class ClaimComponent implements OnInit {
     let res = this.addFroms.value;
     this.claimServices.add(res).subscribe(
       {
-        next: ()=>{this.rout.navigate(['/']);}
+        
+        next: ()=>{this.rout.navigate(['/']);
+        alert("Claim added successfully  , please check your email !!")
+
+      }
       }
     )
   }

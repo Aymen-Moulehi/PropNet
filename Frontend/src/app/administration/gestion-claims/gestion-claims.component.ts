@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
  import { Component, OnInit } from '@angular/core';
 import { ClaimServicesService } from 'src/app/services/claim-services.service';
 
@@ -8,11 +9,20 @@ import { ClaimServicesService } from 'src/app/services/claim-services.service';
 } )
 export class GestionClaimsComponent implements OnInit {
   ClaimList:any=[];
-  constructor( private claimServices : ClaimServicesService) { }
+  claim:  any;
+  selectedClaim: any;
+  id!:number;
+  
+  constructor( private claimServices : ClaimServicesService , private router: Router ) { }
 
    ngOnInit(): void {
      this.GetAllClaims();
    }
+  
+  
+   updateClaim(claim: any) {
+    this.router.navigate(['admin/update-claim']);
+  }
 
 GetAllClaims(){
   this.claimServices.getALL().subscribe

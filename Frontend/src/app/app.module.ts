@@ -34,7 +34,8 @@ import { DetailsAnnonceComponent } from './details-annonce/details-annonce.compo
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

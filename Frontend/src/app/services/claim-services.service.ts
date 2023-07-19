@@ -11,13 +11,22 @@ import { Injectable }  from '@angular/core';
   getALL() {
     return this.http.get("http://localhost:8089/app/claim/retrieveAllClaim");
   }
+
   add(claim: any) {
     return this.http.post<any>("http://localhost:8089/app/claim/add-claim/", claim);
   }
+
   delete(id: number) {
     return this.http.delete<any>("http://localhost:8089/app/claim/delete-claim/" + id);
   }
+
   getDetails(id: number) {
     return this.http.get("http://localhost:8089/app/claim/retrieve-claim/" + id);
    }
+
+   updateClaim(id: number, claim: any) {
+    return this.http.put<any>("http://localhost:8089/app/claim/update/" + id, claim);
+  }
+
+
  }
