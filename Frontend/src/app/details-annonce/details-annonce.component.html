@@ -12,14 +12,12 @@
                     <div class="vesh-detail-headup">
                         <div class="vesh-detail-headup-first">
                             <div class="prt-detail-title-desc">
-                                <span class="label label-success">For Sale</span>
-                                <h4>id : {{annonce.idRealEstateListing}}</h4>
-                                <span class="text-mid"><i class="fa-solid fa-location-dot me-2"></i></span>
+                                <span class="label label-success">{{annonce.realEstateStatus}}</span>
+                                <hr>
+                                <h4>{{annonce.title}}</h4>
+                                <span class="text-mid"><i class="fa-solid fa-location-dot me-2"></i>{{annonce.governorate.country}}</span>
                                 <div class="list-fx-features mt-2">
-                                    <div class="list-fx-fisrt">
-                                        <span class="label font--medium label-light-success me-2">{{annonce.realEstateStatus}}</span>
-                                  
-                                    </div>
+                                 
                                     <div class="list-fx-last">
                                     
                                     </div>

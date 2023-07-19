@@ -96,12 +96,12 @@
                         <h6>New Clients</h6>
                     </div>
                     <div class="ground-client-list">
-                        <div class="ground-client-single-list">
+                        <div class="ground-client-single-list" *ngFor="let item of getItemsForCurrentPage() ">
                             <div class="ground-client-first">
-                                <div class="ground-client-thumb"><img src="assets/img/team-1.jpg" class="img-fluid circle" alt=""></div>
+                                <div class="ground-client-thumb"><img src="{{item.picture}}" class="img-fluid circle" alt=""></div>
                                 <div class="ground-client-caption">
-                                    <h5>Adam Leif Floyer</h5>
-                                    <span class="text-mid">Art Designer</span>
+                                    <h5>{{item.name}}</h5>
+                                    <span class="text-mid">{{item.phoneNumber}}</span>
                                 </div>
                             </div>
                             <div class="ground-client-last">
@@ -111,72 +111,22 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="ground-client-single-list">
-                            <div class="ground-client-first">
-                                <div class="ground-client-thumb"><img src="assets/img/team-2.jpg" class="img-fluid circle" alt=""></div>
-                                <div class="ground-client-caption">
-                                    <h5>Ht. Wolf Gilwedkar</h5>
-                                    <span class="text-mid">PHP Developer</span>
-                                </div>
-                            </div>
-                            <div class="ground-client-last">
-                                <div class="ground-btn">
-                                    <a href="JavaScript:Void(0);" class="btns bg-light-success text-success me-2"><i class="fa-brands fa-whatsapp"></i></a>
-                                    <a href="JavaScript:Void(0);" class="btns bg-light-info text-info"><i class="fa-solid fa-phone"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="ground-client-single-list">
-                            <div class="ground-client-first">
-                                <div class="ground-client-thumb"><img src="assets/img/team-3.jpg" class="img-fluid circle" alt=""></div>
-                                <div class="ground-client-caption">
-                                    <h5>Mr. Dhananjay Preet</h5>
-                                    <span class="text-mid">Product Designer</span>
-                                </div>
-                            </div>
-                            <div class="ground-client-last">
-                                <div class="ground-btn">
-                                    <a href="JavaScript:Void(0);" class="btns bg-light-success text-success me-2"><i class="fa-brands fa-whatsapp"></i></a>
-                                    <a href="JavaScript:Void(0);" class="btns bg-light-info text-info"><i class="fa-solid fa-phone"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="ground-client-single-list">
-                            <div class="ground-client-first">
-                                <div class="ground-client-thumb"><img src="assets/img/team-4.jpg" class="img-fluid circle" alt=""></div>
-                                <div class="ground-client-caption">
-                                    <h5>Adam Wilsoryerd</h5>
-                                    <span class="text-mid">Web Designer</span>
-                                </div>
-                            </div>
-                            <div class="ground-client-last">
-                                <div class="ground-btn">
-                                    <a href="JavaScript:Void(0);" class="btns bg-light-success text-success me-2"><i class="fa-brands fa-whatsapp"></i></a>
-                                    <a href="JavaScript:Void(0);" class="btns bg-light-info text-info"><i class="fa-solid fa-phone"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="ground-client-single-list">
-                            <div class="ground-client-first">
-                                <div class="ground-client-thumb"><img src="assets/img/team-5.jpg" class="img-fluid circle" alt=""></div>
-                                <div class="ground-client-caption">
-                                    <h5>Surya Prabhakar</h5>
-                                    <span class="text-mid">SEO Specialist</span>
-                                </div>
-                            </div>
-                            <div class="ground-client-last">
-                                <div class="ground-btn">
-                                    <a href="JavaScript:Void(0);" class="btns bg-light-success text-success me-2"><i class="fa-brands fa-whatsapp"></i></a>
-                                    <a href="JavaScript:Void(0);" class="btns bg-light-info text-info"><i class="fa-solid fa-phone"></i></a>
-                                </div>
-                            </div>
-                        </div>
+
+                    </div>
+                    <div class="row">	
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <nav aria-label="Page navigation example">
+                              <ul class="pagination">
+                                <li *ngFor="let page of totalPages" class="page-item" [class.active]="currentPage === page">
+                                  <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+                                </li>
+                              </ul>
+                            </nav>
+                          </div>
+                          
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- row -->
@@ -205,63 +155,32 @@
                     <div class="card-header">
                         <h6>Notifications</h6>
                     </div>
-                    <div class="ground-list ground-list-hove">
+                    <div class="ground-list ground-list-hove" *ngFor="let item of getItemsForCurrentPageRealEstate() ">
                         <div class="ground ground-single-list">
                             <a href="JavaScript:Void(0);">
                                 <div class="btn-circle-40 text-warning bg-light-warning"><i class="fas fa-home"></i></div>
                             </a>
 
                             <div class="ground-content">
-                                <h6><a href="#">Your listing <strong>Azreal Modern</strong> has been approved!.</a></h6>
-                                <span class="small">Just Now</span>
-                            </div>
-                        </div>
-                        
-                        <div class="ground ground-single-list">
-                            <a href="#">
-                                <div class="btn-circle-40 text-danger bg-light-danger"><i class="fa-solid fa-comments"></i></div>
-                            </a>
-
-                            <div class="ground-content">
-                                <h6><a href="#">Litha Lynes left a review on <strong>Renovated Apartment</strong></a></h6>
-                                <span class="small">20 min ago</span>
-                            </div>
-                        </div>
-                        
-                        <div class="ground ground-single-list">
-                            <a href="#">
-                                <div class="btn-circle-40 text-info bg-light-info"><i class="fa-solid fa-heart"></i></div>
-                            </a>
-
-                            <div class="ground-content">
-                                <h6><a href="#">Someone bookmark your View listing!<strong>Sargun Villa Bay</strong></a></h6>
-                                <span class="small">1 day ago</span>
-                            </div>
-                        </div>
-                        
-                        <div class="ground ground-single-list">
-                            <a href="#">
-                                <div class="btn-circle-40 text-danger bg-light-danger"><i class="fa-solid fa-thumbs-up"></i></div>
-                            </a>
-
-                            <div class="ground-content">
-                                <h6><a href="#">Your listing <strong>Modern Family Home</strong> has been approved!.</a></h6>
-                                <span class="small">10 days ago</span>
-                            </div>
-                        </div>
-                        
-                        <div class="ground ground-single-list">
-                            <a href="#">
-                                <div class="btn-circle-40 text-success bg-light-success"><i class="fa-solid fa-comment-dots"></i></div>
-                            </a>
-
-                            <div class="ground-content">
-                                <h6><a href="#">Adam Brown left a review on <strong>Renovated Apartment</strong></a></h6>
-                                <span class="small">Just Now</span>
+                                <h6><a [routerLink]="['annonce/listAnnonces/detail/',item.idRealEstateListing]">Your Real estate listing <strong>{{item.title}}</strong> has been {{item.realEstateStatus}}!.</a></h6>
+                                <span class="small">{{ item.creationDate | date:'yyyy-MM-dd' }}</span>
                             </div>
                         </div>
                     </div>
+                    <div class="row">	
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <nav aria-label="Page navigation example">
+                              <ul class="pagination">
+                                <li *ngFor="let page of totalPagesRealEstate" class="page-item" [class.active]="currentPage === page">
+                                  <a class="page-link" (click)="changePageRealEstate(page)">{{ page }}</a>
+                                </li>
+                              </ul>
+                            </nav>
+                          </div>
+                          
+                    </div>
                 </div>
+         
             </div>
             
         </div>

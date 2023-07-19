@@ -22,6 +22,10 @@ public interface IAppUserService {
 
     List<AppUser> getUsersByAddress(String address);
 
+    AppUser findAppUserByEmail(String email);
+
+
+
 
 
 }

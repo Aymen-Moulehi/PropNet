@@ -10,13 +10,16 @@ import {MapComponent} from './map/map.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import { ClaimComponent } from './claim/claim.component';
 import { DetailsAnnonceComponent } from './details-annonce/details-annonce.component';
+import { TestComponentComponent } from './test-component/test-component.component';
 
 
 const routes: Routes = [
   {path:'', component: AccueilComponent},
+  {path:'test', component: TestComponentComponent},
   {path:'claim', component: ClaimComponent},
   {path:'list-annonces', component: ListAnnoncesComponent},
   {path:'admin/annonce/listAnnonces/detail/:id', component: DetailsAnnonceComponent},
+  {path:'admin/dashbord/annonce/listAnnonces/detail/:id', component: DetailsAnnonceComponent},
 
 
   {path:'singup', component: SingupComponent},

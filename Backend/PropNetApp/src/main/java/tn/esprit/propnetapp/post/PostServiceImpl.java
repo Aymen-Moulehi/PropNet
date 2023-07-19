@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import tn.esprit.propnetapp.features.email.IEmailDetailService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,17 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements IPostService {
 
     PostRepository postRepository;
+    IEmailDetailService emailDetailService;
 
     @Override
     public Post addPost(Post post) {
-        return postRepository.save(post);
+        Post p =  postRepository.save(post);
+/*        //AppUser user = appUserService.findAppUserByEmail()
+        String subject =  "Congratulations your post approved";
+        String body = TemplateMail.ContentMailToRecipient("Aymen Moulehi",p.getIdPost());
+        String recipient = "moataztrojette@gmail.com";
+        emailDetailService.sendEmailWithParameters(subject,body,recipient);*/
+        return p;
     }
 
     @Override

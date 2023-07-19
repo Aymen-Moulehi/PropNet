@@ -18,8 +18,10 @@ export class DashboardComponent implements OnInit {
   ListPostsPending!: any;
   countPostPending!: any;
   countPostAnnoncePending!:any;
-
-
+  ListUsersCreatedThisMonth!: any;
+  ListRealEStateCreatedThisMonth!: any;
+  currentPage: number = 1; // Page actuelle
+  itemsPerPage: number = 5; // Nombre d'éléments par page
   constructor(private apiService: StatisticsService,private apiServiceUser : UserService,private apiServicePost : PostService,private apiServiceRealState: RealEstateListingService) { }
 
   ngOnInit(): void {
@@ -132,9 +134,44 @@ createChart2() {
    this.apiServiceRealState.getRealEstatePending().subscribe(data =>{
     this.countPostAnnoncePending = data.length;
  });
+ this.apiServiceUser.getUsersCreatedThisMonth().subscribe(data =>{
+  this.ListUsersCreatedThisMonth = data;
+});
+this.apiServiceRealState.getRealEstateCreatedThisMonth().subscribe(data =>{
+  this.ListRealEStateCreatedThisMonth = data;
+});
 
   }
 
+  get totalPages(): number[] {
+    return Array(Math.ceil(this.ListUsersCreatedThisMonth.length / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
+  }
 
+  changePage(page: number): void {
+if (page >= 1 && page <= this.totalPages.length) {
+  this.currentPage = page;
+}
+}
 
+getItemsForCurrentPage(): any[] {
+const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+const endIndex = startIndex + this.itemsPerPage;
+return this.ListUsersCreatedThisMonth.slice(startIndex, endIndex);
+}
+
+get totalPagesRealEstate(): number[] {
+  return Array(Math.ceil(this.ListRealEStateCreatedThisMonth.length / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
+}
+
+changePageRealEstate(page: number): void {
+if (page >= 1 && page <= this.totalPages.length) {
+this.currentPage = page;
+}
+}
+
+getItemsForCurrentPageRealEstate(): any[] {
+const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+const endIndex = startIndex + this.itemsPerPage;
+return this.ListRealEStateCreatedThisMonth.slice(startIndex, endIndex);
+}
 }

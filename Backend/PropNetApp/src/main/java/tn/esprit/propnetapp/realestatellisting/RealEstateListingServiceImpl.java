@@ -73,5 +73,8 @@ public class RealEstateListingServiceImpl implements IRealEstateListingService {
 
         return _RealEstateListing;
     }
+    public List<RealEstateListing>getRealEstateCreatedThisMonth(){
+        return realEstateListingRepository.getRealEstateCreatedThisMonth();
+    }
 
 }

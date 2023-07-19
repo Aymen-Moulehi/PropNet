@@ -2,6 +2,9 @@ package tn.esprit.propnetapp.post;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.propnetapp.appuser.AppUser;
+import tn.esprit.propnetapp.appuser.IAppUserService;
+import tn.esprit.propnetapp.features.email.IEmailDetailService;
 
 import java.util.Date;
 import java.util.List;
@@ -11,13 +14,13 @@ import java.util.List;
 @RequestMapping("/post")
 public class PostRestController {
     IPostService postService;
+    IAppUserService appUserService;
 
     @PostMapping("/add-post")
     @CrossOrigin
     public Post addPost(@RequestBody Post post) {
         if(post != null)
             post.setPostDate(new Date());
-        System.out.println(post.getPostDate());
         return postService.addPost(post);
     }
 

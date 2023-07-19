@@ -28,6 +28,13 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 
     List<AppUser> findByAccountStatus(AccountStatus accountStatus);
 
+    AppUser findAppUserByEmail(String email);
+
+    @Query("SELECT u FROM AppUser u WHERE FUNCTION('MONTH', u.creationDate) = FUNCTION('MONTH', CURRENT_DATE()) " +
+            "AND FUNCTION('YEAR', u.creationDate) = FUNCTION('YEAR', CURRENT_DATE())")
+    List<AppUser> getUsersCreatedThisMonth();
+
+
 
 
 

@@ -74,7 +74,14 @@ public class AppUserRestController {
         List<AppUser> users = userService.getUserByNameAndAccountStatus(name, status);
         return ResponseEntity.ok(users);
     }
+    @GetMapping("/email/{email}")
+    public AppUser findUserByEmail(@PathVariable("email") String email) {
+        return appUserService.findAppUserByEmail(email);
+    }
 
-
+    @GetMapping("/getUsersCreatedThisMonth")
+    public List<AppUser> getUsersCreatedThisMonth(){
+        return appUserRepository.getUsersCreatedThisMonth();
+    }
 
 }

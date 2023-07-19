@@ -32,6 +32,10 @@ export class UserService {
     return this.http.get<[]>(environment.baseUrl + '/appUser/name/' + name + '/status/' + status);
 
   }
+  getUsersCreatedThisMonth(){
+    return this.http.get<[]>(environment.baseUrl + '/appUser/getUsersCreatedThisMonth');
+
+  }
   
 
 }

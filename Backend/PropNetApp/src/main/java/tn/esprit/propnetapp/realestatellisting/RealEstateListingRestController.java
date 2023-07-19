@@ -3,6 +3,7 @@ package tn.esprit.propnetapp.realestatellisting;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.propnetapp.appuser.AppUser;
 import tn.esprit.propnetapp.post.Post;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.List;
 public class RealEstateListingRestController {
     IRealEstateListingService realEstateListingService;
     FilterRealEstateListing filterRealEstateListing;
+
+    RealEstateListingRepository realEstateListingRepository;
 
     @PostMapping("/add-realEstateListing")
     @CrossOrigin
@@ -110,4 +113,10 @@ public class RealEstateListingRestController {
     public RealEstateListing accepteRealEstateListing(@PathVariable("id") Integer id) {
         return realEstateListingService.accepteRealEstateListing(id);
     }
+    @GetMapping("/getRealEstateCreatedThisMonth")
+    @CrossOrigin
+    public List<RealEstateListing> getUsersCreatedThisMonth(){
+        return realEstateListingRepository.getRealEstateCreatedThisMonth();
+    }
+
 }

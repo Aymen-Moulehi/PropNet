@@ -112,10 +112,18 @@ public class AppUserServiceImpl implements IAppUserService {
         return appUserRepository.findByAddress(address);
     }
 
+    @Override
+    public AppUser findAppUserByEmail(String email) {
+        return appUserRepository.findAppUserByEmail(email);
+    }
+
     public List<AppUser> getUserByNameAndAccountStatus(String name, AccountStatus accountStatus) {
         return appUserRepository.findUsersByNameAndAccountStatus(name, accountStatus);
     }
 
+    public List<AppUser>getUsersCreatedThisMonth(){
+        return appUserRepository.getUsersCreatedThisMonth();
+    }
 
 
 }

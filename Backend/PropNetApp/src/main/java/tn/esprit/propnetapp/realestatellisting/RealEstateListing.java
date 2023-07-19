@@ -86,8 +86,7 @@ public class RealEstateListing implements Serializable {
     private Integer floorNumber;
     @ManyToOne
     private City city;
-    @OneToMany(mappedBy = "realEstateListing")
-    private Collection<Image> images;
+    private String images;
 
 
 }

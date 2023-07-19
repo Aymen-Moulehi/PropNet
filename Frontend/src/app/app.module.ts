@@ -14,6 +14,7 @@ import {MapComponent} from './map/map.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ClaimComponent } from './claim/claim.component';
 import { DetailsAnnonceComponent } from './details-annonce/details-annonce.component';
+import { TestComponentComponent } from './test-component/test-component.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DetailsAnnonceComponent } from './details-annonce/details-annonce.compo
     ListAnnoncesComponent,
     MapComponent,
     ClaimComponent,
-    DetailsAnnonceComponent
+    DetailsAnnonceComponent,
+    TestComponentComponent
   ],
   imports: [
     BrowserModule,
