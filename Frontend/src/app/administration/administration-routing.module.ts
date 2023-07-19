@@ -3,11 +3,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {AdministrationComponent} from './administration.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import { GestionClaimsComponent } from './gestion-claims/gestion-claims.component';
+import { UpdateClaimComponent } from './update-claim/update-claim.component';
 
 const routes: Routes = [
     {path:'', component: AdministrationComponent, children:[
     {path:'', component: DashboardComponent},
     {path:'claim', component: GestionClaimsComponent},
+    {path:'admin/update-claim', component: UpdateClaimComponent},
+
     {path:'dashbord', component: DashboardComponent},
     {path:'annonce', loadChildren:()=> import('./Annonce/annonce.module').then(m=>m.AnnonceModule)},
     {path:'forum', loadChildren:()=> import('./forum/forum.module').then(m=>m.ForumModule)},
