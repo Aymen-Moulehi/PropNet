@@ -21,8 +21,7 @@ export class RealEstateListing{
     hasSecurity!: boolean;
     city!: City;
     governorate!: Governorate;
-    latitude! : number;
-    longitude! : number;
+    address!: string;
     builtYear! : number;
 }
 

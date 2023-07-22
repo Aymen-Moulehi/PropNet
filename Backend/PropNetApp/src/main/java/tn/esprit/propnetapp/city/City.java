@@ -24,7 +24,6 @@ public class City implements Serializable {
     private Integer idRegion;
     private String name;
     @ManyToOne
-    @JsonIgnore
     private Governorate governorate;
     @JsonIgnore
     @OneToMany(mappedBy = "city")

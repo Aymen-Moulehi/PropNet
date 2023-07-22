@@ -10,6 +10,8 @@ import {AccueilComponent} from './accueil/accueil.component';
 import {MapComponent} from './map/map.component';
 
 import {NotFoundComponent} from './not-found/not-found.component';
+import { SuccessPostComponent } from './success-post/success-post.component';
+import { SimulateurCreditComponent } from './simulateur-credit/simulateur-credit.component';
 
 
 const routes: Routes = [
@@ -24,6 +26,11 @@ const routes: Routes = [
   {path:'Add-Annonce', component: AddAnnonceComponent},
 
   {path:'map/:latitude/:longitude', component: MapComponent},
+
+  
+  {path:'postAdded', component: SuccessPostComponent},
+
+  {path:'simulateur-credit', component: SimulateurCreditComponent},
 
 
 

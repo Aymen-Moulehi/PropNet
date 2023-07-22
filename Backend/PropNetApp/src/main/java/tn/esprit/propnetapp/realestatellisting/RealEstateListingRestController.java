@@ -111,4 +111,17 @@ public class RealEstateListingRestController {
     public RealEstateListing accepteRealEstateListing(@PathVariable("id") Integer id) {
         return realEstateListingService.accepteRealEstateListing(id);
     }
+
+    @PostMapping("/sendEmailToUserSimulateur_credit")
+    @CrossOrigin
+
+    public void sendEmailToUserSimulateur_credit(
+            @RequestParam("creditAmount") String creditAmount,
+            @RequestParam("duration") String duration,
+            @RequestParam("interestRate") String interestRate,
+            @RequestParam("totalAmountToPay") String totalAmountToPay,
+            @RequestParam("email") String email
+    ) {
+        realEstateListingService.sendEmailToUserSimulateur_credit(creditAmount,duration,interestRate,totalAmountToPay,email);
+    }
 }

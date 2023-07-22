@@ -15,9 +15,13 @@ import {DetailAnnonceComponent} from './detail-annonce/detail-annonce.component'
 import {HttpClientModule} from '@angular/common/http';
 
 import {MapComponent} from './map/map.component';
-import { NgSelectModule } from '@ng-select/ng-select';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { SuccessPostComponent } from './success-post/success-post.component';
+import { SimulateurCreditComponent } from './simulateur-credit/simulateur-credit.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     AddAnnonceComponent,
     ListAnnoncesComponent,
     DetailAnnonceComponent,
-    MapComponent
+    MapComponent,
+    SuccessPostComponent,
+    SimulateurCreditComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule,
+    CommonModule,
+    NoopAnimationsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

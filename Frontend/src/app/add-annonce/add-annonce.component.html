@@ -1,25 +1,256 @@
-               <form>
-                <!-- <ng-select>
-                  <option *ngFor="let gouvernorate of ListGouvernorate" [value]="gouvernorate" >{{gouvernorate}}</option>
-               </ng-select> -->
-                <label>Governorate</label>
-                <select class="form-control" name="governorate" >
-                  <option *ngFor="let gouvernorate of ListGouvernorate" [value]="gouvernorate" >{{gouvernorate}}</option>
-                </select>
-                <!-- <ng-select [items]="ListGouvernorate" [(ngModel)]="newgovernorate"></ng-select> -->
-               </form>
+
+
+               <section>
+
+                <div class="container">
+            
+            
+                    <!-- row Start -->
+                    <div class="row align-items-center justify-content-center">
+            <section>
+                <div class="container">
+                    <div class="row justify-content-center">
+            
+                        <div class="col-lg-7 col-md-10 text-center">
+                            <div class="sec-heading center">
+                                <h2>Post Your Listing </h2>
+                            </div>
+                        </div>
+            
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+            
+                        <div class="col-lg-10 col-md-12">
+            
+                            <div class="row">
+                                <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+                                    <div class="form-group">
+                                        <label for="title">Title:</label>
+                                        <textarea id="title" name="title" placeholder="write a brief description of the property" class="form-control" [(ngModel)]="_realestatelisting.title" required #title="ngModel">\</textarea>
+                                        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
+                                            <div *ngIf="title.errors?.['required']">Title is required.</div>
+                                        </div>
+                                      </div>
+                                      
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label for="propertyType">Property Type</label>
+                                                <select id="propertyType" name="propertyType" class="form-control" [(ngModel)]="_realestatelisting.propertyType" #propertyType>
+                                                  <option value="HOUSE">HOUSE</option>
+                                                  <option value="STUDIO">STUDIO</option>
+                                                  <option value="APPARTMENT">APPARTMENT</option>
+                                                  <option value="VILLA">VILLA</option>
+                                                  <option value="DUPLEX">DUPLEX</option>
+                                                </select>
+                                            </div>
+                                        </div>
+            
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label for="operation">Operation Type</label>
+                                                <select id="operation" name="operation" class="form-control" [(ngModel)]="_realestatelisting.operation" #operation>
+                                                  <option value="SALE">SALE</option>
+                                                  <option value="RENT">RENT</option>
+                                                </select>
+                                            </div>
+                                        </div>
+            
+                                    </div>
+            
+            
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label>Number Of Bedrooms</label>
+                                                <input type="number" class="form-control simple" name="numberOfBedrooms" [(ngModel)]="_realestatelisting.numberOfBedrooms" required #numberOfBedrooms="ngModel" max=15>
+                                            </div>
+                                            <div *ngIf="numberOfBedrooms.invalid && (numberOfBedrooms.dirty || numberOfBedrooms.touched)" class="text-danger">
+                                                <div *ngIf="numberOfBedrooms.errors?.['required']">numberOfBedrooms is required.</div>
+                                                <div *ngIf="numberOfBedrooms.errors?.['max']">Number should be less than 15.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label>Number Of Bathrooms</label>
+                                                <input type="number" class="form-control simple" name="numberOfBathrooms" [(ngModel)]="_realestatelisting.numberOfBathrooms" required #numberOfBathrooms="ngModel" max=15>
+                                            </div>
+                                            <div *ngIf="numberOfBathrooms.invalid && (numberOfBathrooms.dirty || numberOfBathrooms.touched)" class="text-danger">
+                                                <div *ngIf="numberOfBathrooms.errors?.['required']">numberOfBathrooms is required.</div>
+                                                <div *ngIf="numberOfBathrooms.errors?.['max']">Number should be less than 15.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label>Does this house have a Parking?</label>
+                                            <div>
+                                              <input type="radio" id="yesOption" [(ngModel)]="_realestatelisting.hasParking" name="parkingOption" value=true>
+                                              <label class=".label-spacing" for="yesOption">Yes</label>
+                                            </div>
+                                            <div>
+                                              <input type="radio" id="noOption" [(ngModel)]="_realestatelisting.hasParking" name="parkingOption" value=false>
+                                              <label for="noOption">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Does this house have a Garden?</label>
+                                            <div>
+                                              <input type="radio" id="yesOption" [(ngModel)]="_realestatelisting.hasGarden" name="gardenOption" value=true>
+                                              <label for="yesOption">Yes</label>
+                                            </div>
+                                            <div>
+                                              <input type="radio" id="noOption" [(ngModel)]="_realestatelisting.hasGarden" name="gardenOption" value=false>
+                                              <label for="noOption">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label>Does this house have a balcony?</label>
+                                            <div>
+                                              <input type="radio" id="yesOption" [(ngModel)]="_realestatelisting.hasBalcony" name="balconyOption" value=true>
+                                              <label for="yesOption">Yes</label>
+                                            </div>
+                                            <div>
+                                              <input type="radio" id="noOption" [(ngModel)]="_realestatelisting.hasBalcony" name="balconyOption" value=false>
+                                              <label for="noOption">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Does this house have a pool?</label>
+                                            <div>
+                                              <input type="radio" id="yesOption" [(ngModel)]="_realestatelisting.hasPool" name="poolOption" value=true>
+                                              <label for="yesOption">Yes</label>
+                                            </div>
+                                            <div>
+                                              <input type="radio" id="noOption" [(ngModel)]="_realestatelisting.hasPool" name="poolOption" value=false>
+                                              <label for="noOption">No</label>
+                                            </div>
+                                        </div>
+            
+                                    </div>
+            
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label>Does this house have furniture?</label>
+                                            <div>
+                                              <input type="radio" id="yesOption" [(ngModel)]="_realestatelisting.isFurnished" name="furnitureOption" value=true>
+                                              <label for="yesOption">Yes</label>
+                                            </div>
+                                            <div>
+                                              <input type="radio" id="noOption" [(ngModel)]="_realestatelisting.isFurnished" name="furnitureOption" value=false>
+                                              <label for="noOption">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Does this house have security?</label>
+                                            <div>
+                                              <input type="radio" id="yesOption" [(ngModel)]="_realestatelisting.hasSecurity" name="securityOption" value=true>
+                                              <label for="yesOption">Yes</label>
+                                            </div>
+                                            <div>
+                                              <input type="radio" id="noOption" [(ngModel)]="_realestatelisting.hasSecurity" name="securityOption" value=false>
+                                              <label for="noOption">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label>Area</label>
+                                                <input type="text" class="form-control simple" name="area" [(ngModel)]="_realestatelisting.area" required #area="ngModel">
+                                                <div *ngIf="area.invalid && (area.dirty || area.touched)" class="text-danger">
+                                                    <div *ngIf="area.errors?.['required']">area is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label>Built Year</label>
+                                                <input type="number" class="form-control simple" name="builtYear" [(ngModel)]="_realestatelisting.builtYear">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label for="governorate">Governorate:</label>
+                                            <mat-select class="form-control" [(value)]="newgovernorate" (selectionChange)="getCities()">
+                                              <mat-option *ngFor="let gouvernorate of ListGouvernorate" [value]="gouvernorate">{{gouvernorate.name}}</mat-option>
+                                            </mat-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label for="city">City:</label>
+                                                <mat-select class="form-control" [(value)]="newcity">
+                                                  <mat-option *ngFor="let city of ListCity" [value]="city">{{city.name}}</mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input type="text" class="form-control simple" name="Address" [(ngModel)]="_realestatelisting.address" required #address="ngModel">
+                                            <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+                                                <div *ngIf="address.errors?.['required']">address is required.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input type="number" class="form-control simple" name="price" [(ngModel)]="_realestatelisting.price" required #price="ngModel">
+                                            <div *ngIf="price.invalid && (price.dirty || price.touched)" class="text-danger">
+                                                <div *ngIf="price.errors?.['required']">price is required.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-lg-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Large file input example</label>
+                                            <input (change)="onImageUpload($event)" class="form-control form-control-lg-24" style="height: 100%;" id="formFileLg"
+                                                type="file" >
+                                        </div>
+                                    </div> -->
+                                    <!-- <li class="list-group-item">
+                                        <p><a href="{{ image.url }}">{{ image.name }}</a></p>
+                                        <img src="{{ uploadedImage.url }}" alt="{{ image.name }}" height="80px" />
+                                    </li> -->
+
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit" [disabled]="!heroForm.form.valid">Post Now</button>
+                                    </div>
+                                </form>
+            
+            
+            
+            
+                                <!-- <div class="col-lg-12 col-md-6">
+                                    <div class="form-group">
+                                        <label>Large file input example</label>
+                                        <input (change)="onImageUpload($event)" class="form-control form-control-lg-24" style="height: 100%;" id="formFileLg"
+                                            type="file" >
+                                    </div>
+                                </div> -->
+                                <!-- <div class="col-lg-12 col-md-12"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <!-- </section> -->
+                    <!-- </div> -->
+                    <!-- /row -->
+            
+            
+            
+
+               
 
 
 
-                  <!-- <div *ngFor="let gouvernorate of ListGouvernorate">
-                    <h1>{{gouvernorate.name}}</h1>
-                  </div> 
-
-                  <div class="form-group">
-                    <label>Governorate</label>
-                    <select #opType class="form-control" required>
-                      <option *ngFor="let gouvernorate of ListGouvernorate"  value="{{gouvernorate.idGovernorate}}" placeholder="Operation Type">{{gouvernorate.name}}</option>
-                    </select>-->
                  
                                           
 

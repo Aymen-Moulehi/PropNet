@@ -9,4 +9,6 @@ public interface ICityService {
     City updateRegion(City city);
     City retrieveRegion(Integer idRegion);
     void deleteRegion(Integer idRegion);
+
+    List<City> getCityBygovid(Integer idGovernorate);
 }

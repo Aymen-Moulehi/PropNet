@@ -20,7 +20,7 @@ public class EmailDetailServiceImpl implements IEmailDetailService {
 
     @Value("${spring.mail.username}")
     private String sender;
-
+    IEmailDetailService emailDetailService;
 
     @Override
     public EmailDetail sendMail(EmailDetail details) {
@@ -43,5 +43,14 @@ public class EmailDetailServiceImpl implements IEmailDetailService {
             log.error("Error while Sending Mail");
         }
         return details;
+    }
+
+    @Override
+    public void sendEmailWithParameters(String subject, String body, String recipient) {
+        EmailDetail details = new EmailDetail();
+        details.setSubject(subject);
+        details.setMsgBody(body);
+        details.setRecipient(recipient);
+        this.sendMail(details);
     }
 }

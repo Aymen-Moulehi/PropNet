@@ -42,4 +42,10 @@ public class CityServiceImpl implements ICityService {
         cityRepository.deleteById(idRegion);
 
     }
+
+    @Override
+    public List<City> getCityBygovid(Integer idGovernorate) {
+        return cityRepository.getCityByGovernorateIdGovernorate(idGovernorate);
+    }
+
 }

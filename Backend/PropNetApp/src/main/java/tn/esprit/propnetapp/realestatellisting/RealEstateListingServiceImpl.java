@@ -76,4 +76,12 @@ public class RealEstateListingServiceImpl implements IRealEstateListingService {
         return _RealEstateListing;
     }
 
+    @Override
+    public void sendEmailToUserSimulateur_credit(String creditAmount, String duration, String interestRate, String totalAmountToPay,String email) {
+        String subject =  "SIMULATEUR DE CRÉDIT";
+        String body = TemplateMailSimulateur.ContentMailToRecipient(creditAmount,duration,interestRate,totalAmountToPay);
+        String recipient = email;
+        emailDetailService.sendEmailWithParameters(subject,body,recipient);
+    }
+
 }

@@ -36,4 +36,10 @@ public class CityRestController {
     public City updateRegion(@RequestBody City city) {
         return regionService.updateRegion(city);
     }
+
+    @GetMapping("/retrieve-city-by-gov-id")
+    @CrossOrigin
+    public List<City> retrieveCityByGovId(@RequestParam("gov-id") Integer idGovernorate) {
+        return regionService.getCityBygovid(idGovernorate);
+    }
 }
